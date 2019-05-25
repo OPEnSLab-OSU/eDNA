@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta charset='UTF-8'>
+    <title>eDNA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: grid;
+            box-sizing: border-box;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgb(90, 75, 120);
+            color: white;
+            font: 1.2rem 'Courier New';
+
+            grid-auto-rows: 1fr;
+            grid-template-columns: 1fr repeat(2, minmax(240px, 1fr)) 1fr;
+            grid-template-areas:
+                '. . . .'
+                '. h s .'
+                '. . c .';
+
+            align-items: center;
+            grid-gap: 16px;
+        }
+
+        #header {
+            display: flex;
+            grid-area: h;
+            justify-self: flex-end;
+            align-items: center;
+        }
+
+        #heading {
+            margin-right: 16px;
+            font-size: 2.4rem;
+        }
+
+        #sensors {
+            grid-area: s;
+        }
+
+        #commands {
+            grid-area: c;
+            align-self: baseline;
+            text-align: center;
+        }
+
+        p:not(#heading) {
+            margin-top: 2px;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        .tag>p:nth-child(1) {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        hr {
+            width: 0;
+            height: 120px;
+            color: white;
+        }
+
+        .btn {
+            background: rgba(90, 160, 180, 1);
+            margin-top: 16px;
+            padding: 16px 0;
+            border-radius: 999px;
+            box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: rgba(100, 170, 190, 1);
+        }
+
+        .btn:active {
+            background: rgba(80, 150, 170, 1);
+        }
+
+        @media only screen and (max-width: 700px) {
+            body {
+                grid-auto-rows: 1fr;
+                grid-template-columns: minmax(220px, 280px);
+                grid-template-areas: 'h''s''c';
+                justify-content: center;
+            }
+
+            #header {
+                margin-bottom: 36px;
+                justify-self: center;
+                align-self: flex-end;
+            }
+
+            hr {
+                display: none;
+            }
+        }
+
+    </style>
+    <script>
+        function readSensor() {
+            const request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (this.readyState !== 4 || this.status !== 200) {
+                    return;
+                }
+                if (this.responseText) {
+                    const values = this.responseText.split(':');
+                    document.getElementById('p').textContent = values[0].trim();
+                    document.getElementById('t').textContent = values[1].trim();
+                }
+            };
+            request.open('GET', 'status', true);
+            request.send(null);
+            setTimeout(readSensor, 1000);
+        }
+
+        function readStatus() {
+            const request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (this.readyState !== 4 || this.status !== 200) {
+                    return;
+                }
+                if (this.responseText) {
+                    const status = JSON.parse(this.responseText);
+                    updateStatus(status);
+                }
+            }
+        }
+
+        function updateStatus(status) {
+            if (status["success"] !== true) {
+                return;
+            }
+
+        }
+
+
+        function runRoutine() {
+            alert('Routine');
+            const request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (this.readyState !== 4 || this.status !== 200) {
+                    return;
+                }
+
+                if (this.responseText === 'success') {}
+            };
+            request.open('GET', 'routine', true);
+            request.send(null);
+        }
+        
+        window.onload = function() {
+            setTimeout(readSensor, 1000);
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class='section' id='header'>
+        <p id='heading'>eDNA</p>
+        <hr>
+    </div>
+    <div class='section' id='sensors'>
+        <div class='tag'>
+            <p>Pressure</p>
+            <p><span id='p'>0.0</span> PSI</p>
+        </div>
+        <div class='tag'>
+            <p>Temperature</p>
+            <p><span id='t'>0.0</span> ºC</p>
+        </div>
+        <div class='tag'>
+            <p>Water Volume</p>
+            <p>-----</p>
+        </div>
+        <div class='tag'>
+            <p>Water Depth</p>
+            <p>-----</p>
+        </div>
+    </div>
+    <div class='section' id='commands'>
+        <div class='btn' onclick='runRoutine()'>Start Routine</div>
+    </div>
+</body>
+
+</html>
