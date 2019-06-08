@@ -17,12 +17,8 @@ struct Request {
 
 struct Response {
     int status = 200;
-
     String contentType = "text/html";
-    String redirectURL;
-
     bool isHeaderSent = false;
-    bool willRedirect = false;
 
     WiFiClient & client;
     Response(WiFiClient & client) : client(client) {}
@@ -45,15 +41,13 @@ struct Response {
         }
 
         // Content-Type
-        if (contentType == "text/plain") {
-            client.println(F("Content-Type: text/plain"));
-        } else {
-            client.println(F("Content-Type: text/html"));
-        }
+		client.print(F("Content-Type: "));
+        client.println(contentType);
 
         // Connection
         client.println(F("Connection: close"));
         client.println();
+		client.println();
     }
 
     void send(const char s[]) {
@@ -146,28 +140,20 @@ class OPServer : public OPComponent {
             }
         }
 
-        if (status != WL_AP_CONNECTED) {
-            return;
-        }
+		if (status != WL_AP_CONNECTED) {
+			return;
+		}
 
         WiFiClient client = server.available();
-        if (!client || !client.connected() || client.available() == -1) {
-            client.stop();
-            return;
-        }
+		if (client && client.connected()) {
+			delay(10);
+			const int size = 512;
+			char httpRequest[size + 1] = {0};
+			client.read((byte *) httpRequest, size);
 
-        const int size = 512;
-        char httpRequest[size + 1] = {0};
-        client.read((byte *) httpRequest, size);
-
-        // Serial.println(httpRequest);
-        // for (int i = 0; i < size; i++) {
-        //     Serial.print((int) httpRequest[i]);
-        // }
-		// Serial.println();
-
-        Request request(httpRequest, client);
-        handleRequest(request);
+			Request request(httpRequest, client);
+			handleRequest(request);
+		}
     }
 
     void on(const char url[], RequestFunctionPointer callback) {
@@ -184,13 +170,7 @@ class OPServer : public OPComponent {
                 break;
             }
         }
-
-        // if (res.willRedirect) {
-        // 	req.url = res.redirectURL;
-        // 	res.willRedirect = false;
-        // 	handleRequest(req);
-        // }
-
+		
         WiFiClient & client = req.client;
         client.println(F("HTTP/1.1 404 Not Found"));
         client.println(F("Connection: close"));

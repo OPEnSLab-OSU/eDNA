@@ -31,7 +31,7 @@ public:
             if (task.isEmpty() || task.repeat == 0) {
                 remove(current);
             } else {
-                task.loop();
+                task.update();
             }
 
             current = next;

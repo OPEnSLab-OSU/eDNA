@@ -33,7 +33,21 @@ public:
     OPShiftRegister(String name, byte capacity, byte data, byte clock, byte latch) : 
 	OPShiftRegister(name, capacity) {
         setPins(data, clock, latch);
+		writeZeros();
     }
+
+	int registerNumber(int value) {
+		return value / capacityPerRegister;
+	}
+
+	int bitNumber(int value) {
+		return value % capacityPerRegister;
+	}
+
+
+	void setup() override {
+		setZeros();
+	}
 
     void setPins(byte data, byte clock, byte latch) {
         dataPin = data;
@@ -97,7 +111,7 @@ public:
         flush();
     }
 
-	void writeZero() {
+	void writeZeros() {
 		setZeros();
 		flush();
 	}

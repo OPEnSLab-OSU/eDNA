@@ -1,6 +1,6 @@
 //
 //  OPAsync.hpp
-//  OPEnSamplerFramework
+//  eDNA
 //
 //  Created by Kawin on 2/10/19.
 //  Copyright © 2019 Kawin. All rights reserved.
@@ -27,7 +27,8 @@ struct OPAction {
 };
 
 /*
-    OPTask: A linkedlist where each node is an action. Useful for making sequential async actions.
+    A linkedlist where each node is an action. 
+	Useful for making sequential async actions.
 */
 class OPTask : public LinkedList<OPAction> {
 private:
@@ -105,7 +106,7 @@ public:
         }
     }
 
-    void loop() {
+    void update() {
         if (repeat == 0 || isEmpty()) {
             return;
         }

@@ -179,14 +179,16 @@
                 if (this.readyState !== 4 || this.status !== 200) {
                     return;
                 }
+				
                 if (this.responseText) {
-                    const values = this.responseText.split(':');
-					const state = values[0].trim();
-					const stateSelect = values[1].trim();
-					document.getElementById('s').textContent = state;
-                    document.getElementById('p').textContent = values[2].trim();
-                    document.getElementById('t').textContent = values[3].trim();
-					selectButton(parseInt(stateSelect));
+					var res = JSON.parse(this.responseText);
+					document.getElementById('s').textContent = res["state-name"].toUpperCase();
+                    document.getElementById('p').textContent = res["pressure"];
+                    document.getElementById('t').textContent = res["temperature"];
+					document.getElementById('cv').textContent = parseInt(res["valve-current"]) + 1;
+					document.getElementById('tv').textContent = parseInt(res["valve-max"]) + 1;
+					document.getElementById('i').textContent = res["routine-interval"];
+					selectButton(res["state-id"]);
                 }
             };
             request.open('GET', 'status', true);
@@ -305,6 +307,28 @@
 				<p class='value' id='s'>Stand By</p>
 			</div>
 		</div>
+		
+		<div class='status-widget'>
+			<div class='status-tag'>
+				<p class='key'>Current Valve</p>
+				<p class='value' id='cv'>0</p>
+			</div>
+		</div>
+		
+		<div class='status-widget'>
+			<div class='status-tag'>
+				<p class='key'>Total Valve</p>
+				<p class='value' id='tv'>0</p>
+			</div>
+		</div>
+		
+		<div class='status-widget'>
+			<div class='status-tag'>
+				<p class='key'>Interval</p>
+				<p class='value'><span id='i'>0</span>S</p>
+			</div>
+		</div>
+		
 		<div class='status-widget'>
 			<div class='status-tag'>
 				<p class='key'>Pressure</p>

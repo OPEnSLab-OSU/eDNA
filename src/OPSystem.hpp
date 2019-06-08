@@ -8,51 +8,14 @@
 
 #pragma once
 #include "Foundation.hpp"
-#include "OPComponent.hpp"
-#include "Array.hpp"
 #include "OPTaskScheduler.hpp"
 
-#ifdef __arm__
-// should use uinstd.h to define sbrk but Due causes a conflict
-extern "C" char* sbrk(int incr);
-#else  // __ARM__
-extern char *__brkval;
-#endif  // __arm__
+// extern "C" char *sbrk(int i);
  
-int freeMemory() {
-  char top;
-#ifdef __arm__
-  return &top - reinterpret_cast<char*>(sbrk(0));
-#elif defined(CORE_TEENSY) || (ARDUINO > 103 && ARDUINO != 151)
-  return &top - __brkval;
-#else  // __arm__
-  return __brkval ? &top - __brkval : &top - __malloc_heap_start;
-#endif  // __arm__
-}
-
-using VoidFunctionPointer = void(*)();
-
-enum class State;
-struct StateNode {
-    State state;
-    VoidFunctionPointer callback = nullptr;
-    time_t startTime = 0;
-    int count = 0;
-
-	StateNode() {}
-	StateNode(State state) : state(state) {}
-    
-    void begin() {
-        startTime = millis();
-        count = 0;
-    }
-    
-    void update() {
-        callback();
-        count++;
-    }
-};
-
+// int FreeRam () {
+//   char stack_dummy = 0;
+//   return &stack_dummy - sbrk(0);
+// }
 
 class OPSystem {
 private:
@@ -77,9 +40,13 @@ public:
     State getCurrentState() {
         return currentState->state;
     }
+
+	const char * getCurrentStateName() {
+		return currentState->name;
+	}
     
-    void registerState(State state, VoidFunctionPointer callback) {
-        StateNode node(state);
+    void registerState(State state, const char name[], VoidFunctionPointer callback) {
+        StateNode node(state, name);
         node.callback = callback;
         states.append(node);
     }
@@ -102,7 +69,7 @@ public:
 		return callCountSinceLastTransition() == 0;
 	}
     
-    bool isTransitioning() {
+    bool isPendingState() {
         return transitionPending;
     }
     

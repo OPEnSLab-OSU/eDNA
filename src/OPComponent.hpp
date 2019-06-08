@@ -9,13 +9,12 @@
 */
 class OPComponent {
 public:
-    String name = "Unnamed";
-    bool enabled = true;
+	String name;
+    bool ready = true;
     
     OPComponent() {}
-    OPComponent(String name) :
-    name(name) {
-        
+    OPComponent(String name) : name(name) {
+
     }
     
     virtual void setup() {
