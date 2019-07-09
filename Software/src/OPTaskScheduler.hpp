@@ -1,16 +1,13 @@
 #pragma once
 #include "OPTask.hpp"
-#include "OPComponent.hpp"
 
-class OPTaskScheduler : public LinkedList<OPTask> {
-public:
-    OPTaskScheduler() : LinkedList() { }
-    
-    bool contains(const String & name) {
+class OPTaskScheduler : public List<OPTask> {
+public:    
+    bool contains(const char * name) {
         auto current = head->next;
         while (current != tail) {
             OPTask & task = current->data;
-            if (task.name == name) {
+            if (strcmp(task.name, name) == 0) {
                 return true;
             }
             current = current->next;

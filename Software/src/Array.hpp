@@ -1,12 +1,13 @@
+#include "Arduino.h"
 template <typename T>
 class Array {
-private:
+public:
     T * data = nullptr;
     int capacity = 10;
 public:
     int size = 0;
     
-protected:
+public:
     void resize() {
         T * ptr = data;
         capacity = capacity * 2;
@@ -17,6 +18,12 @@ protected:
         
         delete[] ptr;
     }
+
+	void resizeIfFull() {
+		if (size == capacity) {
+			resize();
+		}
+	}
     
 public:
     Array<T>() {
@@ -46,6 +53,10 @@ public:
         size++;
         return size;
     }
+
+	void _set(int index, T value) {
+		data[index] = value;
+	}
     
     bool remove(int index) {
         if (index < 0 || index >= size) {
@@ -74,7 +85,7 @@ public:
             while(true) {
                Serial.print(F("GET | Invalid Index: "));
                Serial.println(index);
-               delay(2000);
+               delay(3000);
             }
         }
         

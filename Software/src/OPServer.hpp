@@ -3,16 +3,35 @@
 #include <WiFi101.h>
 #include "OPComponent.hpp"
 
+class OPServer;
+
 struct Request {
     char * method = nullptr;
-    char * url = nullptr;
+    char * path = nullptr;
+	char * header = nullptr;
     char * body = nullptr;
     WiFiClient & client;
 
-    Request(char * httpRequest, WiFiClient & client) : client(client) {
+    Request(char * httpRequest, int headerLength, WiFiClient & client) : client(client) {
+        if (headerLength < 2) {
+            return;
+        }
+
+        httpRequest[headerLength - 1] = 0; 	// Seperate body from header 
+        httpRequest[headerLength - 2] = 0;	// Seperate body from header 
         method = strtok(httpRequest, " ");
-        url = strtok(NULL, " ");
+        path = strtok(NULL, "\r\n");
+        body = httpRequest + headerLength;
     }
+
+	Request(char * httpRequest, WiFiClient & client) : client(client) {
+		char * endOfHeader = strstr(httpRequest, "\r\n\r\n");
+		endOfHeader[0] = 0;
+		method = strtok(httpRequest, " ");
+		path = strtok(NULL, " ");
+		header = path + strlen(path) + 1;
+		body = endOfHeader + 3;
+	}
 };
 
 struct Response {
@@ -23,74 +42,27 @@ struct Response {
     WiFiClient & client;
     Response(WiFiClient & client) : client(client) {}
 
-    void sendHeader() {
-        if (isHeaderSent) return;
-        isHeaderSent = true;
-
-        // HTTP Status
-        switch (status) {
-        case 200:
-            client.println(F("HTTP/1.1 200 OK"));
-            break;
-        case 302:
-            client.println(F("HTTP/1.1 302 Redirect"));
-            break;
-        default:
-            client.println(F("HTTP/1.1 404 Not Found"));
-            break;
-        }
-
-        // Content-Type
-		client.print(F("Content-Type: "));
-        client.println(contentType);
-
-        // Connection
-        client.println(F("Connection: close"));
-        client.println();
-		client.println();
-    }
-
-    void send(const char s[]) {
-        sendHeader();
-        const int size = 768;
-        for (unsigned int i = 0; i < strlen(s); i += size) {
-            char part[size + 1] = {0};
-            strncpy(part, s + i, size);
-            client.print(part);
-        }
-		client.println();
-    }
-
-    void send(Printable & p) {
-        sendHeader();
-        client.println(p);
-    }
-
-    void send(int i) {
-        sendHeader();
-        client.println(i);
-    }
-
-    void send(float f) {
-        sendHeader();
-        client.println(f);
-    }
-
-    void end() {
-        sendHeader();
-        delay(1);
-        client.stop();
-    }
+    void sendHeader();
+    void send(const char s[]);
+    void send(Printable & p);
+    void send(int i);
+    void send(float f);
+	void sendNewline();
+    void end();
 };
 
 using RequestFunctionPointer = void (*)(Request & req, Response & res);
 
 struct RequestHandler {
-    const char * url;
+    const char * path;
+	const char * method;
     RequestFunctionPointer callback;
 };
 
 class OPServer : public OPComponent {
+   public:
+    char * homepage;
+	
    public:
     const char * ssid;
     const char * pass;
@@ -102,113 +74,24 @@ class OPServer : public OPComponent {
     RequestHandler handlers[10];
 
     WiFiServer server;
-    OPServer(String name, const char ssid[], const char pass[]) : OPComponent(name), ssid(ssid), pass(pass), server(80) {}
+    OPServer(const char * name, const char ssid[], const char pass[]) 
+		: OPComponent(name), ssid(ssid), pass(pass), server(80) {}
 
-    void setup() override {
-        WiFi.setPins(8, 7, 4, 2);
-        WiFi.beginAP(ssid, pass);
-        while ((status = WiFi.status()) != WL_AP_LISTENING) {
-            WiFi.beginAP(ssid, pass);
-            Serial.println(F("WiFi AP Mode Failed to Initialize"));
-            Serial.println(F("Try again in "));
-            for (char i = 3; i > 0; i++) {
-                Serial.println(i);
-                delay(1000);
-            }
-        }
-    }
+    void setup() override;
+    void update() override;
 
-    void begin() {
-        isRunning = true;
-    }
+    void begin();
 
-    void update() override {
-        if (isRunning == false) {
-            return;
-        }
+	void sendHomepage(Request & req, Response & res) {
+		res.send(homepage ? homepage : "");
+		res.end();
+	}
 
-        // WiFi status has changed
-        if (status != WiFi.status()) {
-            if ((status = WiFi.status()) == WL_AP_CONNECTED) {
-                byte remoteMac[6];
-                WiFi.APClientMacAddress(remoteMac);
-                Serial.print(F("Device connected to AP, MAC address: "));
-                printMacAddress(remoteMac);
-                server.begin();
-            } else {
-                Serial.println(F("Device disconnected from AP"));
-            }
-        }
+    void on(const char * path, const char * method, RequestFunctionPointer callback);
+	void get(const char * path, RequestFunctionPointer callback);
+	void post(const char * path, RequestFunctionPointer callback);
+    void handleRequest(Request & req);
 
-		if (status != WL_AP_CONNECTED) {
-			return;
-		}
-
-        WiFiClient client = server.available();
-		if (client && client.connected()) {
-			delay(10);
-			const int size = 512;
-			char httpRequest[size + 1] = {0};
-			client.read((byte *) httpRequest, size);
-
-			Request request(httpRequest, client);
-			handleRequest(request);
-		}
-    }
-
-    void on(const char url[], RequestFunctionPointer callback) {
-        handlers[size].url = url;
-        handlers[size].callback = callback;
-        size++;
-    }
-
-    void handleRequest(Request & req) {
-        Response res(req.client);
-        for (int i = 0; i < size; i++) {
-            if (strcmp(handlers[i].url, req.url) == 0) {
-                handlers[i].callback(req, res);
-                break;
-            }
-        }
-		
-        WiFiClient & client = req.client;
-        client.println(F("HTTP/1.1 404 Not Found"));
-        client.println(F("Connection: close"));
-        client.println();
-        client.stop();
-    }
-
-    static void printWiFiStatus() {
-        // SSID:
-        Serial.print(F("SSID: "));
-        Serial.println(WiFi.SSID());
-
-        // IP address:
-        IPAddress ip = WiFi.localIP();
-        Serial.print(F("IP Address: "));
-        Serial.println(ip);
-
-        // Signal strength:
-        long rssi = WiFi.RSSI();
-        Serial.print(F("Signal strength (RSSI):"));
-        Serial.print(rssi);
-        Serial.println(F(" dBm"));
-
-        // Web browser:
-        Serial.print(F("Web Browser: http://"));
-        Serial.println(ip);
-    }
-
-    void printMacAddress(byte mac[]) {
-        for (int i = 5; i >= 0; i--) {
-            if (mac[i] < 16) {
-                Serial.print("0");
-            }
-            Serial.print(mac[i], HEX);
-            if (i > 0) {
-                Serial.print(":");
-            }
-        }
-        Serial.println();
-    }
+    void printWiFiStatus();
+    void printMacAddress(byte mac[]);
 };

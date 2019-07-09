@@ -2,384 +2,309 @@
 <html lang='en'>
 
 <head>
-	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	<meta charset='UTF-8'>
-	<title>eDNA Web Interface</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta charset='UTF-8'>
+    <title>eDNA Web Interface</title>
 
-	<style>
-		* {
-			padding: 0;
-			margin: 0;
-		}
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
 
-		body {
-			font-family: verdana;
-			font-size: 12px;
-			box-sizing: border-box;
-			width: 100vw;
-			height: 100vh;
-		}
+        body {
+            font-family: verdana, serif;
+            font-size: 12px;
+            box-sizing: border-box;
+            width: 100vw;
+            height: 100vh;
+        }
 
-		body {
-			display: grid;
-			grid-template-columns: 256px 1fr;
-			grid-template-rows: 96px 1fr;
-			grid-template-areas:
-				'logo  header'
-				' status  main';
-		}
+        body {
+            display: grid;
+            grid-template-columns: 256px 1fr;
+            grid-template-rows: 96px 1fr;
+            grid-template-areas: 'logo  header' ' status  main';
+        }
 
-		#logo {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			text-align: center;
-			background: rgb(55, 100, 200);
-			grid-area: logo;
-			font: 20px verdana;
-			font-weight: bold;
-			color: white;
-			z-index: 2;
-			box-shadow: 0px 0px 8px 0px #888;
-		}
+        #logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            background: rgb(55, 100, 200);
+            grid-area: logo;
+            font: 20px verdana;
+            font-weight: bold;
+            color: white;
+            z-index: 2;
+            box-shadow: 0 0 8px 0 #888;
+        }
 
-		header {
-			background: rgb(130, 155, 195);
-			grid-area: header;
-			box-shadow: 0px 0px 8px 0px #888;
-			z-index: 1;
-		}
+        header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            background: rgb(130, 155, 195);
+            grid-area: header;
+            box-shadow: 0 0 8px 0 #888;
+            z-index: 1;
+        }
 
-		nav {
-			background: rgb(130, 155, 195);
-			grid-area: nav;
-		}
+        header p, header button {
+            margin-right: 16px;
+        }
 
-		aside {
-			display: flex;
-			flex-direction: column;
-			background: rgb(240, 240, 240);
-			grid-area: status;
-		}
+        header p {
+            color: white;
+        }
 
-		main {
-			display: grid;
-			justify-content: center;
-			align-content: center;
-			grid-gap: 24px;
-			background: white;
-			grid-area: main;
-			box-shadow: 0px 0px 4px 0px #ddd;
-		}
 
-		.status-widget,
-		.status-widget-fix {
-			background: white;
-			height: 54px;
-			margin: 12px;
-			margin-top: 0;
-			margin-bottom: 12px;
-			border-radius: 4px;
-			box-shadow: 0px 4px 4px 0px #ddd;
-		}
+        nav {
+            background: rgb(130, 155, 195);
+            grid-area: nav;
+        }
 
-		.status-widget-fix {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			height: 80px;
-			margin: 0;
-		}
+        aside {
+            display: flex;
+            flex-direction: column;
+            background: rgb(240, 240, 240);
+            grid-area: status;
+        }
 
-		.status-widget-fix .status-tag {
-			display: grid;
-			justify-content: center;
-		}
+        main {
+            display: grid;
+            justify-content: center;
+            align-content: center;
+            grid-gap: 24px;
+            background: white;
+            grid-area: main;
+            box-shadow: 0 0 4px 0 #ddd;
+        }
 
-		.status-widget-fix .key {
-			align-self: flex-end;
-			padding: 4px 0 4px 0;
-		}
+        .status-widget,
+        .status-widget-fix {
+            background: white;
+            height: 54px;
+            margin: 0 12px 12px;
+            border-radius: 4px;
+            box-shadow: 0 4px 4px 0 #ddd;
+        }
 
-		.key {
-			color: #888;
-		}
+        .status-widget-fix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 80px;
+            margin: 0;
+        }
 
-		.value {
-			font-weight: bold;
-		}
+        .status-widget-fix .status-tag {
+            display: grid;
+            justify-content: center;
+        }
 
-		.status-widget {
-			display: grid;
-			align-items: center;
-		}
+        .status-widget-fix .key {
+            align-self: flex-end;
+            padding: 4px 0 4px 0;
+        }
 
-		.status-widget .status-tag {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			text-align: center;
-		}
+        .key {
+            color: #888;
+        }
 
-		.status-divider {
-			background: rgb(240, 240, 240);
-			padding: 24px;
-			text-align: center;
-			font-size: 12px;
-			color: #888;
-		}
+        .value {
+            font-weight: bold;
+        }
 
-		header p {
-			margin: 72px 12px;
-			text-align: right;
-			color: white;
-		}
+        .status-widget {
+            display: grid;
+            align-items: center;
+        }
 
-		.btn {
-			text-align: center;
-			padding: 24px 32px;
-			background: red;
-			font-size: 16px;
-			color: white;
-			border-radius: 999px;
-			filter: opacity(50%);
-		}
-		
-		.btn-selected {
-			filter: opacity(100%);
-		}
+        .status-widget .status-tag {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            text-align: center;
+        }
 
-		.btn:hover {
-			cursor: pointer;
-			filter: opacity(100%);
-		}
+        .status-divider {
+            background: rgb(240, 240, 240);
+            padding: 24px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
 
-		.btn:active {
-			filter: brightness(125%);
-		}	
-		
+        .btn {
+            text-align: center;
+            padding: 22px 30px;
+            background: red;
+            font-size: 16px;
+            color: white;
+            border-radius: 999px;
+            filter: opacity(50%);
+        }
 
-	</style>
+        .btn-selected {
+            filter: opacity(100%);
+        }
 
-	<script>	
-		function selectButton(index) {
-			const btns = document.getElementsByClassName('btn');
-			if (isNaN(index) || index >= btns.length) {
-				return;
-			}
-			
-			for (var i = 0; i < btns.length; i++) {
-				btns[i].classList.remove('btn-selected');
-			}
-			
-			btns[index].classList.add('btn-selected');
-		}
-		
+        .btn:hover {
+            cursor: pointer;
+            filter: opacity(100%);
+        }
+
+        .btn:active {
+            filter: brightness(125%);
+        }
+    </style>
+
+    <template>
+        <div class='btn'>
+            Content
+        </div>
+        <div class='status-widget'>
+            <div class='status-tag'>
+                <p class='key'>Current State</p>
+                <p class='value'><span class='content'></span><span class='unit'></span></p>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        class WidgetData {
+            constructor(id, name, content = '-----', unit = '') {
+                this.id = id;
+                this.name = name;
+                this.content = content;
+                this.unit = unit;
+            }
+        }
+
+        function selectButton(index) {
+            const buttons = document.getElementsByClassName('btn');
+            if (isNaN(index) || index >= buttons.length) {
+                return;
+            }
+
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('btn-selected');
+            }
+
+            buttons[index].classList.add('btn-selected');
+        }
+
         function readStatus() {
             const request = new XMLHttpRequest();
-            request.onreadystatechange = function() {
+            request.onreadystatechange = function () {
                 if (this.readyState !== 4 || this.status !== 200) {
                     return;
                 }
-				
+
                 if (this.responseText) {
-					var res = JSON.parse(this.responseText);
-					document.getElementById('s').textContent = res["state-name"].toUpperCase();
-                    document.getElementById('p').textContent = res["pressure"];
-                    document.getElementById('t').textContent = res["temperature"];
-					document.getElementById('cv').textContent = parseInt(res["valve-current"]) + 1;
-					document.getElementById('tv').textContent = parseInt(res["valve-max"]) + 1;
-					document.getElementById('i').textContent = res["routine-interval"];
-					selectButton(res["state-id"]);
+                    const res = JSON.parse(this.responseText);
+                    document.querySelector('#s .content').textContent = res["state-name"].toUpperCase();
+                    document.querySelector('#p .content').textContent = parseFloat(res["pressure"]).toFixed(2);
+                    document.querySelector('#t .content').textContent = parseFloat(res["temperature"]).toFixed(2);
+                    document.querySelector('#cv .content').textContent = `${parseInt(res["valve-current"])}`;
+                    document.querySelector('#tv .content').textContent = `${parseInt(res["valve-max"])}`;
+                    document.querySelector('#i .content').textContent  = `${parseInt(res["routine-interval"])}`;
+                    const buttonSelection  = parseInt(res ["state-id"]);
+                    selectButton(buttonSelection);
                 }
             };
             request.open('GET', 'status', true);
             request.send(null);
             setTimeout(readStatus, 1000);
         }
-		
-		function flush() {
-            const request = new XMLHttpRequest();
-            request.onreadystatechange = function() {
-                if (this.readyState !== 4 || this.status !== 200) {
-                    return;
-                }
 
-                if (this.responseText === 'success') {}
-            };
-            request.open('GET', 'flush', true);
+        function getRequest(path) {
+            const request = new XMLHttpRequest();
+            request.open('GET', path, true);
             request.send(null);
         }
 
-        function sample() {
-            const request = new XMLHttpRequest();
-            request.onreadystatechange = function() {
-                if (this.readyState !== 4 || this.status !== 200) {
-                    return;
-                }
+        window.onload = function () {
+            const colors = ['#173F5F', '#20639B', '#3CAEA3', '#ED553B'];
+            const buttonNames = ['flush', 'sample', 'clean', 'preserve', 'stop'];
+            const template = document.querySelector('template');
+            buttonNames.forEach((name, i) => {
+                const btn = template.content.querySelector('.btn').cloneNode(true);
+                btn.style.background = colors[i % colors.length];
+                btn.textContent = name.toUpperCase();
+                btn.addEventListener('click', () => {
+                    getRequest(buttonNames[i])
+                });
+                document.body.querySelector('main').appendChild(btn);
+            });
 
-                if (this.responseText === 'success') {}
-            };
-            request.open('GET', 'sample', true);
-            request.send(null);
+            const data = [
+                new WidgetData('s', 'Current State', 'STANDBY', ''),
+                new WidgetData('cv', 'Current Valve', '0', ''),
+                new WidgetData('tv', 'Total Valve', '0', ''),
+                new WidgetData('i', 'Interval', '0', 'S'),
+                new WidgetData('p', 'Pressure', '0', 'PSI'),
+                new WidgetData('t', 'Temperature', '0', 'ºC'),
+                new WidgetData('', 'Water Volume'),
+                new WidgetData('', 'Water Depth'),
+                new WidgetData('', 'Water Flow Rate')
+            ];
+
+            data.forEach((w) => {
+                const widget = template.content.querySelector('.status-widget').cloneNode(true);
+                widget.id = w.id;
+                widget.querySelector('.key').textContent = w.name;
+                widget.querySelector('.content').textContent = w.content;
+                widget.querySelector('.unit').textContent = ` ${w.unit}`;
+                document.body.querySelector('#status-bar').appendChild(widget);
+            });
+
+            document.querySelector("#rtc").addEventListener("click", () => {
+                let currentTime = new Date();
+                let requestBody = {
+                    "utc-time" : Math.floor(currentTime.getTime()/1000 - currentTime.getTimezoneOffset() * 60),
+                    "local-time-offset": currentTime.getTimezoneOffset(),
+                };
+
+                const request = new XMLHttpRequest();
+                request.open('POST', 'setTime', true);
+                request.setRequestHeader("Content-type", "application/json");
+                request.send(JSON.stringify(requestBody));
+                console.log(JSON.stringify(requestBody));
+            });
+
+            setTimeout(readStatus, 1000);
         }
-		
-		function clean() {
-            const request = new XMLHttpRequest();
-            request.onreadystatechange = function() {
-                if (this.readyState !== 4 || this.status !== 200) {
-                    return;
-                }
-
-                if (this.responseText === 'success') {}
-            };
-            request.open('GET', 'clean', true);
-            request.send(null);
-        }
-		
-		function preserve() {
-            const request = new XMLHttpRequest();
-            request.onreadystatechange = function() {
-                if (this.readyState !== 4 || this.status !== 200) {
-                    return;
-                }
-
-                if (this.responseText === 'success') {}
-            };
-            request.open('GET', 'preserve', true);
-            request.send(null);
-        }
-		
-		function stop() {
-            const request = new XMLHttpRequest();
-            request.onreadystatechange = function() {
-                if (this.readyState !== 4 || this.status !== 200) {
-                    return;
-                }
-
-                if (this.responseText === 'success') {}
-            };
-            request.open('GET', 'stop', true);
-            request.send(null);
-        }
-		
-		var i = 0;
-		function nextButton() {
-			selectButton(i++ % document.getElementsByClassName('btn').length);
-			setTimeout(nextButton, 1000);
-		}
-		
-		window.onload = function() {
-			const colors = ['#173F5F', '#20639B', '#3CAEA3', '#ED553B'];
-			const btns = document.getElementsByClassName('btn');
-			console.log(btns);
-			for (let i = 0; i < btns.length; i++) {
-				btns[i].style.background = colors[i % colors.length];
-			}
-			
-			setTimeout(readStatus, 1000);
-		}
-
-	</script>
+    </script>
 </head>
 
 <body>
-	<div id='logo'>
-		<p>DASHBOARD</p>
-	</div>
+<div id='logo'>
+    <p>Command Center</p>
+</div>
 
-	<header>
-		<p>eDNA Web Interface (0.0.2-alpha)</p>
-	</header>
-	<aside id='status-bar'>
-		<div class='status-widget-fix'>
-			<div class='status-tag'>
-				<p class='key'>ID Number</p>
-				<p class='value'>#00001</p>
-			</div>
-			<div class='status-tag'>
-				<p class='key'>Connection</p>
-				<p class='value'>OK</p>
-			</div>
-		</div>
-		<div class='status-divider'>CURRENT STATUS</div>
-		<div class='status-widget'>
-			<div class='status-tag'>
-				<p class='key'>Current State</p>
-				<p class='value' id='s'>Stand By</p>
-			</div>
-		</div>
-		
-		<div class='status-widget'>
-			<div class='status-tag'>
-				<p class='key'>Current Valve</p>
-				<p class='value' id='cv'>0</p>
-			</div>
-		</div>
-		
-		<div class='status-widget'>
-			<div class='status-tag'>
-				<p class='key'>Total Valve</p>
-				<p class='value' id='tv'>0</p>
-			</div>
-		</div>
-		
-		<div class='status-widget'>
-			<div class='status-tag'>
-				<p class='key'>Interval</p>
-				<p class='value'><span id='i'>0</span>S</p>
-			</div>
-		</div>
-		
-		<div class='status-widget'>
-			<div class='status-tag'>
-				<p class='key'>Pressure</p>
-				<p class='value'><span id='p'>0</span> PSI</p>
-			</div>
-		</div>
-		<div class='status-widget'>
-			<div class='status-tag'>
-				<p class='key'>Temperature</p>
-				<p class='value'><span id='t'>0</span> °C</p>
-			</div>
-		</div>
-		<div class='status-widget'>
-			<div class='status-tag'>
-				<p class='key'>Water Volume</p>
-				<p class='value'>---</p>
-			</div>
-		</div>
-		<div class='status-widget'>
-			<div class='status-tag'>
-				<p class='key'>Water Depth</p>
-				<p class='value'>---</p>
-			</div>
-		</div>
-		<div class='status-widget'>
-			<div class='status-tag'>
-				<p class='key'>Flow Speed</p>
-				<p class='value'>---</p>
-			</div>
-		</div>
+<header>
+    <p>eDNA Web Interface (0.0.2-alpha)</p>
+    <button id="rtc">Set RTC Time</button>
+</header>
 
-	</aside>
+<aside id='status-bar'>
+    <div class='status-widget-fix'>
+        <div class='status-tag'>
+            <p class='key'>ID Number</p>
+            <p class='value'>#00001</p>
+        </div>
+        <div class='status-tag'>
+            <p class='key'>Connection</p>
+            <p class='value'>OK</p>
+        </div>
+    </div>
+    <div class='status-divider'>CURRENT STATUS</div>
+</aside>
 
-	<main>
-	
-		<div class='btn' onclick='flush()'>
-			FLUSH 
-		</div>
-		<div class='btn' onclick='sample()'>
-			SAMPLE
-		</div>
-		<div class='btn' onclick='clean()'>
-			CLEAN
-		</div>
-		<div class='btn' onclick='preserve()'>
-			PRESERVE
-		</div>
-		<div class='btn' onclick='stop()'>
-			STOP
-		</div>
-	</main>
+<main>
+
+</main>
 
 </body>
 

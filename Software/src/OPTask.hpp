@@ -7,13 +7,10 @@
 //
 
 #pragma once
-#include "LinkedList.hpp"
-
+#include "List.hpp"
 
 using VoidFunctionPointer = void(*)();
 using BoolFunctionPointer = bool(*)();
-
-using namespace std;
 
 struct OPAction {
     unsigned long start = 0;
@@ -30,7 +27,7 @@ struct OPAction {
     A linkedlist where each node is an action. 
 	Useful for making sequential async actions.
 */
-class OPTask : public LinkedList<OPAction> {
+class OPTask : public List<OPAction> {
 private:
     int actionIndex = 0;
     int actionRepeatCounter = 0;
@@ -38,14 +35,13 @@ private:
     friend class OPTaskScheduler;
     friend class OPSystem;
 public:
-    String name = "";
+    const char * name = nullptr;
     int repeat = 1;
 public:
     
-    OPTask() : LinkedList<OPAction>() {}
-    OPTask(const String & name) : LinkedList<OPAction>(), name(name) {}
-    
-    OPTask(const OPTask & obj) : LinkedList(obj) {
+    // OPTask() : List<OPAction>() {}
+    OPTask(const char * name = nullptr) : List<OPAction>(), name(name) {}
+    OPTask(const OPTask & obj) : List(obj) {
         name = obj.name;
         repeat = obj.repeat;
         actionRepeatCounter = obj.actionRepeatCounter;
@@ -95,7 +91,6 @@ public:
         current.repeat = times;
         return * this;
     }
-    
     
     void nextAction() {
         actionIndex = (actionIndex + 1) % size;

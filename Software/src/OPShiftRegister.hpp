@@ -25,94 +25,29 @@ public:
 	BitOrder bitOrder = MSBFIRST;
 public:
 
-    OPShiftRegister(String name, byte capacity) : OPComponent(name), capacity(capacity) {
+	int registerIndex(int value);
+	int bitIndex(int value);
+
+    OPShiftRegister(const char * name, byte capacity) : OPComponent(name), capacity(capacity) {
         registersCount = capacity / capacityPerRegister;
-        outputs = new byte[registersCount];
+        outputs = new byte[registersCount]();
     }
 
-    OPShiftRegister(String name, byte capacity, byte data, byte clock, byte latch) : 
+    OPShiftRegister(const char * name, byte capacity, byte data, byte clock, byte latch) : 
 	OPShiftRegister(name, capacity) {
         setPins(data, clock, latch);
-		writeZeros();
     }
 
-	int registerNumber(int value) {
-		return value / capacityPerRegister;
-	}
+	void setPins(byte data, byte clock, byte latch);
 
-	int bitNumber(int value) {
-		return value % capacityPerRegister;
-	}
+    void setZeros();
+    void setOnes();
 
+	void setRegister(byte index, byte bitNumber, bool signal);
+	void setRegister(byte index, byte value);
 
-	void setup() override {
-		setZeros();
-	}
+    void writeOneHot(byte bitToSet);
+	void writeZeros();
 
-    void setPins(byte data, byte clock, byte latch) {
-        dataPin = data;
-        clockPin = clock;
-        latchPin = latch;
-
-        pinMode(dataPin, OUTPUT);
-        pinMode(clockPin, OUTPUT);
-        pinMode(latchPin, OUTPUT);
-    }
-
-    void setZeros() {
-        for (int i = 0; i < registersCount; i++){
-            outputs[i] = 0;
-        }
-    }
-
-    void setOnes() {
-        for (int i = 0; i < registersCount; i++){
-            outputs[i] = 255;
-        }
-    }
-
-	void setRegister(byte index, byte bitNumber, bool signal) {
-		if (index >= registersCount || bitNumber >= capacityPerRegister) {
-			return;
-		}
-
-		if (signal) {
-			outputs[index] |= (1 << bitNumber);
-		} else {
-			outputs[index] &= ~(1 << bitNumber);
-		}
-	}
-
-	void setRegister(byte index, byte value) {
-		if (index >= registersCount) {
-			return;
-		}
-
-		outputs[index] = value;
-	}
-
-	void flush() {
-        digitalWrite(latchPin, LOW);
-        for (int i = registersCount - 1; i >= 0; i--){
-            shiftOut(dataPin, clockPin, bitOrder, outputs[i]);
-        }
-        digitalWrite(latchPin, HIGH);
-    }
-
-    void writeOneHot(byte bitToSet) {
-        if (bitToSet / capacityPerRegister >= registersCount) {
-            return;
-        }
-
-        setZeros();
-        byte index = bitToSet / capacityPerRegister;
-		byte bitNumber = 1 << (bitToSet % capacityPerRegister);
-        outputs[index] = bitNumber;
-        flush();
-    }
-
-	void writeZeros() {
-		setZeros();
-		flush();
-	}
+	void flush();
 };

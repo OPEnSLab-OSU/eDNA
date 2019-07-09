@@ -1,0 +1,544 @@
+<html lang="">
+<head>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta charset="UTF-8">
+    <title>eDNA Web Interface</title>
+    <style>
+        :root {
+            --color-seethrough: rgba(255, 255, 255, 0.4);
+            --nav-bg: rgb(40, 45, 60);
+            --general-shadow: 0 0px 8px rgba(0, 0, 0, 0.35);
+            --green: rgb(70, 225, 180);
+            --blue: rgb(15, 100, 220);
+            --purple: rgb(145, 95, 250);
+            --red: rgb(250, 50, 240);
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Verdana, serif;
+        }
+
+        body {
+            display: grid;
+            height: 100vh;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: 54px 1fr;
+        }
+
+        nav {
+            display: grid;
+            grid-template-rows: 54px;
+            grid-auto-rows: min-content;
+            background: var(--nav-bg);
+            grid-row: 1/-1;
+            width: 225px;
+            transition: all 0.3s ease 0s;
+        }
+
+        #logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 1rem;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: 1px solid var(--color-seethrough);
+        }
+
+        #logo > span {
+            color: ghostwhite;
+            font-weight: normal;
+        }
+
+        .status-section {
+            color: white;
+            font-size: small;
+            margin-top: 1rem;
+        }
+
+        .status-section .heading {
+            color: ghostwhite;
+            margin: 8px 0;
+            padding: 0 16px;
+            /*border-bottom: 1px solid var(--color-seethrough);*/
+        }
+
+        .tag-container {
+            display: grid;
+            padding: 8px;
+            list-style: none;
+            background: rgb(25, 25, 35);
+        }
+
+        .tag {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            justify-content: center;
+            align-items: center;
+            /*text-align: right;*/
+            padding: 8px;
+            color: white;
+            border-radius: 4px;
+            /*grid-gap: 8px;*/
+
+        }
+
+        .key {
+            text-align: center;
+            color: darkgrey;
+        }
+
+        .value {
+            text-align: center;
+            color: ghostwhite;
+        }
+
+        header {
+            display: grid;
+            grid-template-columns: auto auto;
+            align-items: center;
+            background: white;
+            box-shadow: var(--general-shadow);
+            z-index: 999;
+            /*padding: 8px;*/
+        }
+
+        header ul {
+            display: flex;
+            justify-self: flex-end;
+            /*padding: 16px;*/
+            padding-right: 16px;
+        }
+
+        header li {
+            display: block;
+            margin-left: 16px;
+            list-style: none;
+        }
+
+        button {
+            width: 120px;
+            height: 35px;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: white;
+            letter-spacing: 1px;
+            background-color: var(--nav-bg);
+            border: none;
+            border-radius: 999px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease 0s;
+            cursor: pointer;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: #2EE59D;
+            box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+            color: #FFFFFF;
+            transform: translateY(-6px);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+        }
+
+        .heading {
+            letter-spacing: 1px;
+        }
+
+        .more-button {
+            height: 54px;
+            width: 30px;
+            border-radius: 15px;
+            background: #ED553B;
+            position: relative;
+            left: -15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transition: all 0.3s ease 0s;
+            /*transform: rotate(90 deg);*/
+        }
+
+        .button {
+            cursor: pointer;
+            box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+            transition: all 0.3s ease 0s;
+        }
+
+        .button:hover {
+            background-color: #2EE59D;
+            box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+            color: #FFFFFF;
+            transform: translateY(-6px);
+        }
+
+        .button.selected {
+            background-color: #2EE59D;
+            box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+            color: #FFFFFF;
+            transform: translateY(-6px);
+        }
+
+        .version {
+            padding: 0.6rem 1rem;
+            text-align: right;
+            font-size: 0.7rem;
+            color: var(--nav-bg);
+            align-self: flex-end;
+        }
+
+        main {
+            --repeat: 2;
+        }
+
+        @media screen and (max-width: 1000px) {
+            main {
+                --repeat: 1;
+            }
+        }
+
+        main {
+            display: grid;
+            grid-template-columns: repeat(var(--repeat), 1fr);
+            grid-auto-rows: min-content;
+            background: #EEEEEE;
+            padding: 16px;
+            grid-gap: 16px;
+        }
+
+
+        .state-timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            grid-gap: 0.5rem 1rem;
+        }
+
+        .state-button {
+            border-radius: 4px;
+            font-size: small;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            box-sizing: content-box;
+            filter: opacity(50%);
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            letter-spacing: 1px;
+        }
+
+        .state-button:hover {
+            filter: opacity(100%);
+        }
+
+        .state-button.selected {
+            filter: opacity(100%);
+        }
+
+        .clickable {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .clickable:active {
+            filter: brightness(110%);
+        }
+
+        .card {
+            display: block;
+            background: white;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .full-width {
+            grid-column: 1/-1;
+        }
+
+        .track {
+            display: flex;
+            flex-flow: column;
+            justify-content: flex-start;
+        }
+
+        .track .card {
+            margin-bottom: 16px;
+            /*height: 200px;*/
+            box-sizing: border-box;
+            color: var(--nav-bg);
+            transition: all 0.3s ease 0s;
+        }
+
+        .track .card:hover {
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-8px);
+        }
+
+        .valve-overview {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(24px, 1fr));
+            grid-template-rows: repeat(2, 36px);
+            grid-gap: 8px 8px;
+            background: none;
+            overflow: visible;
+        }
+
+        .valve-overview div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--nav-bg);
+            border-radius: 4px;
+            color: white;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .state-config {
+            display: grid;
+            /*grid-template-columns: 100px 1fr;*/
+            grid-auto-rows: min-content;
+            padding: 16px;
+            /*grid-gap: 8px;*/
+        }
+
+        .state-config .heading {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--nav-bg);
+            margin-bottom: 16px;
+        }
+
+        .state-config p {
+            font-size: small;
+        }
+
+        .state-config .title {
+            font-weight: bold;
+            color: var(--nav-bg);
+        }
+
+        .state-config .title span {
+            color: #888888;
+            font-weight: normal;
+
+        }
+
+        .state-config .subtitle {
+            margin-bottom: 8px;
+            color: #888888;
+        }
+
+        .state-config input {
+            /*margin-left: 16px;*/
+            /*padding: 8px 0;*/
+            /*border: 0;*/
+            padding: 8px;
+            margin-bottom: 16px;
+            background: #EEEEEE;
+            border: none;
+        }
+
+    </style>
+
+<!--    Templates-->
+
+    <template id="template-state-button">
+        <div class="state-button clickable"></div>
+    </template>
+
+    <template id="template-status">
+        <div class="status-section">
+            <p class="heading"></p>
+            <ul class="tag-container">
+            </ul>
+        </div>
+
+        <li class="tag">
+            <p class="key"></p>
+            <p class="value"><span class="content"></span><span class="unit"></span></p>
+        </li>
+    </template>
+
+    <script>
+
+        class StatusTag {
+            constructor(id, key, content = "-----", unit = "") {
+                this.key = key;
+                this.content = content;
+                this.unit = unit;
+                this.id = id;
+            }
+        }
+
+        class StatusSection {
+            constructor(heading, tags) {
+                this.heading = heading;
+                this.tags = tags;
+            }
+        }
+
+        window.onload = function () {
+            const colors = ['#173F5F', '#20639B', '#3CAEA3', '#ED553B'];
+            const button_names = ['flush', 'sample', 'clean', 'preserve', 'stop'];
+            const button_template = document.querySelector("#template-state-button").content;
+            const buttons = button_names.map((name, i) => {
+                const button = button_template.querySelector(".state-button").cloneNode(true);
+                button.style.background = colors[i % colors.length];
+                button.textContent = name.toUpperCase();
+                document.querySelector(".state-timeline").appendChild(button);
+                return button;
+            });
+            buttons[buttons.length - 1].classList.add("selected");
+
+            const status_data = [
+                new StatusSection("STATE", [
+                    new StatusTag("state-name", "Current State"),
+                    new StatusTag("state-next", "Next"),
+                    new StatusTag("state-prev", "Prev")
+                ]),
+                new StatusSection("VALVE", [
+                    new StatusTag("current-valve", "Current Valve")
+                ]),
+                new StatusSection("PRESSURE SENSOR", [
+                    new StatusTag("pressure", "Pressure"),
+                    new StatusTag("temperature", "Temperature")
+                ]),
+                new StatusSection("FLOW SENSOR", [
+                    new StatusTag("water-volume", "Water Volume"),
+                    new StatusTag("water-depth", "Water Depth"),
+                    new StatusTag("water-speed", "Flow Rate")
+                ])
+            ];
+
+            const status_template = document.querySelector("#template-status").content;
+            status_data.forEach(item => {
+                const section = status_template.querySelector(".status-section").cloneNode(true);
+                const container = section.querySelector(".tag-container");
+                section.querySelector(".heading").textContent = item.heading;
+                item.tags.forEach(tagData => {
+                    const tag = status_template.querySelector(".tag").cloneNode(true);
+                    tag.id = tagData.id;
+                    tag.querySelector(".key").textContent = tagData.key;
+                    tag.querySelector(".content").textContent = tagData.content;
+                    tag.querySelector(".unit").textContent = tagData.unit;
+                    container.appendChild(tag);
+                });
+                document.querySelector("nav").appendChild(section);
+            });
+
+            document.querySelector(".more-button").addEventListener("click", function () {
+                const nav = document.querySelector("nav");
+                if (nav.style.width) {
+                    this.style.removeProperty("left");
+                    this.style.removeProperty("transform");
+                    nav.style.removeProperty("width");
+                } else {
+                    this.style.left = "0px";
+                    this.style.transform = "rotate(90deg)";
+                    nav.style.width = "0px";
+                }
+            });
+
+            const valve_overview = document.querySelector(".valve-overview");
+            for (let i = 0; i < 24; i++) {
+                const div = document.createElement("div");
+                div.classList.add("button")
+                div.textContent = `${i < 12 ? 11 - i : i}`;
+                valve_overview.appendChild(div);
+            }
+
+            const state_headings = document.querySelectorAll(".state-config .heading");
+            state_headings.forEach((heading, i) => {
+                heading.style.color = colors[i];
+            });
+
+            const valve_buttons = document.querySelectorAll(".valve-overview .button");
+            valve_buttons.forEach((btn) => {
+                btn.addEventListener("click", function () {
+                    btn.classList.toggle("selected");
+                });
+            });
+        }
+
+    </script>
+</head>
+
+<body>
+
+<nav>
+    <div id="logo"><span>eDNA</span>&nbspDashboard</div>
+</nav>
+
+<header>
+    <div class="more-button clickable">&#8801</div>
+    <ul>
+        <li><button disabled>Apply</button></li>
+        <li><button>UPDATE RTC</button></li>
+    </ul>
+</header>
+
+<main>
+    <div class="state-timeline full-width"></div>
+    <div class="card full-width valve-overview"></div>
+<!--    <div class="valve-cancel full-width"></div>-->
+
+    <div class="track">
+        <form class="card state-config" action="#" autocomplete="off">
+            <h2 class="heading full-width">FLUSH</h2>
+            <p class="title">Time limit <span>(max: 30 seconds)</span></p>
+            <p class="subtitle">Controls the time limit before moving to the sample state</p>
+            <input type="number" value="15" max="30">
+            <p class="title">Volume limit <span>(max: 5000 ml)</span></p>
+            <p class="subtitle">Controls the volume limit before moving to the sample state</p>
+            <input type="number" value="1000" max="5000">
+        </form>
+
+        <form class="card state-config" action="#" autocomplete="off">
+            <h2 class="heading full-width">SAMPLE</h2>
+            <p class="title">Time limit <span>(max: 30 seconds)</span></p>
+            <p class="subtitle">Controls the time limit before moving to the clean state</p>
+            <input type="number" value="15" max="30">
+            <p class="title">Pressure limit <span>(max: 8 psi)</span></p>
+            <p class="subtitle">Controls the pressure limit before moving to the clean state</p>
+            <input type="number" value="8" max="8">
+            <p class="title">Volume limit <span>(max: 5000 ml)</span></p>
+            <p class="subtitle">Controls the volume limit before moving to the clean state</p>
+            <input type="number" value="1000" max="5000">
+        </form>
+    </div>
+
+    <div class="track">
+        <form class="card state-config" action="#" autocomplete="off">
+            <h2 class="heading full-width">CLEAN</h2>
+            <p class="title">Time limit <span>(max: 30 seconds)</span></p>
+            <p class="subtitle">Controls the time limit before moving to the preserve state</p>
+            <input type="number" value="15" max="30">
+        </form>
+        <form class="card state-config" action="#" autocomplete="off">
+            <h2 class="heading full-width">PRESERVE</h2>
+            <p class="title">Time limit <span>(max: 30 seconds)</span></p>
+            <p class="subtitle">Controls how long to inject the alcohol</p>
+            <input type="number" value="15" max="30">
+        </form>
+    </div>
+</main>
+
+</body>
+
+</html>

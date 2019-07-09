@@ -10,7 +10,7 @@ public:
     using OPComponent::OPComponent;
     int control1, control2;
 
-    OPPump(String name, int control1, int control2) : OPComponent(name) {
+    OPPump(const char * name, int control1, int control2) : OPComponent(name) {
         this->control1 = control1;
         this->control2 = control2;
 		pinMode(control1, OUTPUT);

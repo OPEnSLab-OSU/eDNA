@@ -1,22 +1,18 @@
 #pragma once 
 #include "Arduino.h"
 
-/*
-    OPComponent defines two abstract methods that must be overrided by the subclass to
-    provide injection onto the main loop.
-    - setup()
-    - loop()
-*/
 class OPComponent {
 public:
-	String name;
+    friend class OPSystem;
+	const char * name;
     bool ready = true;
+	bool enable = true;
+	// OPSystem * system = nullptr;
     
     OPComponent() {}
-    OPComponent(String name) : name(name) {
+    OPComponent(const char * name) : name(name) {}
 
-    }
-    
+protected:
     virtual void setup() {
         // Serial.println("Init OPComponent");
     }
