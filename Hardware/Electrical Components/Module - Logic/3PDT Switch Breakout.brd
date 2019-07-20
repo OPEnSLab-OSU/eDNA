@@ -161,7 +161,11 @@
 <wire x1="15.22" y1="21.26" x2="0" y2="21.26" width="0" layer="20"/>
 <wire x1="0" y1="21.26" x2="0" y2="0" width="0" layer="20"/>
 <text x="0.508" y="9.398" size="1" layer="51" rot="R270">ON ON</text>
-<text x="11.938" y="15.113" size="0.6" layer="51">GND</text>
+<text x="6.731" y="14.986" size="0.8128" layer="21">GND</text>
+<text x="5.461" y="16.383" size="0.8128" layer="22" rot="MR270">Latch</text>
+<text x="10.668" y="16.383" size="0.8128" layer="22" rot="MR270">Wake_NoSleep</text>
+<text x="2.921" y="16.383" size="0.8128" layer="22" rot="MR270">SD</text>
+<text x="8.001" y="16.383" size="0.8128" layer="22" rot="MR270">GND</text>
 </plain>
 <libraries>
 <library name="eDNA">

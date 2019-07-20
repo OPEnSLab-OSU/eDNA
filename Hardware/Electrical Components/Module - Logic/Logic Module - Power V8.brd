@@ -2164,7 +2164,7 @@ design rules under a new name.</description>
 <element name="TO_SENSOR_BOARD2" library="adafruit" library_urn="urn:adsk.eagle:library:420" package="1X06-CLEANBIG" package3d_urn="urn:adsk.eagle:package:6240713/1" value="" x="68.54" y="19" smashed="yes" rot="R270">
 <attribute name="VALUE" x="65.365" y="26.62" size="1.27" layer="27" rot="R270"/>
 </element>
-<element name="Q2" library="SparkFun-DiscreteSemi" library_urn="urn:adsk.eagle:library:514" package="SOT23-3" package3d_urn="urn:adsk.eagle:package:38446/1" value="130mA/20V" x="38.01" y="8.23" smashed="yes" rot="R270">
+<element name="P_MOS" library="SparkFun-DiscreteSemi" library_urn="urn:adsk.eagle:library:514" package="SOT23-3" package3d_urn="urn:adsk.eagle:package:38446/1" value="130mA/20V" x="38.01" y="8.23" smashed="yes" rot="R270">
 <attribute name="NAME" x="38.01" y="9.881" size="1" layer="25" font="vector" ratio="10" align="bottom-center"/>
 <attribute name="PROD_ID" value="TRANS-11153" x="38.01" y="8.23" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
@@ -2382,7 +2382,7 @@ design rules under a new name.</description>
 <wire x1="70.0894" y1="5.0894" x2="70.0894" y2="23.8006" width="0.6096" layer="1"/>
 <wire x1="67" y1="2" x2="70.0894" y2="5.0894" width="0.6096" layer="1"/>
 <wire x1="70.0894" y1="23.8006" x2="68.54" y2="25.35" width="0.6096" layer="1"/>
-<contactref element="Q2" pad="2"/>
+<contactref element="P_MOS" pad="2"/>
 <wire x1="29.32" y1="4.72" x2="29.32" y2="6.87" width="0.6096" layer="1"/>
 <wire x1="29.32" y1="6.87" x2="29.71" y2="7.26" width="0.6096" layer="1"/>
 <wire x1="29.71" y1="7.26" x2="36.99" y2="7.26" width="0.6096" layer="1"/>
@@ -2500,7 +2500,7 @@ design rules under a new name.</description>
 <wire x1="39" y1="50" x2="39.7862" y2="50.7862" width="0.2032" layer="1"/>
 </signal>
 <signal name="WAKE_NOSLEEP">
-<contactref element="Q2" pad="1"/>
+<contactref element="P_MOS" pad="1"/>
 <contactref element="MS1" pad="10"/>
 <wire x1="37.01" y1="9.18" x2="37.01" y2="10.840525" width="0.2032" layer="1"/>
 <wire x1="37.01" y1="10.840525" x2="34.1872" y2="13.663325" width="0.2032" layer="1"/>
@@ -2587,7 +2587,7 @@ design rules under a new name.</description>
 <wire x1="40.98" y1="40.93" x2="38.5" y2="43.41" width="0.2032" layer="1"/>
 </signal>
 <signal name="N$2">
-<contactref element="Q2" pad="3"/>
+<contactref element="P_MOS" pad="3"/>
 <contactref element="R4" pad="2"/>
 <wire x1="37.64938125" y1="6.4228" x2="37.5528" y2="6.4228" width="0.2032" layer="1"/>
 <wire x1="37.5528" y1="6.4228" x2="35.26" y2="4.13" width="0.2032" layer="1"/>

@@ -16359,7 +16359,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="R4" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="R-US_" device="0204/7" package3d_urn="urn:adsk.eagle:package:6240596/1" value="200"/>
 <part name="LED1" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="LED" device="3MM" package3d_urn="urn:adsk.eagle:package:6240537/1" value="Orange"/>
 <part name="GND2" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND" device=""/>
-<part name="Q2" library="SparkFun-DiscreteSemi" library_urn="urn:adsk.eagle:library:514" deviceset="MOSFET_PCH" device="-IRLML2244" package3d_urn="urn:adsk.eagle:package:38446/1" value="130mA/20V"/>
+<part name="P_MOS" library="SparkFun-DiscreteSemi" library_urn="urn:adsk.eagle:library:514" deviceset="MOSFET_PCH" device="-IRLML2244" package3d_urn="urn:adsk.eagle:package:38446/1" value="130mA/20V"/>
 <part name="LED" library="eDNA" deviceset="2.5MM_JST_UP_2POS" device=""/>
 <part name="MS1" library="adafruit" deviceset="FEATHERWING" device="" package3d_urn="urn:adsk.eagle:package:6240959/1"/>
 <part name="+3V3" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
@@ -16442,7 +16442,7 @@ To measure battery voltage</text>
 <instance part="GND2" gate="1" x="-5.08" y="-40.64" smashed="yes">
 <attribute name="VALUE" x="-5.08" y="-40.894" size="1.778" layer="96" align="top-center"/>
 </instance>
-<instance part="Q2" gate="G$1" x="-2.54" y="-15.24" smashed="yes" rot="R180">
+<instance part="P_MOS" gate="G$1" x="-2.54" y="-15.24" smashed="yes" rot="R180">
 <attribute name="NAME" x="-7.62" y="-15.24" size="1.778" layer="95" font="vector" rot="R180"/>
 <attribute name="VALUE" x="-7.62" y="-12.7" size="1.778" layer="96" font="vector" rot="R180"/>
 </instance>
@@ -16693,7 +16693,7 @@ To measure battery voltage</text>
 <pinref part="P+6" gate="1" pin="+5V"/>
 </segment>
 <segment>
-<pinref part="Q2" gate="G$1" pin="S"/>
+<pinref part="P_MOS" gate="G$1" pin="S"/>
 <wire x1="-5.08" y1="-7.62" x2="-5.08" y2="-10.16" width="0.1524" layer="91"/>
 <pinref part="P+4" gate="1" pin="+5V"/>
 </segment>
@@ -16822,7 +16822,7 @@ To measure battery voltage</text>
 <segment>
 <wire x1="2.54" y1="-12.7" x2="7.62" y2="-12.7" width="0.1524" layer="91"/>
 <label x="17.78" y="-10.16" size="1.778" layer="95" rot="R180"/>
-<pinref part="Q2" gate="G$1" pin="G"/>
+<pinref part="P_MOS" gate="G$1" pin="G"/>
 </segment>
 <segment>
 <pinref part="MS1" gate="G$1" pin="GPIOA5"/>
@@ -16897,7 +16897,7 @@ To measure battery voltage</text>
 </net>
 <net name="N$2" class="0">
 <segment>
-<pinref part="Q2" gate="G$1" pin="D"/>
+<pinref part="P_MOS" gate="G$1" pin="D"/>
 <pinref part="R4" gate="G$1" pin="2"/>
 </segment>
 </net>
