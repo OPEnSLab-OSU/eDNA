@@ -7589,7 +7589,7 @@ SparkFun BigTime Watch Kit&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
 <pin name="VDD" x="20.32" y="-2.54" length="middle" direction="pwr" rot="R180"/>
 <pin name="PS" x="20.32" y="0" length="middle" direction="in" rot="R180"/>
 <pin name="SDI/SDA" x="20.32" y="2.54" length="middle" direction="in" rot="R180"/>
-<pin name="SDA" x="20.32" y="5.08" length="middle" direction="out" rot="R180"/>
+<pin name="SDO" x="20.32" y="5.08" length="middle" direction="out" rot="R180"/>
 <wire x1="-15.24" y1="10.16" x2="-15.24" y2="-7.62" width="0.1524" layer="94"/>
 <wire x1="-15.24" y1="-7.62" x2="15.24" y2="-7.62" width="0.1524" layer="94"/>
 <wire x1="15.24" y1="-7.62" x2="15.24" y2="10.16" width="0.1524" layer="94"/>
@@ -7652,8 +7652,8 @@ https://www.digikey.com/product-detail/en/te-connectivity-measurement-specialtie
 <connect gate="A" pin="NC" pad="4"/>
 <connect gate="A" pin="PS" pad="6"/>
 <connect gate="A" pin="SCLK" pad="1"/>
-<connect gate="A" pin="SDA" pad="8"/>
 <connect gate="A" pin="SDI/SDA" pad="7"/>
+<connect gate="A" pin="SDO" pad="8"/>
 <connect gate="A" pin="VDD" pad="5"/>
 </connects>
 <technologies>
@@ -8458,9 +8458,9 @@ https://www.digikey.com/product-detail/en/te-connectivity-measurement-specialtie
 <label x="91.44" y="-60.96" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="PRESSURE_SENSOR" gate="A" pin="SDA"/>
-<wire x1="165.1" y1="-40.64" x2="175.26" y2="-40.64" width="0.1524" layer="91"/>
-<label x="172.72" y="-40.64" size="1.778" layer="95"/>
+<pinref part="PRESSURE_SENSOR" gate="A" pin="SDI/SDA"/>
+<wire x1="165.1" y1="-43.18" x2="175.26" y2="-43.18" width="0.1524" layer="91"/>
+<label x="172.72" y="-43.18" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="BUTTON1" class="0">
@@ -8476,12 +8476,6 @@ https://www.digikey.com/product-detail/en/te-connectivity-measurement-specialtie
 <pinref part="R9" gate="G$1" pin="1"/>
 <wire x1="-40.64" y1="-53.34" x2="-40.64" y2="-48.26" width="0.1524" layer="91"/>
 <junction x="-40.64" y="-53.34"/>
-</segment>
-</net>
-<net name="N$11" class="0">
-<segment>
-<pinref part="PRESSURE_SENSOR" gate="A" pin="SDI/SDA"/>
-<wire x1="165.1" y1="-43.18" x2="175.26" y2="-43.18" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$1" class="0">

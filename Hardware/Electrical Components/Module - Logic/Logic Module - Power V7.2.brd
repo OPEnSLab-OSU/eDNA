@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="50" unitdist="mil" unit="mm" style="lines" multiple="1" display="no" altdistance="5" altunitdist="mil" altunit="mm"/>
+<grid distance="0.5" unitdist="mm" unit="mm" style="lines" multiple="1" display="no" altdistance="5" altunitdist="mil" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="16" fill="1" visible="no" active="yes"/>
@@ -158,14 +158,14 @@
 </layers>
 <board>
 <plain>
-<wire x1="0" y1="0" x2="65" y2="0" width="0" layer="20"/>
-<wire x1="65" y1="0" x2="65" y2="70" width="0" layer="20"/>
-<wire x1="65" y1="70" x2="0" y2="70" width="0" layer="20"/>
-<wire x1="0" y1="70" x2="0" y2="0" width="0" layer="20"/>
-<hole x="2" y="2" drill="3"/>
-<hole x="2" y="68" drill="3"/>
-<hole x="63" y="68" drill="3"/>
-<hole x="63" y="2" drill="3"/>
+<wire x1="-2.5" y1="0" x2="68" y2="0" width="0" layer="20"/>
+<wire x1="68" y1="0" x2="68" y2="70" width="0" layer="20"/>
+<wire x1="68" y1="70" x2="-2.5" y2="70" width="0" layer="20"/>
+<wire x1="-2.5" y1="70" x2="-2.5" y2="0" width="0" layer="20"/>
+<hole x="-0.5" y="2" drill="3"/>
+<hole x="-0.5" y="68" drill="3"/>
+<hole x="66" y="68" drill="3"/>
+<hole x="66" y="2" drill="3"/>
 <text x="19.05" y="2.794" size="0.8" layer="21">3V3</text>
 <text x="8.763" y="2.794" size="0.8" layer="21">CLR</text>
 <text x="12.827" y="2.794" size="0.8" layer="21">RTC_INT</text>
@@ -40161,11 +40161,11 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <wire x1="12.7" y1="44.45" x2="16.51" y2="44.45" width="0.6096" layer="1"/>
 <wire x1="16.51" y1="44.45" x2="22.86" y2="50.8" width="0.6096" layer="16"/>
 <wire x1="22.86" y1="50.8" x2="36.83" y2="50.8" width="0.6096" layer="16"/>
-<wire x1="3.5" y1="31.19" x2="7.037" y2="31.19" width="0.2032" layer="16"/>
-<wire x1="7.037" y1="31.19" x2="8.001" y2="30.226" width="0.2032" layer="16"/>
-<wire x1="8.001" y1="30.226" x2="8.001" y2="19.939" width="0.2032" layer="16"/>
-<wire x1="19.732" y1="8.208" x2="19.732" y2="6.35" width="0.2032" layer="16"/>
-<wire x1="8.001" y1="19.939" x2="19.732" y2="8.208" width="0.2032" layer="16"/>
+<wire x1="3.5" y1="31.19" x2="1.001" y2="28.691" width="0.2032" layer="16"/>
+<wire x1="1.001" y1="28.691" x2="1.001" y2="17.439" width="0.2032" layer="16"/>
+<wire x1="19.732" y1="6.35" x2="16.232" y2="9.85" width="0.2032" layer="16"/>
+<wire x1="16.232" y1="9.85" x2="8.59" y2="9.85" width="0.2032" layer="16"/>
+<wire x1="8.59" y1="9.85" x2="1.001" y2="17.439" width="0.2032" layer="16"/>
 <contactref element="P_MOS" pad="2"/>
 <wire x1="19.732" y1="6.35" x2="22.51" y2="9.128" width="0.2032" layer="1"/>
 <wire x1="22.51" y1="9.128" x2="25.72" y2="9.128" width="0.2032" layer="1"/>
@@ -40215,18 +40215,16 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <contactref element="TO_POWER_BOARD" pad="3"/>
 <contactref element="TO_POWER_BOARD" pad="4"/>
 <polygon width="0.6096" layer="16">
-<vertex x="0" y="69.85"/>
-<vertex x="64.77" y="69.85"/>
-<vertex x="64.77" y="41.91"/>
+<vertex x="-2.5" y="69.85"/>
+<vertex x="67.77" y="69.85"/>
+<vertex x="67.77" y="44.91"/>
 <vertex x="60.96" y="38.1"/>
 <vertex x="34.29" y="38.1"/>
 <vertex x="33.02" y="36.83"/>
 <vertex x="33.02" y="11.43"/>
-<vertex x="57.15" y="11.43"/>
-<vertex x="64.77" y="11.43"/>
-<vertex x="64.77" y="0"/>
-<vertex x="1.27" y="0"/>
-<vertex x="0" y="0"/>
+<vertex x="67.77" y="11.43"/>
+<vertex x="67.77" y="0"/>
+<vertex x="-2.5" y="0"/>
 </polygon>
 <wire x1="26.518" y1="38.1" x2="24.13" y2="38.1" width="0.6096" layer="1"/>
 <wire x1="24.13" y1="38.1" x2="22.86" y2="36.83" width="0.6096" layer="1"/>
@@ -40240,8 +40238,8 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <contactref element="U$1" pad="5"/>
 <polygon width="0.254" layer="1">
 <vertex x="12.7" y="54.61"/>
-<vertex x="0" y="54.61"/>
-<vertex x="0" y="45.72"/>
+<vertex x="0.5" y="54.61"/>
+<vertex x="0.5" y="45.72"/>
 <vertex x="7.62" y="45.72"/>
 <vertex x="7.62" y="50.8"/>
 <vertex x="12.7" y="50.8"/>
