@@ -24334,7 +24334,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <parts>
 <part name="D1" library="beach" deviceset="ZENER-DO219" device="" value="4.3V"/>
 <part name="R1" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="R-US_" device="R1206" package3d_urn="urn:adsk.eagle:package:6240569/1" value="128k"/>
-<part name="R2" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="R-US_" device="R1206" package3d_urn="urn:adsk.eagle:package:6240569/1" value="300k"/>
+<part name="R2" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="R-US_" device="R1206" package3d_urn="urn:adsk.eagle:package:6240569/1" value="30k"/>
 <part name="R3" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="R-US_" device="R1206" package3d_urn="urn:adsk.eagle:package:6240569/1" value="10k"/>
 <part name="C1" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="C-US" device="C1206" package3d_urn="urn:adsk.eagle:package:6240335/1" value="0.1uF"/>
 <part name="P+1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+12V" device=""/>
@@ -24363,7 +24363,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="P+6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 <part name="JP1" library="pinhead" library_urn="urn:adsk.eagle:library:325" deviceset="PINHD-1X7" device="" package3d_urn="urn:adsk.eagle:package:22477/2"/>
 <part name="P+7" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+12V" device=""/>
-<part name="R5" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="R-US_" device="R1206" package3d_urn="urn:adsk.eagle:package:6240569/1" value="10K"/>
+<part name="R5" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="R-US_" device="R1206" package3d_urn="urn:adsk.eagle:package:6240569/1" value="300k"/>
 <part name="U3" library="eDNA" deviceset="LM2575SX-5.0/NOPB" device=""/>
 <part name="D3" library="SparkFun-LED" library_urn="urn:adsk.eagle:library:529" deviceset="LED-RED" device="1206" package3d_urn="urn:adsk.eagle:package:39352/1" value="RED"/>
 <part name="R6" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="R-US_" device="R1206" package3d_urn="urn:adsk.eagle:package:6240569/1" value="1k-3k"/>
@@ -24372,6 +24372,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="J2" library="SparkFun-Connectors" library_urn="urn:adsk.eagle:library:513" deviceset="CONN_05" device="" package3d_urn="urn:adsk.eagle:package:38104/1"/>
 <part name="JP2" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="PINHD-1X1" device="" package3d_urn="urn:adsk.eagle:package:6240654/1"/>
 <part name="GND3" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND" device=""/>
+<part name="C4" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="C-US" device="C1206" package3d_urn="urn:adsk.eagle:package:6240335/1" value="0.1uF"/>
 </parts>
 <sheets>
 <sheet>
@@ -24386,6 +24387,13 @@ Vcc to GND</text>
 <wire x1="50.8" y1="55.88" x2="50.8" y2="54.61" width="0.1524" layer="97"/>
 <text x="52.07" y="58.42" size="1.778" layer="97">Connected in normal operation</text>
 <text x="38.1" y="50.8" size="1.778" layer="97">N_Mosfet</text>
+<text x="-15.24" y="81.28" size="1.778" layer="91">Voltage measured at VCC of Flipflop during
+normal operation (2.2V) and override (2.0V)
+Current draw at idle normal operation (6.32mA)
+and override (6.32mA)</text>
+<text x="88.9" y="43.18" size="1.778" layer="97">R5 must be much larger than R2
+Pull up power need to be larger than 
+floating RTC_READ when the Feather is as sleep</text>
 </plain>
 <instances>
 <instance part="D1" gate="G$1" x="91.44" y="83.82" smashed="yes" rot="R90">
@@ -24494,9 +24502,9 @@ Vcc to GND</text>
 <instance part="P+7" gate="1" x="149.86" y="66.04" smashed="yes">
 <attribute name="VALUE" x="147.32" y="60.96" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="R5" gate="G$1" x="60.96" y="48.26" smashed="yes" rot="R90">
-<attribute name="NAME" x="59.4614" y="44.45" size="1.778" layer="95" rot="R90"/>
-<attribute name="VALUE" x="64.262" y="44.45" size="1.778" layer="96" rot="R90"/>
+<instance part="R5" gate="G$1" x="68.58" y="48.26" smashed="yes" rot="R90">
+<attribute name="NAME" x="67.0814" y="44.45" size="1.778" layer="95" rot="R90"/>
+<attribute name="VALUE" x="71.882" y="44.45" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="U3" gate="A" x="45.72" y="137.16" smashed="yes">
 <attribute name="NAME" x="43.5356" y="148.8186" size="2.0828" layer="95" ratio="6" rot="SR0"/>
@@ -24526,6 +24534,10 @@ Vcc to GND</text>
 </instance>
 <instance part="GND3" gate="1" x="157.48" y="40.64" smashed="yes">
 <attribute name="VALUE" x="157.48" y="40.386" size="1.778" layer="96" align="top-center"/>
+</instance>
+<instance part="C4" gate="G$1" x="60.96" y="50.8" smashed="yes">
+<attribute name="NAME" x="55.626" y="49.149" size="1.778" layer="95"/>
+<attribute name="VALUE" x="55.88" y="45.847" size="1.778" layer="96"/>
 </instance>
 </instances>
 <busses>
@@ -24558,12 +24570,15 @@ Vcc to GND</text>
 <label x="154.94" y="139.7" size="1.778" layer="95" rot="R180" xref="yes"/>
 </segment>
 <segment>
-<label x="70.612" y="50.292" size="1.778" layer="95"/>
+<label x="75.692" y="50.292" size="1.778" layer="95"/>
 <pinref part="R5" gate="G$1" pin="2"/>
-<wire x1="60.96" y1="53.34" x2="71.12" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="68.58" y1="53.34" x2="76.2" y2="53.34" width="0.1524" layer="91"/>
 <pinref part="MOSFET" gate="G$1" pin="D"/>
 <wire x1="50.8" y1="50.8" x2="50.8" y2="53.34" width="0.1524" layer="91"/>
 <wire x1="50.8" y1="53.34" x2="60.96" y2="53.34" width="0.1524" layer="91"/>
+<junction x="68.58" y="53.34"/>
+<pinref part="C4" gate="G$1" pin="1"/>
+<wire x1="60.96" y1="53.34" x2="68.58" y2="53.34" width="0.1524" layer="91"/>
 <junction x="60.96" y="53.34"/>
 </segment>
 <segment>
@@ -24613,7 +24628,12 @@ Vcc to GND</text>
 <segment>
 <pinref part="MOSFET" gate="G$1" pin="S"/>
 <pinref part="GND4" gate="1" pin="GND"/>
-<wire x1="50.8" y1="40.64" x2="50.8" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="40.64" x2="50.8" y2="38.1" width="0.1524" layer="91"/>
+<pinref part="C4" gate="G$1" pin="2"/>
+<wire x1="50.8" y1="38.1" x2="50.8" y2="30.48" width="0.1524" layer="91"/>
+<wire x1="60.96" y1="45.72" x2="60.96" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="60.96" y1="38.1" x2="50.8" y2="38.1" width="0.1524" layer="91"/>
+<junction x="50.8" y="38.1"/>
 </segment>
 <segment>
 <pinref part="R4" gate="G$1" pin="1"/>
@@ -24835,8 +24855,8 @@ Vcc to GND</text>
 </segment>
 <segment>
 <pinref part="R5" gate="G$1" pin="1"/>
-<wire x1="60.96" y1="43.18" x2="71.12" y2="43.18" width="0.1524" layer="91"/>
-<label x="70.612" y="40.386" size="1.778" layer="95"/>
+<wire x1="68.58" y1="43.18" x2="76.2" y2="43.18" width="0.1524" layer="91"/>
+<label x="75.692" y="40.386" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$7" class="0">
