@@ -1,373 +1,590 @@
-#include "ArduinoJson.h"
-#include "OPPower.hpp"
-#include "OPPump.hpp"
-#include "OPSerialBuffer.hpp"
-#include "OPServer.hpp"
-#include "OPShiftRegister.hpp"
-#include "OPSDCard.hpp"
-#include "OPSystemEnvironment.hpp"
-#include "SSC.h"
+#include "KPLogging.hpp"
+#include "KPPowerManagement.hpp"
+#include "KPPump.hpp"
+#include "KPSDCard.hpp"
+#include "KPSensorManager.hpp"
+#include "KPSerialCommand.hpp"
+#include "KPServer.hpp"
+#include "KPShiftRegister.hpp"
+#include "KPSystemEnvironment.hpp"
+#include "KPTaskManager.hpp"
 
-// Water 	0, 0
-// Air 		0, 1
-// Alcohol 	0, 2
-// Flush 	0, 3
+#define BitCount 32
 
-OPServer web("web", "eDNA", "password");
-OPShiftRegister shift("shift", 32, 12, 11, 9); // [5, 9, 11, Old Board], [5, 9, 10, For LED TPICs]
-OPPump pump("pump", 12, 13);
-OPPower power("power");
-OPSDCard card("card");
-OPSerialBuffer serialBuffer("serial-buffer");
-SSC pressureSensor(0x08);
+KPSDCard card;
+KPPump pump("pump", Motor_Forward_Pin, Motor_Reverse_Pin);
+KPShiftRegister shift(BitCount, Shift_Register_Data_Pin, Shift_Register_Clock_Pin, Shift_Register_Latch_Pin);
+KPServer web("web", "eDNA", "password");
+KPSerialCommand serial_command;
+KPPowerManagement power;
 
-bool psEnable = false;
-enum class StateIdentifier {flush, sample, clean, preserve, stop, idle};
+KPSensorManager sensor_manager;
+KPLogging logging_system;
 
-class StopState : public State {
+//===============================================
+// [+_+] Shift Register devices
+//===============================================
+enum ShiftDevice { Air = 2,
+                   Alcohol = 3,
+                   Flush = 4 };
+
+//===============================================
+// [+_+] Stop KPState
+//===============================================
+class StopState : public KPState {
 public:
-	void update(OPSystem & system) {
-		Status & status = Status::current();
-		if (system.isInitialTransition()) {
-			pump.off();
+    void update(KPStateMachine & machine) override {
+        KPStatus & status = KPStatus::current();
+        if (timeSinceLastTransition() >= 2) {
+            pump.off();
+            shift.writeZeros();
+            shift.writeLatchOut();
+
+            if (status.valveCurrent <= status.valveLowerBound) {
+                status.valveCurrent = status.valveLowerBound;
+                status.isFull = true;
+            } else {
+				status.valves[status.valveCurrent] = 0;
+                status.valveCurrent--;
+                // power.scheduleNextAlarm(status.samplingInteval);
+            }
+
+            machine.transitionTo(KPStateIdentifier::idle);
+            Serial.println(F("Transitioning to Idle"));
+        }
+    }
+};
+
+//===============================================
+// [+_+] Decontamination KPState
+//===============================================
+class DecontaminateState3 : public KPState {
+public:
+	int count = 0;
+
+	void update(KPStateMachine & machine) override {
+		if (isInitialTransition()) {
+			shift.writeZeros();
+			shift.writeLatchOut();
+			shift.set(Alcohol, HIGH);
+			shift.set(Flush, HIGH);
+			shift.flush();
+			pump.on();
+			count++;
+		} 
+		
+		// Alcohol intake for 3 seconds
+		if (timeSinceLastTransition() >= 3) {
+			shift.set(Alcohol, LOW);
+			shift.flush();
+			pump.on(Direction::reverse);
 		}
 
-		if (system.timeSinceLastTransition() >= 2000) {
-			shift.setZeros();
-			shift.flush();
-
-			if (status.currentValve >= status.endValve) {
-				status.currentValve = status.endValve + 1;
-				status.isFull = true;
+		// Purge the system for 12 seconds
+		if (timeSinceLastTransition() >= 15) {
+			if (count == 2) {
+				count = 0;
+				machine.transitionTo(KPStateIdentifier::stop);
 			} else {
-				status.currentValve++;
-				power.scheduleNextAlarm(status.samplingInteval);
+				machine.transitionTo(KPStateIdentifier::decontaminate2);
 			}
-
-			system.transitionTo(StateIdentifier::idle);
-			Serial.println(F("Transitioning to Idle"));
 		}
 	}
 };
 
-class PreserveState : public State {
-public:
-	void update(OPSystem & system) {
-		if (system.isInitialTransition()) {
-			int r = shift.registerIndex(Status::current().currentValve) + 1;
-			int b = shift.bitIndex(Status::current().currentValve);
-
-			shift.setZeros();               // Reset TPIC Values
-			shift.setRegister(0, 2, HIGH);  // Alcohol Intake
-			shift.setRegister(r, b, HIGH);  // Filter
+class DecontaminateState2 : public KPState {
+public: 
+	void update(KPStateMachine & machine) override {
+		if (isInitialTransition()) {
+			// Turn off all the valves except the Air intake and rise the pressure until 15 psi
+			shift.setZeros();
+			shift.set(Air, HIGH);
 			shift.flush();
 			pump.on();
 		}
 
-		// Transitioning Condition
-		if (system.timeSinceLastTransition() >= 7000) {
-			system.transitionTo(StateIdentifier::stop);
-			Serial.println(F("Transitioning to Stop"));
+		if (KPStatus::current().pressure >= 15) {
+			pump.off();
+            shift.set(Flush, HIGH);
+            shift.flush();
+			delay(3000);
+
+			machine.transitionTo(KPStateIdentifier::decontaminate3);
 		}
 	}
 };
 
-class CleanState : public State {
+
+class DecontaminateState1 : public KPState {
 public:
-	void update(OPSystem  & system) {
-		Status & status = Status::current();
-		if (system.isInitialTransition()) {
-			int r = shift.registerIndex(status.currentValve) + 1;
-			int b = shift.bitIndex(status.currentValve);
 
-			shift.setZeros();               // Reset TPIC Values
-			shift.setRegister(0, 1, HIGH);  // Air Intake
-			shift.setRegister(r, b, HIGH);  // Filter
-			shift.flush();
-			pump.on();
-		}
+    void update(KPStateMachine & machine) override {
+        auto status = KPStatus::current();
+        if (isInitialTransition()) {
+            // Turn everything off
+            pump.off();
+            shift.writeLatchOut();
+            shift.setZeros();
+            shift.flush();
 
-		if (system.timeSinceLastTransition() >= 10000) {
-			system.transitionTo(StateIdentifier::preserve);
-			Serial.println(F("Transitioning to Preserve"));
-		}
-	}
+            // Turn on the flush valve, the air intake, and the pump to clean out the main pipe
+            shift.set(Flush, HIGH);
+            shift.set(Air, HIGH);
+            shift.flush();
+            pump.on();
+        }
+
+        // After 10 seconds, get rid of the water between the filter and the main pipe
+        if (timeSinceLastTransition() >= 10) {
+            // Rise the pressure in the system to 1.7 psi
+            pump.pwm(0.75);
+            shift.set(Flush, LOW);
+            shift.flush();
+
+            if (status.pressure >= 1.7) {
+                int r = shift.registerIndex(status.valveCurrent) + 1;
+                int b = shift.bitIndex(status.valveCurrent);
+
+                pump.off();
+                shift.setRegister(r, b, HIGH);
+                shift.flush();
+				delay(50);
+
+				machine.transitionTo(KPStateIdentifier::decontaminate2);
+            }
+        }
+    }
 };
 
-class SampleState: public State {
+//===============================================
+// [+_+] Preserve KPState
+//===============================================
+class PreserveState : public KPState {
 public:
-	
-	unsigned long timeLimit = 1500000;
-	int pressureLimit = 8;
+    PreserveState() {
+        timeLimit = 15;
+        timeMax = MinsToSecs(1);
+    }
 
-	void update(OPSystem & system) {
-		Status status = Status::current();
-		if (system.isInitialTransition()) {
-			int r = shift.registerIndex(status.currentValve) + 1;
-			int b = shift.bitIndex(status.currentValve);
+    void update(KPStateMachine & machine) override {
+        if (isInitialTransition()) {
+            int r = shift.registerIndex(KPStatus::current().valveCurrent) + 1;
+            int b = shift.bitIndex(KPStatus::current().valveCurrent);
 
-			shift.setZeros();               // Reset TPIC Values
-			shift.setRegister(0, 0, HIGH);  // Water Intake
-			shift.setRegister(r, b, HIGH);  // Filter
-			shift.flush();
-			pump.on();
-		}
+            shift.writeLatchOut();
+            shift.setZeros();
+            shift.set(Alcohol, HIGH);
+            shift.setRegister(r, b, HIGH);  // Filter
+            shift.flush();
+            pump.on();
+        }
 
-		// Transition to clean when the pressure exceeds 8 PSI or when exceeds 15 seconds
-		if (system.timeSinceLastTransition() >= timeLimit || pressureSensor.pressure() >= pressureLimit) {
-			system.transitionTo(StateIdentifier::clean);
-			Serial.println(F("Transitioning to Clean"));
-		}
-	}
-
-	void loadFrom(JsonDocument & doc) override {
-		JsonObject obj = doc[name];
-		int timeLimit = obj[JsonKey::JSON_TIME_LIMIT];
-		int pressureLimit = obj[JsonKey::JSON_PRESSURE_LIMIT];
-		Serial.println(timeLimit);
-		Serial.println(pressureLimit);
-	}
-
-	void saveTo(JsonDocument & doc) override {
-		JsonObject obj = doc.createNestedObject(name);
-		obj[JsonKey::JSON_TIME_LIMIT] = timeLimit;
-		obj[JsonKey::JSON_PRESSURE_LIMIT] = pressureLimit;
-	}
+        if (timeSinceLastTransition() >= timeLimit) {
+            machine.transitionTo(KPStateIdentifier::decontaminate1);
+            Serial.println(F("Transitioning to Stop"));
+        }
+    }
 };
 
-class FlushState: public State {
+//===============================================
+// [+_+] Clean KPState
+//===============================================
+class DryState : public KPState {
 public:
-	void update(OPSystem & system) {
-		if (system.isInitialTransition()) {
-			shift.setZeros();               // Reset TPIC Values
-			shift.setRegister(0, 0, HIGH);  // Water Intake
-			shift.setRegister(0, 3, HIGH);  // Flush Valve
-			shift.flush();
-			pump.on();
-		}
+    void update(KPStateMachine & machine) override {
+        KPStatus & status = KPStatus::current();
+        if (isInitialTransition()) {
+            int r = shift.registerIndex(status.valveCurrent) + 1;
+            int b = shift.bitIndex(status.valveCurrent);
 
-		if (system.timeSinceLastTransition() >= 10000) {
-			system.transitionTo(StateIdentifier::sample);
-			Serial.println(F("Transitioning to Sample"));
-		}
-	}
+            shift.setZeros();
+            shift.set(Air, HIGH);
+            shift.setRegister(r, b, HIGH);  // Filter
+            shift.flush();
+            pump.on();
+        }
+
+        if (timeSinceLastTransition() >= 10) {
+            machine.transitionTo(KPStateIdentifier::preserve);
+            Serial.println(F("Transitioning to Preserve"));
+        }
+    }
 };
 
-void prepare() {
-	// <==> Serial <==>
-	Serial.begin(9600); delay(5000);
+//===============================================
+// [+_+] Sample KPState
+//===============================================
+class SampleState : public KPState {
+public:
+    SampleState() {
+        timeLimit = MinsToSecs(3);
+        timeMax = MinsToSecs(20);
+        pressureLimit = 8;
+        pressureMax = 15;
+        volumeLimit = 1000;
+        volumeMax = 5000;
+    }
 
-	// <==> States <==>
-	app.registerState<FlushState>(StateIdentifier::flush, "flush-state");
-	app.registerState<SampleState>(StateIdentifier::sample, "sample-state");
-	app.registerState<CleanState>(StateIdentifier::clean, "clean-state");
-	app.registerState<PreserveState>(StateIdentifier::preserve, "preserve-state");
-	app.registerState<StopState>(StateIdentifier::stop, "stop-state");
-	app.registerState<IdleState>(StateIdentifier::idle, "idle-state");
+    void update(KPStateMachine & machine) override {
+        KPStatus status = KPStatus::current();
+        if (isInitialTransition()) {
+            int r = shift.registerIndex(status.valveCurrent) + 1;
+            int b = shift.bitIndex(status.valveCurrent);
 
-	// <==> Web: HTTP Routering <==>
-	web.get("/", [](Request & req, Response & res) {
-		int limit = 0;
-		const int size = 4096;
-		char homepage[size]{0};
-		while (card.loadContentsOfFile("index.htm", homepage, size) && limit < 20) {
-			res.send(homepage);
-			limit++;
-		}
+            shift.setZeros();
+            shift.writeLatchIn();
+            shift.setRegister(r, b, HIGH);  // Filter
+            shift.flush();
+            pump.on();
+        }
 
-		res.end();
-		printFreeRam();
-	});
+        // Transition to clean when the pressure exceeds 8 PSI or when exceeds 15 seconds
+        if (timeSinceLastTransition() >= timeLimit || status.pressure >= pressureLimit) {
+            machine.transitionTo(KPStateIdentifier::dry);
+            shift.writeLatchOut();
+            Serial.println(F("Transitioning to Clean"));
+        }
+    }
+};
 
-	// web.get("/", [](Request & req, Response & res) {
-	// 	if (web.homepage == nullptr) {
-	// 		web.homepage = card.loadContentsOfFile("index.htm");
-	// 	}
-	
-	// 	res.send(web.homepage);
-	// 	res.end();
-	// 	printFreeRam();
-	// });
+//===============================================
+// [+_+] Flush KPState
+//===============================================
+class FlushState : public KPState {
+public:
+    FlushState() {
+        timeLimit = 120;
+        timeMax = MinsToSecs(7);
+        volumeLimit = 1000;
+        volumeMax = 5000;
+    }
 
-	web.get("/status", [](Request & req, Response & res) {
-		Status & status = Status::current();
+    void update(KPStateMachine & machine) override {
+        if (isInitialTransition()) {
+			shift.setZeros();				// Reset TPIC values
+            shift.writeLatchIn();
+            shift.set(Flush, HIGH);
+            shift.flush();
+			pump.on();
+        }
+
+        if (timeSinceLastTransition() >= timeLimit) {
+            machine.transitionTo(KPStateIdentifier::sample);
+            Serial.println(F("Transitioning to Sample"));
+        }
+    }
+};
+
+//===============================================
+// [+_+] HTTP Routings
+//===============================================
+void setupWebServerHPPTRoutings() {
+    // GET | Homepage
+    web.get("/", [](Request & req, Response & res) {
+        res.contentType = "text/html";
+        res.serveContentFromFile("index.htm", card);
+        res.end();
+        printFreeRam();
+    });
+
+    // GET | Reponse with current status of the system in JSON
+    web.get("/status", [](Request & req, Response & res) {
+        res.contentType = "application/json";
+        KPStatus & status = KPStatus::current();
+
+        const int size = 1000;
+        StaticJsonDocument<size> doc;
+
+        using namespace JsonKey;
+        doc[stateName] 				= app.getCurrentStateName();
+        doc[stateId] 				= static_cast<int>(app.getCurrentStateId());
+        doc[valveBegin] 			= status.valveBegin;
+        doc[valveLowerBound] 		= status.valveLowerBound;
+        doc[valveUpperBound] 		= status.valveUpperBound;
+        doc[valveCurrent] 			= status.valveCurrent;
+        doc[pressure] 				= status.pressure;
+        doc[temperature] 			= status.temperature;
+        doc[waterFlow] 				= status.waterFlow;
+		doc["barometric"]			= status.barometric;
+		doc[waterDepth]				= status.waterDepth;
+		doc[timeUTC]				= now();
+
+        JsonArray valveArray = doc.createNestedArray(valves);
+        copyArray(status.valves, valveArray);
+
+        char buffer[size];
+        serializeJson(doc, buffer);
+
+        res.send(buffer);
+        res.end();
+
+        serializeJsonPretty(doc, Serial);
+        printFreeRam();
+    });
+
+    // POST | Select and transition to the given state name specified in the JSON document
+    web.post("/select-state", [](Request & req, Response & res) {
+        StaticJsonDocument<300> doc;
+        deserializeJson(doc, req.body);
+        Serial.println();
+		res.contentType = "text/plain";
+        // serializeJsonPretty(doc, Serial);
+
+        const char * name = doc["name"];
+        for (int i = 0; i < app.statesCount(); i++) {
+            KPState & state = app.getStateForIndex(i);
+            if (strcmp(state.name, name) == 0) {
+                app.transitionTo(state.id);
+				println("Transitioning to", name, "state");
+				res.send("success");
+                res.end();
+                return;
+            }
+        }
+
+        res.send("Not Found");
+        res.end();
+    });
+
+    web.post("/setTime", [](Request & req, Response & res) {
+        StaticJsonDocument<JSON_OBJECT_SIZE(5)> doc;
+        deserializeJson(doc, req.body);
+        ulong utcTime = doc[JsonKey::timeUTC];
+        Serial.println(utcTime);
+        power.set(utcTime);
+        res.end();
+    });
+
+    web.post("/saveTask", [](Request & req, Response & res) {
+        StaticJsonDocument<TaskDocumentSize> doc;
+        deserializeJson(doc, req.body);
+
+        JsonObject taskJson = doc.as<JsonObject>();
+        KPTask task(taskJson);
+
+        // Check if task configuration is valid
+        if (!task.validate()) {
+            res.send("Failed: Invalid configuration");
+            res.end();
+            return;
+        }
+
+        // Check against current scheduled tasks
+        StaticJsonDocument<TaskRefSize * 24> taskrefs;
+        app.loadJsonFromStorage("active", taskrefs);
+        for (JsonVariant v : taskrefs.as<JsonArray>()) {
+            if (v["id"] == task.id) {
+                res.send("Task is on schedule, please stop the task before making changes");
+                return;
+            }
+        }
+
+        // Replace the task file in the SD Card
+        app.updateTaskFile(task);
+        res.end();
+    });
+
+    web.post("/stopTask", [](Request & req, Response & res) {
 		res.contentType = "application/json";
-
-		const size_t size = JSON_OBJECT_SIZE(11);
-		StaticJsonDocument<size> doc;
-		doc["state-name"] = app.getCurrentStateName();
-		doc["state-id"] = static_cast<int>(app.getCurrentState()->state->id);
-		doc["valve-begin"] = status.startValve;
-		doc["valve-current"] = status.currentValve;
-		doc["valve-end"] = status.endValve;
-		doc["valve-max"] = status.maxValve;
-		doc["pressure"] = psEnable ? pressureSensor.pressure() : 0;
-		doc["temperature"] = psEnable ? pressureSensor.temperature() : 0;
-		doc["routine-interval"] = status.samplingInteval;
-		char output[size];
-		serializeJson(doc, output);
-		res.send(output);
+        StaticJsonDocument<TaskDocumentSize> doc;
+        deserializeJson(doc, req.body);
+        JsonObject taskJson = doc.as<JsonObject>();
+        if (app.currentTask.validate() && taskJson["id"] == app.currentTask.id && app.getCurrentStateId() != KPStateIdentifier::idle) {
+            app.transitionTo(KPStateIdentifier::stop);
+			app.currentTask.next();
+        }
+		
+		app.markTaskUnactive(app.currentTask.id);
+		res.send("{}");
 		res.end();
-	});
+    });
 
-	web.get("/flush", [](Request & req, Response & res) {
-		res.contentType = "text/plain";
-		res.send("success");
-		res.end();
-		app.transitionTo(StateIdentifier::flush);
-		Serial.println("Transitioning to Flushing State");
-	});
-
-	web.get("/sample",[](Request & req, Response & res) {
-		res.contentType = "text/plain";
-		res.send("success");
-		res.end();
-		app.transitionTo(StateIdentifier::sample);
-		Serial.println("Transitioning to Sampling State");
-	});
-
-	web.post("/sample", [](Request & req, Response & res) {
-		SampleState & state = (SampleState &) app.getStateForIdentifier(StateIdentifier::sample);
-		const size_t size = JSON_OBJECT_SIZE(4);
-		StaticJsonDocument<size> doc;
+	web.post("/getTask", [](Request & req, Response & res) {
+		StaticJsonDocument<100> doc;
 		deserializeJson(doc, req.body);
-		state.loadFrom(doc);
+
+		const int id = doc["id"];
+
+		StaticJsonDocument<TaskDocumentSize> taskdoc;
+		app.loadTaskFromStorage(id, taskdoc);
+
+		char buffer[taskdoc.memoryUsage()];
+		serializeJson(taskdoc, buffer, taskdoc.memoryUsage());
+
+		println(taskdoc.memoryUsage());
+
+		res.contentType = "application/json";
+		res.send(buffer);
 		res.end();
+
+		serializeJsonPretty(taskdoc, Serial);
 	});
 
-	web.get("/clean", [](Request & req, Response & res) {
-		res.contentType = "text/plain";
-		res.send("success");
-		res.end();
-		app.transitionTo(StateIdentifier::clean);
-		Serial.println("Transitioning to Cleaning State");
-	});
+    web.get("/taskrefs", [](Request & req, Response & res) {
+        StaticJsonDocument<TaskRefSize * 24> taskrefs;
+        app.loadTaskRefsFromStorage(taskrefs);
 
-	web.get("/preserve", [](Request & req, Response & res) {
-		res.contentType = "text/plain";
-		res.send("success");
-		res.end();
-		app.transitionTo(StateIdentifier::preserve);
-		Serial.println("Transitioning to Preserving StateIdentifier");
-	});
+        char buffer[taskrefs.memoryUsage()];
+		Serial.println(taskrefs.memoryUsage());
+        serializeJson(taskrefs, buffer, taskrefs.memoryUsage());
+		res.contentType = "application/json";
+        res.send(buffer);
+        res.end();
 
-	web.get("/stop", [](Request & req, Response & res) {
-		res.contentType = "text/plain";
-		res.send("success");
-		res.end();
-		app.transitionTo(StateIdentifier::stop);
-		Serial.println("Transitioning to Stop State");
-	});
+        serializeJsonPretty(taskrefs, Serial);
+    });
 
-	web.get("/setTime", [](Request & req, Response & res) {
-		StaticJsonDocument<JSON_OBJECT_SIZE(1)> doc;
-		deserializeJson(doc, req.body);
-		time_t currentTime = doc["utc-time"];
-		int timeOffset = doc["local-time-offset"];
-		power.printTime(currentTime);
-		// power.rtc.set(currentTime); 	
-		Serial.println("Setting RTC Time");	
-		res.end();
-	});
+    web.get("/update-rtc", [](Request & req, Response & res) {
+        StaticJsonDocument<100> doc;
+        deserializeJson(doc, req.body);
+        ulong utc = doc["utc"];
+        // Reasonable utc time
+        if (utc >= 155555555) {
+            power.set(utc);
+        } else {
+            res.send("UTC time is not reasonable");
+        }
 
-	web.get("/test", [](Request & req, Response & res) {
-		Serial.println(req.body);
-		res.end();
-	});
-
-	// <==> Serial Buffer <==>
-	serialBuffer.didReceiveSerialCommand([](String & rawInput) {
-		// Copy string into char array and convert it to uppercase
-		int length = rawInput.length();
-		char input[length + 1];
-		input[length] = 0;
-		rawInput.toCharArray(input, length);
-		for (int i = 0; i < length; i++) {
-			input[i] = toUpperCase(input[i]);
-		}
-
-		if (strstr(input, "SET TIME")) {
-			unsigned long currentTime = power.compileTime() + millis() / 1000;
-			power.rtc.set(currentTime);
-			power.printTime(currentTime);
-		} else if (strstr(input, "LOAD HOMEPAGE")) {
-			web.homepage = card.loadContentsOfFile("index.txt");
-		} else if (strstr(input, "LOG")) {
-			card.logCurrentStatus();
-		}
-	});
-
-	// addComponent(power);
-	addComponent(web);
-	// addComponent(shift);
-	// addComponent(serialBuffer);
-	addComponent(card);
-
-	// <==> Pressure Sensor <==>
-	// Note: Please refer to datasheet for values below
-	// psEnable = true;
-	if (psEnable) {
-		Wire.begin();
-		pressureSensor.setMinRaw(1638);      
-		pressureSensor.setMaxRaw(14745);    
-		pressureSensor.setMinPressure(0);   
-		pressureSensor.setMaxPressure(30);  
-		pressureSensor.start(); 
-	}   
-
-	// <==> Transition to Initial StateIdentifier <==>
-	app.transitionTo(StateIdentifier::idle);
+        res.end();
+    });
 }
 
+//===============================================
+// [+_+] Status Report
+//===============================================
+void printStatusReport() {
+    auto & s = KPStatus::current();
+    Serial.print("Current Time: ");
+    Serial.println((long) power.timeKeeper.get());
+    Serial.print("Pressure: ");
+    Serial.println(s.pressure);
+    Serial.print("Temperature: ");
+    Serial.println(s.temperature);
+    Serial.print("Water flow: ");
+    Serial.println(s.waterFlow);
+	println("Barometric: ", s .barometric);
+
+    auto time = app.getStateForIdentifier(KPStateIdentifier::sample).timeLimit;
+    Serial.print("Sample-state time limit: ");
+    Serial.println(time);
+    Serial.println();
+}
+
+//===============================================
+// [+_+] Shutdown: make sure that everthing is off
+//===============================================
+void shutdown() {
+    app.scheduler.removeAllActions();
+	pump.off();
+    shift.writeZeros();
+    shift.writeLatchOut();
+    power.shutdown();
+}
+
+//===============================================
+// [+_+] Prepare: This is where components should be added
+//===============================================
+void prepare() {
+	// delay(10000);
+	Serial.begin(9600);
+	Wire.begin();
+
+	// RTC Interrupt Pin and Override Pin are both active low
+	// This checks for when the power is no intterupt from neither the rtc or override button
+	// if (analogRead(RTC_Interrupt_Pin) >= 100 && analogRead(Override_Mode_Pin) >= 100) {
+	// 	shutdown();
+	// }
+
+    // [+_+] State Registrations
+    app.registerState<IdleState>(KPStateIdentifier::idle, "idle");
+    app.registerState<StopState>(KPStateIdentifier::stop, "stop");
+    app.registerState<FlushState>(KPStateIdentifier::flush, "flush");
+    app.registerState<SampleState>(KPStateIdentifier::sample, "sample");
+    app.registerState<DryState>(KPStateIdentifier::dry, "dry");
+    app.registerState<PreserveState>(KPStateIdentifier::preserve, "preserve");
+    app.registerState<DecontaminateState1>(KPStateIdentifier::decontaminate1, "decontaminate1");
+    app.registerState<DecontaminateState2>(KPStateIdentifier::decontaminate2, "decontaminate2");
+	app.registerState<DecontaminateState3>(KPStateIdentifier::decontaminate3, "decontaminate3");
+
+    // [+_+] Notifications Observe
+    KPNotificationCenter::shared().observe(Event::SCCommandEntered, [](void * arg) {
+        String * rawPtr = reinterpret_cast<String *>(arg);
+        String input = *rawPtr;
+        Serial.println(input);
+
+		if (input == "status") {
+			KPSequentialAction s("status");
+			s.wait(1000, printStatusReport);
+			runForever(s);
+		} else if (input == "stop status") {
+			app.scheduler.removeAction("status");
+		} else if (input == "reverse") {
+			shift.setZeros();
+			shift.writeLatchOut();
+			shift.set(Flush, HIGH);
+			shift.flush();
+			pump.on(Direction::reverse);
+		} else if (input == "off") {
+			shutdown();
+		} else if (input == "json") {
+			StaticJsonDocument<100> doc;
+			deserializeJson(doc, "{id: 1000}");
+			serializeJson(doc, Serial);
+
+			deserializeJson(doc, "{id: 2000}");
+			serializeJson(doc, Serial);
+		}
+    });
+
+    KPNotificationCenter::shared().observe(Event::TMTaskLoaded, [](void * arg) {
+        // JsonObject * rawPtr = reinterpret_cast<JsonObject *>(arg);
+        // JsonObject task = *rawPtr;
+    });
+
+    // KPNotificationCenter::shared().observe(Event::LGFinishedLogging, [](void * arg) {
+    //     auto & status = KPStatus::current();
+    //     if (status.isProgrammingMode == false && app.getCurrentStateId() == KPStateIdentifier::idle) {
+    //         power.shutdown();
+    //     }
+    // });
+
+    setupWebServerHPPTRoutings();
+
+    addComponent(web);
+    addComponent(card);
+    addComponent(pump);
+    addComponent(shift);
+    addComponent(power);
+    addComponent(serial_command);
+    addComponent(sensor_manager);
+    addComponent(logging_system);
+
+    app.transitionTo(KPStateIdentifier::idle);
+}
+
+//===============================================
+// [+_+] Ready: Called after setup method on each component has been executed
+//===============================================
 void ready() {
-	setTimeout(1000, []() {
-		// web.homepage = card.loadContentsOfFile("index.hml");
-		web.printWiFiStatus();
-		web.begin();
-	});
+    if (web.ready) {
+        web.printWiFiStatus();
+        web.begin();
+    }
 
-	// Logging
-	TimeElements tm;
-	time_t currentTime = power.compileTime();
-	breakTime(currentTime, tm);
-
-	Status & status = Status::current();
-	status.directory = new char[16]();
-	status.filename = new char[16]();
-	status.filepath = new char[32]();
-
-	sprintf(status.directory, "logs/%u-%u-%u/", tm.Month, tm.Day, tmYearToY2k(tm.Year));
-	sprintf(status.filename, "%d%u%u%u.csv", Status::current().currentValve, tm.Hour, tm.Minute, tm.Second);
-	sprintf(status.filepath, "%s%s", status.directory, status.filename);
-	card.makeDirectory(status.directory);
-
-	Serial.println(status.filepath);
-	setTime(power.compileTime()); // Remove this line when connected to RTC
-
-	// Log every T interval
-	// OPTask loggingTask("logging");
-	// loggingTask.wait(1000, []() {
-	// 	card.logCurrentStatus();
-	// });
-	// runForever(loggingTask);
-
-	OPTask memory("memory");
-	memory.wait(1000, []() {
-		printFreeRam();
-	}); 
-	runForever(memory);
+    if (card.ready) {
+		app.updateSessionPath();
+        card.loadConfigurationFromCurrentSession();
+    }
 }
 
+//===============================================
+// [+_+] Update: Analogous to Arduino loop()
+//===============================================
 void update() {
-	if (psEnable) {
-		pressureSensor.update();
-	}
-
-	if (alarmTriggered && app.getCurrentState()->state->id == StateIdentifier::idle) {
-		alarmTriggered = false;
-		Serial.println("Alarm Triggered");
-		app.transitionTo(StateIdentifier::flush);
+	println(app.getCurrentStateName(), KPStatus::current().isProgrammingMode());
+	if (app.getCurrentStateId() == KPStateIdentifier::idle && KPStatus::current().isProgrammingMode() == false) {
+		shutdown();
 	}
 }
 
-OPSystem app(prepare, ready, update);
+KPSystem app(prepare, ready, update, card);
