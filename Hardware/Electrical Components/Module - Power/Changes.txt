@@ -1,3 +1,0 @@
-From V1 to V2:
-	-Correct soldering holes for all JST
-	-Move component to reduce size

@@ -14049,7 +14049,6 @@ OpenSensingLab OSU</description>
 <part name="C1" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="C-US" device="050-024X044" package3d_urn="urn:adsk.eagle:package:6240356/1" value="100nF"/>
 <part name="GND1" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND" device=""/>
 <part name="+3V1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+3V3" device=""/>
-<part name="C2" library="adafruit" library_urn="urn:adsk.eagle:library:420" deviceset="C-US" device="050-024X044" package3d_urn="urn:adsk.eagle:package:6240356/1" value="100nF"/>
 <part name="P+1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 <part name="GND2" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND" device=""/>
 <part name="TPIC0" library="eDNA" deviceset="TPIC6B596" device=""/>
@@ -14199,10 +14198,6 @@ OpenSensingLab OSU</description>
 </instance>
 <instance part="+3V1" gate="G$1" x="-116.84" y="81.28" smashed="yes">
 <attribute name="VALUE" x="-119.38" y="76.2" size="1.778" layer="96" rot="R90"/>
-</instance>
-<instance part="C2" gate="G$1" x="-22.86" y="76.2" smashed="yes" rot="R270">
-<attribute name="NAME" x="-22.225" y="75.184" size="1.778" layer="95" rot="R270"/>
-<attribute name="VALUE" x="-24.511" y="72.644" size="1.778" layer="96" rot="R270"/>
 </instance>
 <instance part="P+1" gate="1" x="-20.32" y="81.28" smashed="yes">
 <attribute name="VALUE" x="-22.86" y="81.28" size="1.778" layer="96" rot="R90"/>
@@ -14660,9 +14655,7 @@ OpenSensingLab OSU</description>
 <segment>
 <pinref part="B1" gate="G$1" pin="GND@2"/>
 <wire x1="-50.8" y1="76.2" x2="-27.94" y2="76.2" width="0.1524" layer="91"/>
-<pinref part="C2" gate="G$1" pin="2"/>
 <pinref part="GND2" gate="1" pin="GND"/>
-<junction x="-27.94" y="76.2"/>
 </segment>
 <segment>
 <pinref part="TPIC1" gate="G$1" pin="GND"/>
@@ -15136,12 +15129,9 @@ OpenSensingLab OSU</description>
 <label x="-2.54" y="81.28" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="C2" gate="G$1" pin="1"/>
-<wire x1="-20.32" y1="76.2" x2="-20.32" y2="78.74" width="0.1524" layer="91"/>
 <pinref part="P+1" gate="1" pin="+5V"/>
 <pinref part="B1" gate="G$1" pin="HV"/>
 <wire x1="-20.32" y1="78.74" x2="-50.8" y2="78.74" width="0.1524" layer="91"/>
-<junction x="-20.32" y="78.74"/>
 </segment>
 <segment>
 <pinref part="TPIC1" gate="G$1" pin="SCLR"/>
