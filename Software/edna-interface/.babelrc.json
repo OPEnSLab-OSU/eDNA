@@ -1,22 +1,30 @@
 {
 	"presets": [
 		[
+			"@babel/preset-react",
+			{
+				"pragma": "h",
+				"pragmaFrag": "Fragment"
+			}
+		],
+		[
 			"@babel/preset-env",
 			{
 				"targets": {
 					"esmodules": true
 				}
 			}
+		],
+		[
+			"@emotion/babel-preset-css-prop",
+			{
+				"autoLabel": true,
+				"labelFormat": "[local]"
+			}
 		]
 	],
 	"plugins": [
-		[
-			"@babel/plugin-transform-react-jsx",
-			{
-				"pragma": "h",
-				"pragmaFrag": "Fragment"
-			}
-		],
+		"emotion",
 		[
 			"@babel/plugin-proposal-class-properties",
 			{
