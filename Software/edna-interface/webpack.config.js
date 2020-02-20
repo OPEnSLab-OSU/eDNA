@@ -51,7 +51,12 @@ module.exports = {
 				loader: "babel-loader"
 			},
 			{
-				test: /.scss$/,
+				test: /\.css$/,
+				exclude: [path.resolve(__dirname, "node_modules")],
+				loaders: ["style-loader", "css-loader"]
+			},
+			{
+				test: /\.s[ac]ss$/,
 				exclude: [path.resolve(__dirname, "node_modules")],
 				loaders: ["style-loader", "css-loader", "sass-loader"]
 			}
