@@ -1,18 +1,18 @@
 {
 	"presets": [
 		[
-			"@babel/preset-react",
-			{
-				"pragma": "h",
-				"pragmaFrag": "Fragment"
-			}
-		],
-		[
 			"@babel/preset-env",
 			{
 				"targets": {
 					"esmodules": true
 				}
+			}
+		],
+		[
+			"@babel/preset-react",
+			{
+				"pragma": "h",
+				"pragmaFrag": "Fragment"
 			}
 		],
 		[

@@ -1,0 +1,14 @@
+@import "./sass/mui.scss";
+
+html {
+	font-size: 10px;
+}
+
+.headline {
+	@extend .mui--text-dark;
+	letter-spacing: 0.0333rem;
+}
+
+.title {
+	letter-spacing: 0.0333rem;
+}

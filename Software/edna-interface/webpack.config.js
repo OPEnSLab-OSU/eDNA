@@ -17,11 +17,7 @@ module.exports = {
 		hotUpdateChunkFilename: "hot/hot-update.js",
 		hotUpdateMainFilename: "hot/hot-update.json"
 	},
-	devServer: {
-		contentBase: outputPath,
-		compress: true,		
-		hotOnly: true
-	},
+	devServer: { compress: true },
 	plugins: [
 		new webpack.ProgressPlugin(),
 		new CleanWebpackPlugin(),
