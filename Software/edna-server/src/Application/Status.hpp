@@ -107,6 +107,7 @@ public:
 private:
 	void valvesChanged(const ValveManager & vm) override {
 		for (const Valve & v : vm.valves) {
+			println(v.id);
 			valves[v.id] = v.status;
 		}
 	}

@@ -31,6 +31,10 @@ public:
 
 	void init(Config & config) {
 		valves.resize(config.valveUpperBound + 1);
+		for (size_t i = 0; i < valves.size(); i++) {
+			valves[i].id = i;
+			valves[i].setStatus(ValveStatus::Code(config.valves[i]));
+		}
 	}
 
 	void updateListeners() {

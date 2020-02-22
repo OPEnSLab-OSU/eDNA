@@ -88,13 +88,23 @@ private:
 		if (line == "load status") status.load(config.statusFile);
 		if (line == "save status") status.save(config.statusFile);
 		if (line == "print status") println(status);
+
 		if (line == "load config") config.load();
+		if (line == "print config") println(config);
+
 		if (line == "print sd") printDirectory(SD.open("/"), 0);
+
 		if (line == "load valves") vm.loadValvesFromDirectory(config.valveFolder);
 		if (line == "save valves") vm.saveValvesToDirectory(config.valveFolder);
 		if (line == "print valves") {
 			for (size_t i = 0; i < vm.valves.size(); i++) {
 				println(vm.valves[i]);
+			}
+		}
+
+		if (line == "reset valves") {
+			for (int i = 0; i < config.valveUpperBound; i++) {
+				vm.init(config);
 			}
 		}
 
@@ -104,10 +114,10 @@ private:
 				println(buffer);
 			}
 		}
-	}
 
-	void inputReceived(String * line) {
-		println(*line);
+		if (line == "test") {
+			println(config.valveUpperBound);
+		}
 	}
 
 public:
@@ -130,7 +140,9 @@ public:
 
 		// Setup serial communication
 		Serial.begin(115200);
-		delay(5000);
+		while (!Serial) {
+		};
+		// delay(5000);
 
 		addComponent(sm);
 		addComponent(web);
@@ -141,8 +153,7 @@ public:
 
 		sm.registerState(StateIdle(), StateName::IDLE);
 		sm.registerState(StateStop(), StateName::STOP);
-		sm.registerState(StateFlush(2000), "flush1");
-		sm.registerState(StateFlush(3000), "flush2");
+		sm.registerState(StateFlush(), StateName::FLUSH);
 		sm.registerState(StateSample(), StateName::SAMPLE);
 		sm.registerState(StatePreserve(), StateName::PRESERVE);
 		sm.registerState(StateDecon(), StateName::DECON);

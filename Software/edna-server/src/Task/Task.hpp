@@ -7,6 +7,7 @@
 
 #include <Application/Constants.hpp>
 #include <Utilities/JsonEncodableDecodable.hpp>
+#include <Utilities/JsonFileLoader.hpp>
 
 struct Taskref;
 struct Task : public JsonEncodable, public JsonDecodable, public Printable {

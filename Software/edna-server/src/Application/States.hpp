@@ -55,9 +55,5 @@ public:
 	float pressure	   = 8;
 	float volume	   = 1000;
 
-	float volumeLimit = 2000;
-
-	StateFlush(float limit)
-		: volumeLimit(limit) {}
 	void enter(KPStateMachine & sm) override;
 };

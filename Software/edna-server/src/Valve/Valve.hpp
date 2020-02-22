@@ -16,7 +16,7 @@ struct Valve : public JsonEncodable, public JsonDecodable, public Printable {
 public:
 	int id		  = ValveStatus::inactive;
 	int status	  = ValveStatus::inactive;
-	long schedule = 0;
+	long schedule = ValveStatus::inactive;
 
 	char group[ProgramSettings::VALVE_GROUP_LENGTH]{0};
 
