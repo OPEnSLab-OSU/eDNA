@@ -27,7 +27,8 @@ private:
 	std::vector<ValveManagerEventListner *> listeners;
 
 public:
-	KPArray<Valve, ProgramSettings::MAX_VALVES> valves;
+	constexpr static size_t MAX_VALVES = ProgramSettings::MAX_VALVES;
+	KPArray<Valve, MAX_VALVES> valves;
 
 	void init(Config & config) {
 		valves.resize(config.valveUpperBound + 1);
@@ -58,6 +59,17 @@ public:
 	void setValveStatus(int id, ValveStatus status) {
 		valves[id].setStatus(status);
 		updateListeners();
+	}
+
+	KPArray<int, MAX_VALVES> filter(std::function<bool(const Valve &)> filter_func) {
+		KPArray<int, MAX_VALVES> ids;
+		for (const Valve & v : valves) {
+			if (filter_func(v)) {
+				ids.append(v.id);
+			}
+		}
+
+		return ids;
 	}
 
 	void loadValvesFromDirectory(const char * dir) {

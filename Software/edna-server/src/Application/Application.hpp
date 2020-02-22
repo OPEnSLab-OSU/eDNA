@@ -34,7 +34,6 @@ private:
 		// web.serveStaticFile("/", "/index.htm", fileLoader, "text/html");
 
 		web.get("/", [this](Request & req, Response & res) {
-			// res.setHeader("Content-Encoding");
 			res.sendFile("combined.htm", fileLoader);
 			res.end();
 		});
@@ -68,6 +67,7 @@ private:
 				JsonObject obj = valverefs.createNestedObject();
 				Valveref ref(v);
 				ref.encodeJSON(obj);
+				serializeJsonPretty(obj, Serial);
 			}
 
 			res.setHeader("Content-Type", "application/json");
@@ -116,7 +116,13 @@ private:
 		}
 
 		if (line == "test") {
-			println(config.valveUpperBound);
+			KPArray<int, ProgramSettings::MAX_VALVES> task1 = vm.filter([](const Valve & v) {
+				return strcmp(v.group, "Task 1") == 0;
+			});
+
+			for (size_t i = 0; i < task1.size(); i++) {
+				println(task1[i], ",");
+			}
 		}
 	}
 
@@ -135,6 +141,7 @@ public:
 
 	ValveManager vm;
 
+private:
 	void setup() override {
 		KPController::setup();
 
@@ -170,11 +177,20 @@ public:
 		setupServer();
 		web.begin();
 
-		// vm.loadValvesFromDirectory(config().valveFolder);
+		vm.loadValvesFromDirectory(config.valveFolder);
 		// vm.saveValvesToDirectory(config().valveFolder);
 
+		// StaticJsonDocument<200> doc;
+		// JsonArray array = doc.to<JsonArray>();
+		// {
+		// 	JsonObject obj = array.createNestedObject();
+		// 	char text[]	   = "Panda Cubs";
+		// 	obj["text"].set((char *)text);
+		// }
+		// serializeJsonPretty(array, Serial);
+
 		// Transition to idle state
-		// sm.transitionTo(StateName::idle);
+		sm.transitionTo(StateName::IDLE);
 	}
 
 	void update() override {

@@ -81,7 +81,7 @@ public:
 	bool encodeJSON(JsonObject & dest) const override {
 		using namespace JsonKeys;
 		return dest[VALVE_ID].set(id)
-			   && dest[VALVE_GROUP].set(group)
+			   && dest[VALVE_GROUP].set((char *)group)
 			   && dest[VALVE_SCHEDULE].set(schedule)
 			   && dest[VALVE_STATUS].set(status)
 			   && dest[VALVE_FLUSH_TIME].set(flushTime)
@@ -105,16 +105,16 @@ public:
 // ─── SECTION VALVEREF FOR REDUCED NETWORK BANDWIDTH ─────────────────────────────
 //
 struct Valveref : public JsonEncodable, public JsonDecodable, public Printable {
-	char group[ProgramSettings::VALVE_GROUP_LENGTH]{0};
 	int id = -1;
+	char group[ProgramSettings::VALVE_GROUP_LENGTH]{0};
 
 	Valveref()						 = default;
 	Valveref(const Valveref & other) = default;
 	Valveref & operator=(const Valveref &) = default;
 
 	Valveref(const Valve & valve) {
-		strcpy(group, valve.group);
 		id = valve.id;
+		strcpy(group, valve.group);
 	}
 
 	explicit Valveref(const JsonObjectConst & data) {
@@ -153,8 +153,9 @@ struct Valveref : public JsonEncodable, public JsonDecodable, public Printable {
 
 	bool encodeJSON(JsonObject & dest) const override {
 		using namespace JsonKeys;
-		return dest[VALVE_GROUP].set(group)
-			   && dest[VALVE_ID].set(id);
+		println(group);
+		return dest[VALVE_ID].set(id)
+			   && dest[VALVE_GROUP].set((char *)group);
 	}
 
 	size_t printTo(Print & printer) const override {
