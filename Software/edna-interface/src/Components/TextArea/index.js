@@ -4,7 +4,7 @@ import { BasicTextFieldComponent, BasicTextFieldStyles } from "../TextField";
 
 const BasicTextAreaStyles = css`
 	textarea {
-		font-size: 1.2rem;
+		font-size: 1.4rem;
         min-height: 100px;
         resize: vertical;
     }
@@ -12,7 +12,11 @@ const BasicTextAreaStyles = css`
 
 const BasicTextArea = (props) => (
 	<BasicTextFieldComponent css={[BasicTextFieldStyles, BasicTextAreaStyles]} {...props}>
-		{(props) => <textarea {...props}/>}
+		{(rest) => { 
+			// console.log(rest);
+			return <textarea {...rest}/> 
+			; 
+		}}
 	</BasicTextFieldComponent>
 );
 

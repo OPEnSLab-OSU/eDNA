@@ -2,6 +2,7 @@ import { h } from "preact";
 import { Input } from "muicss/react";
 import { css } from "@emotion/core";
 import styled from "@emotion/styled";
+import { useField } from "formik";
 
 const Subtitle = (props) => <p className={"mui--text-dark-secondary subtitle"} {...props}/>;
 export const BasicTextFieldComponent = (props) => {
@@ -13,14 +14,17 @@ export const BasicTextFieldComponent = (props) => {
 		...componentProps 
 	} = props;
 
-	delete componentProps.class;
+	// Maybe a duplicate from preact/compat layer
+	// We have both className and class props so remove class
+	delete componentProps.class; 
+
 	return (
-		<div className={className}>
-			<div className={"mui-textfield"} css={css`margin-bottom: 0;`}>
-				{props.children ? props.children(props)  : <input required {...componentProps}/>}
-				<label className="title">{title}</label>
-				{subtitle && <Subtitle>{subtitle}</Subtitle>}
+		<div className={`${className} section`}>
+			<div className={"mui-textfield textfield"} css={css`margin-bottom: 0;`}>
+				{props.children ? props.children(componentProps) : <input required={required} {...componentProps}/>}
+				{<label className="title">{title}</label>}
 			</div>
+			{subtitle && <Subtitle>{subtitle}</Subtitle>}
 		</div>
 	); 
 };
@@ -44,8 +48,10 @@ export const BasicTextFieldStyles = css`
 	}
 `;
 
-// export const BasicTextField = (props) => <BasicTextFieldComponent css={[BasicTextFieldStyles]} {...props}/>;
-export const BasicTextField = (props) => <BasicTextFieldComponent css={BasicTextFieldStyles} {...props}/>;
+export const BasicTextField = (props) => {
+	const [fields, metas, helpers] = useField(props.name);
+	return <BasicTextFieldComponent css={BasicTextFieldStyles} {...fields} {...props}/>;
+};
 
 
 
