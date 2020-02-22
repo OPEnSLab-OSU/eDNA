@@ -92,16 +92,6 @@ const Base = css`
 	}
 `;
 
-// render(
-// 	(<Fragment>
-// 		<Global styles={Reset} />
-// 		<Global styles={Base} />
-// 		<App />
-// 	</Fragment>), document.body);
+render((<Fragment><Global styles={Base} /><App /></Fragment>), document.body);
 
-render(
-	(<Fragment>
-		{/* <Global styles={Reset} /> // MUI already has Normallize CSS */}
-		<Global styles={Base} />
-		<Showcase />
-	</Fragment>), document.body);
+// render((<Fragment><Global styles={Base} /><Showcase /></Fragment>), document.body);

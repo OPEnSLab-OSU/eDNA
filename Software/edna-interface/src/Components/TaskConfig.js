@@ -1,16 +1,13 @@
 import { h, Fragment } from "preact";
 import { useEffect } from "preact/hooks";
-import { Formik, Form, useFormik, useField, useFormikContext } from "formik";
+import { Formik, Form, useFormikContext } from "formik";
 import { css } from "@emotion/core";
-import styled from "@emotion/styled";
 
 import { Headline } from "./Headline";
 import { BasicTextField, BasicTextFieldComponent, BasicTextFieldStyles } from "./TextField";
 import { BasicTextArea } from "./TextArea";
 
-import { Form as MUIForm, Button, Input, Panel } from "muicss/react";
-
-import { useFormChange } from "../hooks";
+import { Button } from "muicss/react";
 
 // Need to use className instead of class because styled-component css depends on the className value
 const BasicTimeFieldStyles = css`
@@ -21,12 +18,11 @@ const BasicTimeFieldStyles = css`
 	}
 `;
 
-
 const TaskScheduleTimeFields = (props) => {
 	const { getFieldProps } = useFormikContext();
 	return (
 		<BasicTextFieldComponent css={[BasicTextFieldStyles, BasicTimeFieldStyles]} {...props}>
-			{ (rest) => (
+			{ (_) => (
 				<Fragment>
 					{["hour", "minute", "second"].map(t => 
 						<input key={t} name={t} type="number" placeholder={t + "s"} required {...getFieldProps(t)}/>
@@ -51,11 +47,11 @@ const TaskConfigFormStyles = css`
 	display: grid;
 	padding: 0;
 	font-size: 13px;
-	position: relative;
     overflow-y: scroll;
-	width: 400px;
 	gap: 24px;
-	height: 600px;
+	/* height: 650px; */
+	grid-area: group-config;
+	/* padding-bottom */
 `;
 
 function TaskConfig(props) {
@@ -70,26 +66,26 @@ function TaskConfig(props) {
 			second: 0,
 			notes: ""
 		}} onSubmit={(values) => alert(JSON.stringify(values))}>
-			{ (props) => 
+			{ (_) => 
 				<Form className="mui-form card" css={TaskConfigFormStyles} >
 					<FormikOnChange onChange={(values) => console.log(values)}/>
-					<Headline>Task Settings</Headline>
+					<Headline>Group Settings</Headline>
 					<BasicTextField 
 						name="name" 
-						title="Task Name"
-						subtitle="Name used to identify the task"
+						title="Group Name"
+						subtitle="Name used to identify the valve group"
 						type="text" required/>
 
 					<BasicTextField
 						name="scheduleDate"
 						title="Schedule Date"
-						subtitle="Specific date when to run this task (YYYY-MM-DD)"
+						subtitle="Specific date when to run this group (YYYY-MM-DD)"
 						type="date"/>
 
 					<BasicTextField
 						name="scheduleTime"
 						title="Schedule Time"
-						subtitle="Specific time when to run this task (HH:MM)"
+						subtitle="Specific time when to run this group (HH:MM)"
 						type="time"/>
 
 					<BasicTextField
@@ -100,17 +96,25 @@ function TaskConfig(props) {
 
 					<TaskScheduleTimeFields 
 						title="Time Between"
-						subtitle="Controls how long until the next sample"/>
+						subtitle="Controls how long until the next sample in the group"/>
 			
 					<BasicTextArea 
 						name="notes"
 						title="Notes"
-						subtitle="Additional information associated with this task up to 250 characters" 
-						type="text" placeholder="Describe the task (optional)"/>
+						subtitle="Additional information associated with this group up to 250 characters" 
+						type="text" placeholder="Describe what this group is for memo (optional)"/>
 					
-					{/* <BasicTextField type="submit" /> */}
-					<Button css={css`width: 100px; justify-self: right; margin-right: 24px; background: palevioletred; color: white;`} type="submit">Submit</Button>
-					<div></div>
+					<Button css={css`
+						width: 100px;
+						justify-self: right;
+						margin-right: 24px;
+						background: palevioletred;
+						color: white;
+					`} type="submit">
+						Submit
+					</Button>
+
+					<div>&nbsp;</div>
 				</Form>
 			}
 		</Formik>

@@ -12,11 +12,7 @@ const BasicTextAreaStyles = css`
 
 const BasicTextArea = (props) => (
 	<BasicTextFieldComponent css={[BasicTextFieldStyles, BasicTextAreaStyles]} {...props}>
-		{(rest) => { 
-			// console.log(rest);
-			return <textarea {...rest}/> 
-			; 
-		}}
+		{(rest) => <textarea className="mui--text-dark-secondary" {...rest}/>}
 	</BasicTextFieldComponent>
 );
 

@@ -10,6 +10,6 @@ const Headline = styled.div`
 	text-transform: uppercase;
 	border-bottom: 1px solid rgb(230, 230, 230);
 	letter-spacing: 0.0333rem;
-`;
+`;	
 
 export { Headline };
