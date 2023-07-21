@@ -20,7 +20,7 @@ Organisms leave traces of DNA as they move through their environments. The extra
 The eDNA Sampler can run up to 24 inline filter units with support for different conditions including pressure, time and volume limit. The pumps can deliver maximum 350mL/min of flow with solenoid valves separating each inline filter to minimize cross-contamination. At the end of each sample, the desired stabilizing solution can be injected to fully submerge the filter for long term storage. An optional river depth sensor can provide a proxy for flow to correct eDNA concentrations to allow for improved quantification of organisms. Data acquired during operation including water depth, pressure, temperature, and flow rate will be stored on microSD card as a CSV file, which allows easier data export and analysis. A web application is specially designed for the eDNA Sampler for in-field programming, real-time sensor updates, scheduling tasks, and manual operations. The full sampler is estimated to be ~$5000 each, with add-on river depth sensor and 10ah 12V battery.
 
 <p align="center">
-  <img src="[https://github.com/OPEnSLab-OSU/eDNA/Assets/V4eDNASampler.jpg](https://github.com/OPEnSLab-OSU/eDNA/blob/master/Assets/V4eDNASampler.jpg)"  width="90%" />
+  <img src="https://github.com/OPEnSLab-OSU/eDNA/blob/master/Assets/V4eDNASampler.jpg"  width="90%" />
 </p>
 
 ## Objectives
@@ -37,7 +37,7 @@ We are currently working on the electronic hardware and software side of the pro
 
 | Main control Board     |
 | |
-| <img src="[https://github.com/OPEnSLab-OSU/eDNA/Assets/eDNABoard.jpg](https://github.com/OPEnSLab-OSU/eDNA/blob/master/Assets/eDNABoard.jpg)" width="90%">     | 
+| <img src="https://github.com/OPEnSLab-OSU/eDNA/blob/master/Assets/eDNABoard.jpg" width="90%">     | 
 
 | Brand New Browser Application     |
 |:-------------:|
