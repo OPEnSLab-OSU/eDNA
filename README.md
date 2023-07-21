@@ -4,7 +4,7 @@ Current Project team:
 
 Lead: **Riley Prince** 
 
-Mechanical: **Joshua Iler**
+Mechanical: **Joshua Iler**, **Hendy**
 
 Software: **Nathan Jesudason**, **Marc Belinga** 
 
