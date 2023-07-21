@@ -36,9 +36,9 @@ The eDNA Sampler can run up to 24 inline filter units with support for different
 We are currently working on the electronic hardware and software side of the project. More test will be performed on the system as a whole to determine the level of cross-contamination between different filter.
 
 | Main control Board     |
-| |
+|:-------------:|
 | <img src="https://github.com/OPEnSLab-OSU/eDNA/blob/master/Assets/eDNABoard.jpg" width="90%">     | 
-
+|:-------------:|
 | Brand New Browser Application     |
 |:-------------:|
 | <img src="https://user-images.githubusercontent.com/20134802/123329779-079f8100-d4f2-11eb-9892-1380ae95aba6.png" width="90%" /> |
