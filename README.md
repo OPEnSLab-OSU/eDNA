@@ -20,7 +20,7 @@ Organisms leave traces of DNA as they move through their environments. The extra
 The eDNA Sampler can run up to 24 inline filter units with support for different conditions including pressure, time and volume limit. The pumps can deliver maximum 350mL/min of flow with solenoid valves separating each inline filter to minimize cross-contamination. At the end of each sample, the desired stabilizing solution can be injected to fully submerge the filter for long term storage. An optional river depth sensor can provide a proxy for flow to correct eDNA concentrations to allow for improved quantification of organisms. Data acquired during operation including water depth, pressure, temperature, and flow rate will be stored on microSD card as a CSV file, which allows easier data export and analysis. A web application is specially designed for the eDNA Sampler for in-field programming, real-time sensor updates, scheduling tasks, and manual operations. The full sampler is estimated to be ~$5000 each, with add-on river depth sensor and 10ah 12V battery.
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/48141945/104244661-c457c700-5417-11eb-93db-56765fe9d33a.jpg"  width="90%" />
+  <img src="https://github.com/OPEnSLab-OSU/eDNA/Assets/V4eDNASampler.jpg"  width="90%" />
 </p>
 
 ## Objectives
@@ -35,9 +35,9 @@ The eDNA Sampler can run up to 24 inline filter units with support for different
 
 We are currently working on the electronic hardware and software side of the project. More test will be performed on the system as a whole to determine the level of cross-contamination between different filter.
 
-| Power Module       | Logic Module           | Sensor Module     |
-| ------------- |:-------------:| -----|
-| <img src="https://user-images.githubusercontent.com/48141945/64069008-f2a77e80-cbf5-11e9-81c6-c91e283ac8ee.jpg" width="300px">     | <img src="https://user-images.githubusercontent.com/48141945/64069009-f509d880-cbf5-11e9-9ae9-12f29e508263.jpg" width="300px"> | <img src="https://user-images.githubusercontent.com/48141945/64069010-f76c3280-cbf5-11e9-8c5f-153d1fae30c0.jpg" width="300px"> |
+| Main control Board     |
+| |
+| <img src="https://github.com/OPEnSLab-OSU/eDNA/Assets/eDNABoard.jpg" width="90%">     | 
 
 | Brand New Browser Application     |
 |:-------------:|
