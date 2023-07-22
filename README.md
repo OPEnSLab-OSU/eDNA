@@ -17,7 +17,7 @@ Organisms leave traces of DNA as they move through their environments. The extra
 
 ## Description
 
-The eDNA Sampler can run up to 24 inline filter units with support for different conditions including pressure, time and volume limit. The pumps can deliver maximum 350mL/min of flow with solenoid valves separating each inline filter to minimize cross-contamination. At the end of each sample, the desired stabilizing solution can be injected to fully submerge the filter for long term storage. An optional river depth sensor can provide a proxy for flow to correct eDNA concentrations to allow for improved quantification of organisms. Data acquired during operation including water depth, pressure, temperature, and flow rate will be stored on microSD card as a CSV file, which allows easier data export and analysis. A web application is specially designed for the eDNA Sampler for in-field programming, real-time sensor updates, scheduling tasks, and manual operations. The full sampler is estimated to be ~$5000 each, with add-on river depth sensor and 10ah 12V battery.
+The eDNA Sampler can run up to 24 inline filter units with support for different conditions including pressure, time and volume limit. The pumps can deliver maximum 350mL/min of flow with each solenoid valves separating the filter housings to minimize cross-contamination. At the end of each sample, the desired stabilizing solution can be injected to fully submerge the filter for long term storage. An optional river depth sensor can provide a proxy for flow to correct eDNA concentrations to allow for improved quantification of organisms. Data acquired during operation including water depth, pressure, temperature, and flow rate will be stored on microSD card as a CSV file, which allows easier data export and analysis. A web application is specially designed for the eDNA Sampler for in-field programming, real-time sensor updates, scheduling tasks, and manual operations. The full sampler is estimated to be ~$5000 each, with add-on river depth sensor and 10ah 12V battery.
 
 <p align="center">
   <img src="https://github.com/OPEnSLab-OSU/eDNA/blob/master/Assets/V4eDNASampler.jpg"  width="90%" />
@@ -25,11 +25,10 @@ The eDNA Sampler can run up to 24 inline filter units with support for different
 
 ## Objectives
 
-*  Depth Sensor
+* Determining the cross contamination between filters (samples)
 
-*  [Inline Pressure Sensor](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/Inline-Pressure-Sensor) (Outdated)
+* Drafting a HardwareX Paper
 
-*  [Inline Flow Sensor](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/IDT-Inline-Flow-Sensor) (Outdated)
 
 ## Outcomes
 
@@ -45,14 +44,14 @@ We are currently working on the electronic hardware and software side of the pro
 
 ## Future
 The main things that we are currently working on are: 
- - Determining the cross contamination between filters (samples).
-   - Brainstorming ways to increase cross contamination if it falls below desired margins.
+ - Brainstorming ways to increase cross contamination if it falls below desired margins.
  - Implementing a better way of monitoring the amount of volume sampled.
 
 In addition to the previously mentioned tasks, we are planning to work on the following in the near future:
  - Redesign of the main control board/electronics hardware.
  - Making the User Interface more friendly to less technical users.
  - Decreasing the amount of cross contamination between samples (depends on the testing currently happening).
+ - Addomg a Depth Sensor
 
 
 ## Resource List
@@ -95,4 +94,8 @@ Mechanical: **Torrey Menne**, **Aaron S Arvidson**, **Nikhil Wandhekar**, **Etha
 * [Types of Hydraulic Pumps](https://www.youtube.com/watch?v=Qy1iV6EzNHg)
 
 * [eDNA AGU 2019 Poster](https://github.com/OPEnSLab-OSU/OPEnS-Hypnos/files/3996793/eDNA.poster_jsspptx.2.pdf) | [ESSOAR](https://www.essoar.org/doi/abs/10.1002/essoar.10501740.1) | 10.1002/essoar.10501740.1
+
+*  [Inline Pressure Sensor](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/Inline-Pressure-Sensor) (Outdated)
+
+*  [Inline Flow Sensor](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/IDT-Inline-Flow-Sensor) (Outdated)
 
