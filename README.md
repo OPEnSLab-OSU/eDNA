@@ -8,7 +8,7 @@ Mechanical: **Joshua Iler**, **Hendy**
 
 Software: **Nathan Jesudason**, **Marc Belinga** 
 
-Electrical: **Kai Roy**, **Jacob Field**
+Electrical: **Jacob Field**, **Kai Roy**
 
 
 ## Overview
