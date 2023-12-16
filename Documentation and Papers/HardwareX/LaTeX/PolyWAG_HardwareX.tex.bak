@@ -65,67 +65,57 @@ Now you are ready to fill in the template below. As you complete each section, p
 
 %Insert title
 %Max. 20 words. A good title should contain the fewest possible words that adequately describe the content of a paper.
-\textbf{PolyWAG: Autonomous filtered water sampling for eDNA}\\ 
+\textbf{Title} \\
+PolyWAG: Autonomous filtered water sampling for eDNA 
 %\textit{Please avoid acronyms and abbreviations where possible.}
 
 
 %Insert Authors
-\textbf{Kai Roy * Riley Prince * Marc Belinga * John Selker * Chet Udell}\\ 
+\textbf{Authors} \\
+Kai Roy * Riley Prince * Marc Belinga * John Selker * Chet Udell
 % List all authors. Please mark the corresponding author with (*)
 
 
 %Insert Affiliations
-\textbf{Affiliations}\\ \textit{Please include the full address of each author institution}
+\textbf{Affiliations} \\ 
+(Insert Affiliations)
+%\textit{Please include the full address of each author institution}
 
 
 %Insert Contact Email
 %Include institutional email address of the corresponding author
-\textbf{Corresponding author’s email address and Twitter handle}\\ \textit{Institutional email address preferred. If you have a Twitter handle, please add it here ‘twitter: \@....’}
+\textbf{Corresponding author’s email address and Twitter handle}\\ 
+\textit{Institutional email address preferred. If you have a Twitter handle, please add it here ‘twitter: \@....’}
 
 %Insert Abstract
 %Max. 200 words. Remember that the abstract is what readers see first in electronic abstracting and indexing services. This is the advertisement of your article. Make it interesting, and easy to be understood. Be accurate and specific, keep it as brief as possible.
-\textbf{Abstract}\\ \textit{Max. 200 words. Remember that the abstract is what readers see first in electronic abstracting \& indexing services - make it brief, specific, interesting and easy to understand. If a research article refers to your hardware, cite that research article here.}
+\textbf{Abstract} \\ 
+Environmental DNA, eDNA, is an ideal way of researching aquatic environments to determine what species are present in an area the biodiversity of an area, and if any invasive or endangered species are present . Traditional sampling of environmental DNA (eDNA) consists of manually filtering water,  which is labor and cost-intensive for remote locations. Furthermore, commercialized solutions  are either expensive or require a field operator to function.  We have built an eDNA capable of autonomous multi-sampling for a greatly reduced price compared to existing technologies. Our PolyWAG eDNA sampler system is a water sampling device that collects DNA samples via 47mm filter and provides a non-invasive, safe and autonomous means of eDNA collection. The sampler can hold 24 filters and is designed to be easily replaced and reusable. A browser application is used for real-time monitoring, scheduling tasks, and data logging for time, pressure, flow, and filtered volume. Additionally, the sampler design is openly published, modular and is constantly being tested to help us optimize our software and hardware to give us the best results. The 9-step  sampling sequence helps reduce cross contamination significantly. Our machine can be deployed for an extended period. It is completely autonomous and costs around \$6000.
+
+%\textit{Max. 200 words. Remember that the abstract is what readers see first in electronic abstracting \& indexing services - make it brief, specific, interesting and easy to understand. If a research article refers to your hardware, cite that research article here.}
+
 
 %Insert Keywords
 % At least 3 keywords. There is no limit on the no. of keywords you can list. Please remember that effective keywords should not repeat words appearing in your title, and should be neither too general nor too narrow.
-\textbf{Keywords}\\ \textit{Add at least 3 keywords and a maximum of 6 keywords.}
+\textbf{Keywords}\\
+Environmental DNA * Sampling * Arduino * Data Logging \\
+%\textit{Add at least 3 keywords and a maximum of 6 keywords.}
 
 \newpage
 \textbf{Specifications table}\\
-\textit{Please replace the italicizied instructions in the right column of the table with the relevant information about your hardware.}
+% \textit{Please replace the italicizied instructions in the right column of the table with the relevant information about your hardware.}
 \vskip 0.2cm
 \tabulinesep=1ex
 \begin{tabu} to \linewidth {|X|X[3,l]|}
-\hline  \textbf{Hardware name} & \textit{The name of the hardware that you have invented/customized}
+\hline  \textbf{Hardware name} & \textit{PolyWAG}
   %Please specify the name of the hardware that you invented / customized
   \\
   \hline \textbf{Subject area} & %
   % Please state the subject area most relevant to the original community for which this hardware was developed. Example subject areas are listed below.
-  \textit{Please select the subject area that best reflects the community for which your hardware was developed (deleting the rest):}
-  \vskip 0.1cm
-  \begin{itemize}[noitemsep, topsep=0pt]
-  \item \textit{Engineering and material science}
-  \item \textit{Chemistry and biochemistry}
-  \item \textit{Medical (e.g. pharmaceutical science)}
-  \item \textit{Neuroscience}
-  \item \textit{Biological sciences (e.g. microbiology and biochemistry)}
-  \item \textit{Environmental, planetary and agricultural sciences}
-  \item \textit{Educational tools and open source alternatives to existing infrastructure}
-  \item \textit{General}
-  \end{itemize}
+  \textit{Environmental, planetary and agricultural sciences}
   \\
   \hline \textbf{Hardware type} &
-    \textit{Please select the subject area that best reflects the purpose for which your hardware was developed (deleting the rest):}
-  \vskip 0.1cm  
-  \begin{itemize}[noitemsep, topsep=0pt]
-  \item \textit{Imaging tools}
-  \item \textit{Measuring physical properties and in-lab sensors}
-  \item \textit{Biological sample handling and preparation}
-  \item \textit{Field measurements and sensors}
-  \item \textit{Electrical engineering and computer science}
-  \item \textit{Mechanical engineering and materials science}
-  \item \textit{Other (please specify)}
-  \end{itemize}
+    \textit{Field measurements and sensors}
   \\ 
 \hline \textbf{Closest commercial analog} &
   %Please specify the open source license. For more details see the guide to authors.
@@ -137,7 +127,8 @@ Now you are ready to fill in the template below. As you complete each section, p
   \\
 \hline \textbf{Cost of hardware} &
   %Approximate cost of hardware (complete breakdown will be included in the Bill of Materials).
-  \textit{Insert an approximate cost only - we will ask you for a complete breakdown of costs in a later section \textbf{(Bill of materials).}}
+  \textit{\$6000}
+  %Insert an approximate cost only - we will ask you for a complete breakdown of costs in a later section \textbf{(Bill of materials).}
   \\
 \hline \textbf{Source file repository} & 
   % Link to the source file repository
@@ -156,6 +147,8 @@ If you haven’t acquired certification, please delete this row of the specifica
 \\\hline
 \end{tabu}
 \end{flushleft}
+
+
 % create the main body of the paper
 \newpage
 \section{Hardware in context}
