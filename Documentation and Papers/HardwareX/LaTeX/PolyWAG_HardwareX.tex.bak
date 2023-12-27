@@ -8,6 +8,7 @@
 \usepackage{enumitem}
 \usepackage{amssymb}
 \usepackage{xcolor}
+\usepackage{verbatim}
 \newlist{selectlist}{itemize}{2}
 \setlist[selectlist]{label=$\square$,leftmargin=*,noitemsep,topsep=0pt}
 
@@ -103,15 +104,17 @@ Environmental DNA * Sampling * Arduino * Data Logging \\
   \\ 
 \hline \textbf{Closest commercial analog} &
   %Please specify the open source license. For more details see the guide to authors.
-  \textit{Please specify the closest commercial analog to the submitted hardware. What would this hardware replace? If no commercial analog exists, state “No commercial analog is available.”}
+  \textit{Dartmouth Ocean Technologies' eDNA Sampler}
   \\
 \hline \textbf{Open source license} &
   %Please specify the open source license. For more details see the guide to authors.
-  {\it All designs must be submitted under an open source license (for more details see the \href{https://www.elsevier.com/journals/hardwarex/2468-0672/guide-for-authors}{\underline{Guide for Authors}}). Please specify the open source license you’ve selected here. }
+  {CERN Open Hardware License \newline 
+  GNU General Public License v3.0}
   \\
 \hline \textbf{Cost of hardware} &
   %Approximate cost of hardware (complete breakdown will be included in the Bill of Materials).
-  \textit{\$6000}
+  \textit{\$3800 (Cost of just components)\newline
+  \$6000 (Cost with labor included)}
   %Insert an approximate cost only - we will ask you for a complete breakdown of costs in a later section \textbf{(Bill of materials).}
   \\
 \hline \textbf{Source file repository} & 
@@ -121,13 +124,15 @@ Environmental DNA * Sampling * Arduino * Data Logging \\
   \textit{If you’ve uploaded your source files to an approved repository (\href{http://osf.io}{\underline{OSF}}, \href{https://data.mendeley.com/}{\underline{Mendeley Data}} or \href{https://zenodo.org/}{\underline{Zenodo}}) write the DOI URL here. For exemple:  \href{http://doi.org/10.17605/OSF.IO/WGK7Q}{http://doi.org/10.17605/OSF.IO/WGK7Q}}  
 %  DOI URL to an approved source file repository: \href{https://data.mendeley.com/}{Mendeley Data}, the \href{http://osf.io}{OSF}, or \href{https://zenodo.org/}{Zenodo} \href{https://doi.org/10.5281/zenodo.3346799}{(instructions)}. \linebreak For example: "https://doi.org/10.5281/zenodo.3346799" \linebreak If there is no external repository write “Available in the article"}
   \\
-\hline \textbf{OSHWA certification UID} \vskip 0.1cm {\it (OPTIONAL)}&
+
+%\hline \textbf{OSHWA certification UID} \vskip 0.1cm {\it (OPTIONAL)}&
   %Insert OSHWA Certification UID (optional)
-{\it We encourage you to apply for a free \href{https://certification.oshwa.org/}{\underline{OSHWA Certification}}, which confirms your work is open-source compliant.
-\vskip 0.2cm
-If certification has been acquired, insert the OSHWA UID here. For example: “CH000005”. In your OSHWA certification project description, include a link to your HardwareX publication and the tag \#HX.
-\vskip 0.2cm
-If you haven’t acquired certification, please delete this row of the specifications table.}
+%{\it We encourage you to apply for a free \href{https://certification.oshwa.org/}%{\underline{OSHWA Certification}}, which confirms your work is open-source compliant.
+%\vskip 0.2cm
+%If certification has been acquired, insert the OSHWA UID here. For example: “CH000005”. In your OSHWA certification project description, include a link to your HardwareX publication and the tag \#HX.
+%\vskip 0.2cm
+%If you haven’t acquired certification, please delete this row of the specifications table.}
+
 \\\hline
 \end{tabu}
 \end{flushleft}
@@ -181,7 +186,7 @@ Having worked on multiple iterations of the sampler, we have decided to go with 
 
 The Idle state is the default state of the sampler. This is where the sampler waits for a signal from the RTC to move to the first/next state of the Sampling Sequence. If the sampler is not in sleep mode, this is when a client would interact with the UI to do a handful of tasks such as setting up a Sampling Schedule or using the other task utilities. If the sampler is in sleep mode, then only the RTC and supporting circuits are powered. This means there is no way to interact with the sampler without exiting sleep mode.
 
-Once the RTC sends the signal to start a sample procedure, the sampler enters the Prefilter Clear (PC) state. In this state, the purge and input ball valve are opened, and the pump is run in the backwards direction. This will allow for air to flow from the purge and out the input line. This is used to clear the prefilter of anything that might be clogging it, such as accumulated debris. This state runs for $__$ seconds, before moving onto the next state. 
+Once the RTC sends the signal to start a sample procedure, the sampler enters the Prefilter Clear (PC) state. In this state, the purge and input ball valve are opened, and the pump is run in the backwards direction. This will allow for air to flow from the purge and out the input line. This is used to clear the prefilter of anything that might be clogging it, such as accumulated debris. This state runs for X seconds, before moving onto the next state. 
 
 The Flush state and the proceeding Offshoot Clean (OC) state are used to prepare the lower hydraulics before the Sample state. The Flush state starts with the purge valve and the ball valving opening, then the motor starts to run in the forward direction. This fills the lower hydraulics with sample liquid and clears out/dilutes and liquid that remained from previous sample. The Flush state runs for the time specified when the Sampling Schedule is created. We recommend a Flush time of 6 minutes. 
 
@@ -288,59 +293,12 @@ PolyWAG Sampler hosts a webserver that can be connected to via a browser. This a
 
 % > To make it easy to tell which item in the Bill of Materials corresponds to which component in your design file(s), use matching designators in both places, or otherwise explain the correspondence.
 
-% > For material type, select from: Metal, semi-conductor, ceramic, polymer, biomaterial, organic, inorganic, composite, nanomaterial, semiconductor, non-specific, or other  
-\textit{If your bill of materials is long or complex, you can upload the details in an editable spreadsheet, e.g., ODS file type, Excel spreadsheet or PDF file, to an open access online location, such as the \href{https://osf.io/}{\underline{Open Science Framework}} repository. Include the link here. Alternatively, the bill of materials can be submitted alongside your manuscript as supplementary material.}
+% > For material type, select from: Metal, semi-conductor, ceramic, polymer, biomaterial, organic, inorganic, composite, nanomaterial, semiconductor, non-specific, or other 
 
-\section{Bill of materials summary}
-\textit{Complete a separate row for each component of your hardware – all components associated with a cost should be listed and any empty rows should be deleted. }
-\vskip 0.2cm
-\tabulinesep=1ex
-\noindent
-\begin{tabu} to \linewidth {|X[1.1,1]|X|X[0.6,1]|X[0.8,1]|X|X|X[1.1,1]|}
-%\begin{tabular}{|c|c|c|c|c|c|c|}
-\hline
-\textbf{Designator} & \textbf{Component} & \textbf{Number} & \textbf{Cost per unit - currency} & \textbf{Total cost - currency} & \textbf{Source of materials} & \textbf{Material type} \\\hline
-
-%Insert items here
-\textit{If possible, use the same designator here as you use in the associated design file. If that’s not possible, you will need to explain the relationship between the two.} & \textit{Name of Component 1} & \textit{Number of units} & \textit{Cost per unit and the currency used} & \textit{Total cost and the currency used} & \textit{If possible, include a direct link to a webpage where the component can be purchased } & \textit{Select from:
-\vskip 0.1cm
-%\begin{itemize}
--Metal
-\vskip 0.1cm
--Semi-conductor
-\vskip 0.1cm
--Ceramic
-\vskip 0.1cm
--Polymer
-\vskip 0.1cm
--Biomaterial
-\vskip 0.1cm
--Organic
-\vskip 0.1cm
--Inorganic
-\vskip 0.1cm
--Composite
-\vskip 0.1cm
--Nanomaterial
-\vskip 0.1cm
--Semiconductor
-\vskip 0.1cm
--Non-specific
-\vskip 0.1cm
--Other 
-%\end{itemize}
-} \\\hline
-\dots & \dots & \dots & \dots & \dots & \dots & \dots \\\hline
-
-\dots & \dots & \dots & \dots & \dots & \dots & \dots \\\hline
-
-\dots & \dots & \dots & \dots & \dots & \dots & \dots \\\hline
-% Designator 3 & Name of Component 2 & Number of units & Cost per unit & Total cost & Source of materials & Material type \\\hline
-\end{tabu}\\
-\vskip 0.2cm
-%\end{tabular}
-\noindent
-\textit{You can use this space for any additional descriptions of the materials used.}
+% > \href{https://osf.io/}{\underline{Open Science Framework}} 
+Given the number of materials required to build a PolyWAG Sampler, The BOM will be located in an external file and can be found \href{https://docs.google.com/spreadsheets/d/1WZbGYL1k3ne1a8Z1YOA0necr3MgxMj_BiEK7JuaGnzE/edit#gid=1118434588}{\underline{here}}
+% Change the link for one that points to Zenodo
+% > Add the BOM to Zenodo
 
 
 \section{Build instructions}
@@ -350,15 +308,9 @@ PolyWAG Sampler hosts a webserver that can be connected to via a browser. This a
 % > Clearly reference design files and component parts described in the Design File Summary and Bill of Materials. 
 % >Highlight potential safety concerns that may arise
 
-\textit{Provide detailed, step-by-step construction instructions for the submitted hardware:
-\begin{itemize}
-\item[$\bullet$]Include all necessary information for reproducing it. 
-\item[$\bullet$]Explain and (when possible) characterize design decisions. Include any design alternatives you created.
-\item[$\bullet$]Use visual instructions such as schematics, images and videos.
-\item[$\bullet$]Clearly reference design files and component parts described in the \textbf{Design file summary} and the \textbf {Bill of materials summary}.
-\item[$\bullet$]Highlight any potential safety concerns.
-\end{itemize}}
-
+Given the complexity of the PolyWAG Sampler, a Build Instructions section of sufficient detail would be near a hundred pages long. This is why an external build guide document will be linked for those who are interested in knowing how one of these samplers are assembled. This file can be located \href{https://drive.google.com/file/d/1QSpYj-N6-jE-VbXLVelzRzzdIF1lMkuC/view?usp=sharing}{\underline{here}}
+% Change the link for one that points to Zenodo
+% > Add the Build Guide to Zenodo
 
 \section{Operation instructions}
 %Provide detailed instructions for the safe and proper operation of the hardware. 
@@ -366,11 +318,11 @@ PolyWAG Sampler hosts a webserver that can be connected to via a browser. This a
 %> Use visual instructions as necessary. 
 %> Highlight potential safety hazards.
 
-\textit{Provide detailed, step-by-step instructions for the safe and proper operation of the hardware.  
-\begin{itemize}
-\item[$\bullet$]Use visual instructions, as necessary.
-\item[$\bullet$]Highlight any potential safety hazards.
-\end{itemize}}
+
+
+%%% Kai's Notes
+%%% Use Mark's section here
+%%% Maybe add a section for physically using the sampler. 
 
 
 \section{Validation and characterization}
@@ -379,24 +331,15 @@ PolyWAG Sampler hosts a webserver that can be connected to via a browser. This a
 %> If possible, characterize performance of the hardware over operational parameters. 
 %> Create a bulleted list that describes the capabilities (and limitations) of the hardware. For example consider descriptions of load, operation time, spin speed, coefficient of variation, accuracy, precision and etc. 
 
-\textit{Demonstrate the operation of the hardware and characterize its performance for a specific scientific application. 
-\begin{itemize}
-\item[$\bullet$]Highlight a relevant use case.
-\item[$\bullet$]If possible, characterize performance of the hardware over operational parameters.
-\item[$\bullet$]Create a bulleted list describing the capabilities (and limitations) of the hardware. For example, load and operation time, spin speed, coefficient of variation, accuracy, precision, etc.
-\end{itemize}}
+%%% Kai's Notes
+%%% Insert Riley's Section once edits are made. 
 
+\section*{}
 \noindent
 \textbf{Ethics statements}\\
 
 \noindent
-{\it HardwareX has ethical guidelines that all authors must comply with. In addition, we ask you to complete the relevant statement(s) below.  Please delete those which are not relevant for your work.}\\
-
-\noindent
-{\it \textbf{If your work involved human subjects,} please include a statement here confirming that the relevant informed consent was obtained from those subjects:}\\
-
-\noindent
-{\it \textbf{If your work involved animal experiments,} please include a statement here confirming that those experiments complied with the ARRIVE guidelines and were carried out in accordance with the U.K. Animals (Scientific Procedures) Act, 1986 and associated guidelines; EU Directive 2010/63/EU for animal experiments; or the National Institutes of Health guide for the care and use of laboratory animals (NIH Publications No. 8023, revised 1978). Note, the sex of the animals must be indicated, and, where appropriate, the influence (or association) of sex on the results of the study:}\\
+The work does not use any human or animal subjects.\\
 
 \noindent
 \textbf{CRediT author statement}\\
@@ -469,13 +412,6 @@ PolyWAG Sampler hosts a webserver that can be connected to via a browser. This a
 
 \item[$\bullet$]For more information on the article template consult the \href{https://www.elsevier.com/journals/hardwarex/2468-0672/guide-for-authors}{\underline{Guide to Authors}}.
 \end{itemize}}
-
-\vskip 1.5cm
-\begin{center}
-{\Huge \it Reminder: Before you submit, please delete all 
-the instructions in this document (the text in italics), including this paragraph.\\
-Thank you!}
-\end{center}
 
 \end{document}
 
