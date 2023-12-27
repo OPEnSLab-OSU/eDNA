@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.15)  26 DEC 2023 21:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.15)  26 DEC 2023 21:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -533,32 +533,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 375--378
 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 390--391
-
- []
-
-[7] [8] (PolyWAG_HardwareX.aux)
+[7] (PolyWAG_HardwareX.aux)
 Package rerunfilecheck Info: File `PolyWAG_HardwareX.out' has not changed.
 (rerunfilecheck)             Checksum: A967A288B3FE37A3B5FCC2CFF0816428;1689.
  ) 
 Here is how much of TeX's memory you used:
- 10960 strings out of 476331
- 173288 string characters out of 5786785
+ 10959 strings out of 476331
+ 173282 string characters out of 5786785
  1864660 words of memory out of 5000000
  31240 multiletter control sequences out of 15000+600000
  537015 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,16n,76p,1493b,642s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,16n,76p,1493b,524s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.
 pfb><C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi
 10.pfb><C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lm
 r10.pfb><C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/l
 mri10.pfb><C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm
 /lmsy10.pfb>
-Output written on PolyWAG_HardwareX.pdf (8 pages, 163313 bytes).
+Output written on PolyWAG_HardwareX.pdf (7 pages, 159138 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
- 21 named destinations out of 1000 (max. 500000)
+ 152 PDF objects out of 1000 (max. 8388607)
+ 20 named destinations out of 1000 (max. 500000)
  97 words of extra memory for PDF output out of 10000 (max. 10000000)
 
