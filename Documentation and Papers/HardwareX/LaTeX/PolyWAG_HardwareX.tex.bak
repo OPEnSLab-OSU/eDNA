@@ -9,6 +9,7 @@
 \usepackage{amssymb}
 \usepackage{xcolor}
 \usepackage{verbatim}
+\usepackage{graphicx}
 \newlist{selectlist}{itemize}{2}
 \setlist[selectlist]{label=$\square$,leftmargin=*,noitemsep,topsep=0pt}
 
@@ -169,20 +170,37 @@ The eDNA sampler we have developed is an autonomous multi-sampling device that c
 
 \subsection{Hydraulics}
 The hydraulics of the sampler can be roughly split into the following sections:
-% Insert List
+\begin{itemize}
+	\item The Pump and Inputs
+	\item The Lower Hydraulics
+	\item The Filters
+	\item The Upper Hydraulics and Outputs
+\end{itemize}
 There are three inputs into the sampler: one for air, one for preservative, and one for water. The preservative input is connected to a hydration bladder where the preservative of choice can be stored. The water input has a prefilter at the front end of the tube to prevent debris from entering the sampler. Three valves are used to control the flow from these inputs with the air preservative being regulated by a solenoid valve and the water being controlled by a ball valve. These three valves connect into a single tube connected to the input of the peristaltic pump.
 The pump is capable of 400ml/min of flow under ideal conditions. The output of the pump connects directly into the Lower Hydraulic Rail. 
 
-% Insert Image
+\begin{center}
+	\includegraphics[scale=0.75]{./Assets/PolyWAG_HX_HD_InHydr.png}
+\end{center}
 
 The Lower Hydraulic Rail consists of 24 solenoid valves connected parallel to each other which controls which filter liquid flows through. The valves are split into two sets, one on each side of the sampler. In between these two sets is a M32JM-000105-100PG pressure and temperature sensors. The temperature is logged for later use and the pressure is used for monitoring, stopping an operation if the pressure exceeds a certain margin. At the end of the Lower Hydraulic Rail is another solenoid valve which allows for the lower hydraulics to be purged of their current contents when necessary.
 
-% Insert Image
+\begin{center}
+	\includegraphics[scale=0.65, angle=-90]{./Assets/PolyWAG_HX_HD_LHR.png}
+\end{center}
+
+After the solenoid valve there is a tee connection that goes to a one-way check valve and a modified Advantec filter. The one-way check valve allows air into the solenoid valve that opens when the pump runs backwards. The Advantec filter is modified with a CPC quick disconnect and a one-way check valve. The one-way check valve is connected to the Upper Hydraulics and is used to prevent liquid from going backwards through the filter. The Upper Hydraulics simply connects the output of all the filters to one central line that goes through a flow meter and out of the sampler. 
+
+\begin{center}
+	\includegraphics[scale=0.75]{./Assets/PolyWAG_HX_HD_Filter.png}
+\end{center}
 
 \subsection{Sampling Procedure}
 Having worked on multiple iterations of the sampler, we have decided to go with a 13-step sampling sequence that helps reduce cross contamination significantly. This sequence can be split into 9 unique steps: Idle, Prefilter Clear, Flush, Offshoot Clean, De-pressure, Sample, Preservative Flush, Preservative, Air Flush, and End.
 
-% Insert Image
+\begin{center}
+	\includegraphics[scale=0.4]{./Assets/Sampling Sequence.drawio.png}
+\end{center}
 
 The Idle state is the default state of the sampler. This is where the sampler waits for a signal from the RTC to move to the first/next state of the Sampling Sequence. If the sampler is not in sleep mode, this is when a client would interact with the UI to do a handful of tasks such as setting up a Sampling Schedule or using the other task utilities. If the sampler is in sleep mode, then only the RTC and supporting circuits are powered. This means there is no way to interact with the sampler without exiting sleep mode.
 
@@ -214,7 +232,9 @@ The Reset Valves Utility is used when valves have been sampled that you want to 
 
 The PolyWAG Sampler is designed with a custom electronics control board that can be split into 8-10 blocks with an Adafruit Feather M0 at its core. These blocks consist of the microcontroller/Wifi Block, Power, RTC, and sleep control blocks, and the output blocks consisting of the Shift Register, Pump, and Ball-Valve H-Bridge Blocks. 
 
-% Insert Image
+\begin{center}
+	\includegraphics[scale=0.4]{./Assets/Electronics Block Diagram.png}
+\end{center}
 
 The power block consists of a reverse polarity current (RPC) circuit and a voltage regulator circuit. The RPC Circuit was added to protect the 12V battery from current flowing backwards through the system. While the battery has its own protection circuits, they lock the battery in the case of a short and need to be reset using the battery charger. The RPC circuit was added to prevent any “permanent” power loss while in the field. The voltage regulator circuit is a 12V to 5V regulator with an enable pin that connects to the sleep control circuit. This is used to save power during long term deployments. 
 
@@ -343,12 +363,17 @@ The work does not use any human or animal subjects.\\
 
 \noindent
 \textbf{CRediT author statement}\\
-\noindent
-{\it CRediT is in initiative that enables authors to share an accurate and detailed description of their diverse contributions to a published work.}\\
+% CRediT is in initiative that enables authors to share an accurate and detailed description of their diverse contributions to a published work.
+% Example:
+% Zhang San: Conceptualization, Methodology, Software. Priya Singh: Data curation, Writing- Original draft preparation. Wang Wu: Visualization, Investigation. Jan Jansen: Supervision. Ajay Kumar: Software, Validation. Sun Qi: Writing- Reviewing and Editing.
+% Please add a CRediT author statement for your data article here, using the \href{https://www.elsevier.com/authors/journal-authors/policies-and-ethics/credit-author-statement}{categories listed on this webpage}.
 
 \noindent
-{\it Example of a CRediT author statement: 
-\textbf{Zhang San}: Conceptualization, Methodology, Software \textbf{Priya Singh}: Data curation, Writing- Original draft preparation. \textbf{Wang Wu}: Visualization, Investigation. \textbf{Jan Jansen}: Supervision. \textbf{Ajay Kumar}: Software, Validation.: \textbf{Sun Qi}: Writing- Reviewing and Editing.}\\
+\textbf{Zhang San}: Conceptualization, Methodology, Software \\
+----------------------------------------------------------------------
+---------------------------------------------------------------------\\
+\textbf{Priya Singh}: Data curation, Writing- Original draft preparation. 
+\\
 
 \noindent
 {\it Please add a CRediT author statement for your data article here, using the \href{https://www.elsevier.com/authors/journal-authors/policies-and-ethics/credit-author-statement}{categories listed on this webpage}.}\\
@@ -357,6 +382,11 @@ The work does not use any human or animal subjects.\\
 \noindent
 \textbf{Acknowledgements}\\
 % [List here those individuals who provided help during the research (e.g., providing language help, writing assistance or proof reading the article, etc.).] Please also identify who provided financial support for the conduct of the research and/or preparation of the article and to briefly describe the role of the sponsor(s), if any, in study design; in the collection, analysis and interpretation of data; in the writing of the report; and in the decision to submit the article for publication. If the funding source(s) had no such involvement then this should be stated.}
+
+
+
+
+
 \noindent
 \textit{All contributors who do not meet the criteria for authorship should be listed in an acknowledgments section.} 
 \vskip 0.2cm
@@ -384,34 +414,6 @@ The work does not use any human or animal subjects.\\
 %> Include at least one reference, to the original publication of the hardware you customized.
 %> Include other references as required. Include references to put your device in context in the literature. For more information on the reference format in HardwareX please see the Guide for Authors at: https://www.elsevier.com/journals/hardwarex/2468-0672/guide-for-authors
 
-\begin{center}
----------------------------------------------------------------------------------------------------------------------------
-\end{center}
-{\it \underline{Additional Information for authors.} (do not include these lines in your submission)\\
-
-\noindent
-\textbf{Author manuscript checklist}
-\begin{itemize}
-\item[$\bullet$]Is the subject of the submission under an open source license? Are design files in the preferred format for making modifications as defined by the \href{http://www.oshwa.org/definition/}{\underline{Open Source Hardware definition}}?
-
-\item[$\bullet$]Can the hardware be reproduced with the details provided in the submission?
-
-\item[$\bullet$]Are all relevant design files available on either the Mendeley Data, Open Science Framework, or Zenodo repository? Are they described in the Design Files Summary, and clearly documented? (E.g., descriptive file names, commented code, labeled images, etc.) 
-\begin{itemize}
-\item[$\circ$]If in the Open Science Framework, has the repository been registered? \href{https://osf.io/wgk7q/wiki/home/}{\underline{Instructions}}
-\item[$\circ$]If in Zenodo, is the repository open access and published? \href{https://doi.org/10.5281/zenodo.3346799}{\underline{Instructions}}
-\item[$\circ$]If in Mendeley Data, is the repository published or the sharable link included in the additional information you plan to submit? \href{https://doi.org/10.5281/zenodo.3346799}{\underline{Instructions}}
-\end{itemize}
-\item[$\bullet$]Are visual instructions used when necessary?
-
-\item[$\bullet$]Is the utility of the hardware to the scientific community explained clearly? Has a specific scientific application been demonstrated using the hardware?
-
-\item[$\bullet$]Is the performance of the hardware adequately demonstrated and characterized?
-
-\item[$\bullet$]Are all potential safety concerns addressed?
-
-\item[$\bullet$]For more information on the article template consult the \href{https://www.elsevier.com/journals/hardwarex/2468-0672/guide-for-authors}{\underline{Guide to Authors}}.
-\end{itemize}}
 
 \end{document}
 

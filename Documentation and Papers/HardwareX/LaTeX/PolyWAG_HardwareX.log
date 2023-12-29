@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.15)  26 DEC 2023 21:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.4) (preloaded format=pdflatex 2023.9.15)  29 DEC 2023 15:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -160,6 +160,23 @@ Package: verbatim 2022-07-02 v1.5u LaTeX2e package for verbatim enhancements
 \verbatim@line=\toks27
 \verbatim@in@stream=\read2
 )
+(C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2022/03/10 v1.4e Standard LaTeX Graphics (DPC,SPQR)
+(C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
+)
+(C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics
+.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+)
+\Gin@req@height=\dimen168
+\Gin@req@width=\dimen169
+)
 \enitdp@selectlist=\count271
 
 (C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/lm\lmodern.sty
@@ -254,7 +271,7 @@ Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
 \c@section@level=\count272
 )
-\@linkdim=\dimen168
+\@linkdim=\dimen170
 \Hy@linkcounter=\count273
 \Hy@pagecounter=\count274
 
@@ -291,7 +308,7 @@ Package hyperref Info: Bookmarks ON on input line 4425.
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4763.
-\XeTeXLinkMargin=\dimen169
+\XeTeXLinkMargin=\dimen171
 
 (C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -302,8 +319,8 @@ Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
 \Fld@menulength=\count277
-\Field@Width=\dimen170
-\Fld@charsize=\dimen171
+\Field@Width=\dimen172
+\Fld@charsize=\dimen173
 Package hyperref Info: Hyper figures OFF on input line 6042.
 Package hyperref Info: Link nesting OFF on input line 6047.
 Package hyperref Info: Hyper index ON on input line 6050.
@@ -347,9 +364,9 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip56
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 23.
+Package hyperref Info: Option `colorlinks' set `true' on input line 24.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 3
-1.
+2.
 
 (C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/lm\ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -362,24 +379,24 @@ File: l3backend-pdftex.def 2023-03-30 L3 backend support: PDF output (pdfTeX)
 ) (PolyWAG_HardwareX.aux)
 \openout1 = `PolyWAG_HardwareX.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -420,24 +437,34 @@ LaTeX Font Info:    ... okay on input line 31.
 mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count284
-\scratchdimen=\dimen172
+\scratchdimen=\dimen174
 \scratchbox=\box61
 \nofMPsegments=\count285
 \nofMParguments=\count286
 \everyMPshowfont=\toks28
 \MPscratchCnt=\count287
-\MPscratchDim=\dimen173
+\MPscratchDim=\dimen175
 \MPnumerator=\count288
 \makeMPintoPDFobject=\count289
 \everyMPtoPDFconversion=\toks29
 )
-Package hyperref Info: Link coloring ON on input line 31.
+(C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf
+-base.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys
+.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+Package hyperref Info: Link coloring ON on input line 32.
  (PolyWAG_HardwareX.out) (PolyWAG_HardwareX.out)
 \@outlinefile=\write3
 \openout3 = `PolyWAG_HardwareX.out'.
 
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 7
-4.
+5.
 
 (C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -448,112 +475,166 @@ File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 i Roy/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{C:/Users/Kai 
 Roy/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1.enc}]
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 9
-4.
+5.
 
 (C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/lm\omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-94.
+95.
 
 (C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/lm\omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-94.
+95.
 
 (C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/lm\omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 94.
+(Font)              <10.95> on input line 95.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 94.
+(Font)              <8> on input line 95.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 94.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 94.
+(Font)              <6> on input line 95.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 95.
 
 
 (C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 94.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 95.
 
 
 (C:\Users\Kai Roy\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \hbox (badness 10000) in paragraph at lines 137--137
+Underfull \hbox (badness 10000) in paragraph at lines 138--138
 []\OT1/lmr/bx/n/10.95 Closest com-mer-cial
  []
 
-[2] [3] [4] [5]
-Underfull \hbox (badness 1270) in paragraph at lines 282--282
+[2]
+<./Assets/PolyWAG_HX_HD_InHydr.png, id=77, 563.10374pt x 211.79124pt>
+File: ./Assets/PolyWAG_HX_HD_InHydr.png Graphic file (type png)
+<use ./Assets/PolyWAG_HX_HD_InHydr.png>
+Package pdftex.def Info: ./Assets/PolyWAG_HX_HD_InHydr.png  used on input line 
+183.
+(pdftex.def)             Requested size: 422.32677pt x 158.84303pt.
+ [3]
+<./Assets/PolyWAG_HX_HD_LHR.png, id=83, 402.50375pt x 705.63625pt>
+File: ./Assets/PolyWAG_HX_HD_LHR.png Graphic file (type png)
+<use ./Assets/PolyWAG_HX_HD_LHR.png>
+Package pdftex.def Info: ./Assets/PolyWAG_HX_HD_LHR.png  used on input line 189
+.
+(pdftex.def)             Requested size: 261.62433pt x 458.65813pt.
+<./Assets/PolyWAG_HX_HD_Filter.png, id=84, 341.275pt x 432.61626pt>
+File: ./Assets/PolyWAG_HX_HD_Filter.png Graphic file (type png)
+<use ./Assets/PolyWAG_HX_HD_Filter.png>
+Package pdftex.def Info: ./Assets/PolyWAG_HX_HD_Filter.png  used on input line 
+195.
+(pdftex.def)             Requested size: 255.95561pt x 324.4614pt.
+ [4 <./Assets/PolyWAG_HX_HD_InHydr.png> <./Assets/PolyWAG_HX_HD_LHR.png>]
+<./Assets/Sampling Sequence.drawio.png, id=91, 1044.90375pt x 241.90375pt>
+File: ./Assets/Sampling Sequence.drawio.png Graphic file (type png)
+<use ./Assets/Sampling Sequence.drawio.png>
+Package pdftex.def Info: ./Assets/Sampling Sequence.drawio.png  used on input l
+ine 202.
+(pdftex.def)             Requested size: 417.9541pt x 96.75978pt.
+ [5 <./Assets/PolyWAG_HX_HD_Filter.png> <./Assets/Sampling Sequence.drawio.png>
+]
+<./Assets/Electronics Block Diagram.png, id=98, 1204.5pt x 613.29124pt>
+File: ./Assets/Electronics Block Diagram.png Graphic file (type png)
+<use ./Assets/Electronics Block Diagram.png>
+Package pdftex.def Info: ./Assets/Electronics Block Diagram.png  used on input 
+line 236.
+(pdftex.def)             Requested size: 481.79147pt x 245.31215pt.
+ [6] [7 <./Assets/Electronics Block Diagram.png>]
+Underfull \hbox (badness 1270) in paragraph at lines 302--302
 []\OT1/lmr/m/it/10.95 All de-signs must be sub-mit-
  []
 
 
-Underfull \hbox (badness 6268) in paragraph at lines 282--282
+Underfull \hbox (badness 6268) in paragraph at lines 302--302
 []\OT1/lmr/m/it/10.95 Either en-ter the URL for
  []
 
 
-Overfull \hbox (16.99998pt too wide) in paragraph at lines 274--283
+Overfull \hbox (16.99998pt too wide) in paragraph at lines 294--303
 [][] 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 338--340
-
- []
-
-[6{C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.
+[8{C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.
 enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 341--343
+Underfull \hbox (badness 10000) in paragraph at lines 358--360
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 344--348
+Underfull \hbox (badness 10000) in paragraph at lines 361--363
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 349--352
+Underfull \hbox (badness 10000) in paragraph at lines 364--370
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 353--355
+Overfull \hbox (2.13809pt too wide) in paragraph at lines 371--376
+\OT1/lmr/m/n/10.95 ------------------------------------------------------------
+-------------------------------------------------------------------------------
+-------
+ []
+
+
+Overfull \hbox (2.13809pt too wide) in paragraph at lines 371--376
+\OT1/lmr/m/n/10.95 ------------------------------------------------------------
+-------------------------------------------------------------------------------
+-------
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 371--376
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 375--378
+Underfull \hbox (badness 10000) in paragraph at lines 377--379
 
  []
 
-[7] (PolyWAG_HardwareX.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 381--384
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 404--407
+
+ []
+
+[9] (PolyWAG_HardwareX.aux)
 Package rerunfilecheck Info: File `PolyWAG_HardwareX.out' has not changed.
 (rerunfilecheck)             Checksum: A967A288B3FE37A3B5FCC2CFF0816428;1689.
  ) 
 Here is how much of TeX's memory you used:
- 10959 strings out of 476331
- 173282 string characters out of 5786785
- 1864660 words of memory out of 5000000
- 31240 multiletter control sequences out of 15000+600000
+ 11351 strings out of 476331
+ 181223 string characters out of 5786785
+ 1863660 words of memory out of 5000000
+ 31603 multiletter control sequences out of 15000+600000
  537015 words of font info for 54 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,16n,76p,1493b,524s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,16n,76p,1493b,515s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbx10.
 pfb><C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmbxi
 10.pfb><C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lm
 r10.pfb><C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/l
 mri10.pfb><C:/Users/Kai Roy/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm
 /lmsy10.pfb>
-Output written on PolyWAG_HardwareX.pdf (7 pages, 159138 bytes).
+Output written on PolyWAG_HardwareX.pdf (9 pages, 216191 bytes).
 PDF statistics:
- 152 PDF objects out of 1000 (max. 8388607)
- 20 named destinations out of 1000 (max. 500000)
- 97 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 171 PDF objects out of 1000 (max. 8388607)
+ 22 named destinations out of 1000 (max. 500000)
+ 122 words of extra memory for PDF output out of 10000 (max. 10000000)
 
