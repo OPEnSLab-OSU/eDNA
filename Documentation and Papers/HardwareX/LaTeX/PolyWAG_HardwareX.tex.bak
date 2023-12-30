@@ -2,7 +2,7 @@
 
 \documentclass[11pt, letterpaper]{article}
 \usepackage[utf8]{inputenc}
-\usepackage[margin=1.5cm]{geometry}
+\usepackage[margin=1.5cm]{geometry} % Default 1.5cm, For review 2cm?
 \usepackage{titlesec}
 \usepackage{tabu}
 \usepackage{enumitem}
@@ -10,6 +10,8 @@
 \usepackage{xcolor}
 \usepackage{verbatim}
 \usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{lineno}
 \newlist{selectlist}{itemize}{2}
 \setlist[selectlist]{label=$\square$,leftmargin=*,noitemsep,topsep=0pt}
 
@@ -28,6 +30,10 @@
 % Set up the section label formatting
 \titleformat{\section}[block]{\hspace{1em}\bfseries}{\thesection.}{0.5em}{} 
 \titleformat{\subsection}[block]{\hspace{1em}}{\thesubsection}{0.5em}{}
+
+% Settings for Review
+%\doublespacing
+%\linenumbers
 
 \begin{document}
 % Create the title block
@@ -93,38 +99,37 @@ Environmental DNA * Sampling * Arduino * Data Logging \\
 \vskip 0.2cm
 \tabulinesep=1ex
 \begin{tabu} to \linewidth {|X|X[3,l]|}
-\hline  \textbf{Hardware name} & \textit{PolyWAG}
-  %Please specify the name of the hardware that you invented / customized
-  \\
-  \hline \textbf{Subject area} & %
-  % Please state the subject area most relevant to the original community for which this hardware was developed. Example subject areas are listed below.
-  \textit{Environmental, planetary and agricultural sciences}
-  \\
-  \hline \textbf{Hardware type} &
-    \textit{Field measurements and sensors}
-  \\ 
-\hline \textbf{Closest commercial analog} &
-  %Please specify the open source license. For more details see the guide to authors.
-  \textit{Dartmouth Ocean Technologies' eDNA Sampler}
-  \\
-\hline \textbf{Open source license} &
-  %Please specify the open source license. For more details see the guide to authors.
-  {CERN Open Hardware License \newline 
-  GNU General Public License v3.0}
-  \\
-\hline \textbf{Cost of hardware} &
-  %Approximate cost of hardware (complete breakdown will be included in the Bill of Materials).
-  \textit{\$3800 (Cost of just components)\newline
-  \$6000 (Cost with labor included)}
-  %Insert an approximate cost only - we will ask you for a complete breakdown of costs in a later section \textbf{(Bill of materials).}
-  \\
-\hline \textbf{Source file repository} & 
-  % Link to the source file repository
-      % insert a DOI URL to an approved source file repository:  Mendeley Data, theOSF, or Zenodo (instructions).  For example: "https://doi.org/10.5281/zenodo.3346799"
-      % If there is no external repository write “Available in the article”
-  \textit{If you’ve uploaded your source files to an approved repository (\href{http://osf.io}{\underline{OSF}}, \href{https://data.mendeley.com/}{\underline{Mendeley Data}} or \href{https://zenodo.org/}{\underline{Zenodo}}) write the DOI URL here. For exemple:  \href{http://doi.org/10.17605/OSF.IO/WGK7Q}{http://doi.org/10.17605/OSF.IO/WGK7Q}}  
-%  DOI URL to an approved source file repository: \href{https://data.mendeley.com/}{Mendeley Data}, the \href{http://osf.io}{OSF}, or \href{https://zenodo.org/}{Zenodo} \href{https://doi.org/10.5281/zenodo.3346799}{(instructions)}. \linebreak For example: "https://doi.org/10.5281/zenodo.3346799" \linebreak If there is no external repository write “Available in the article"}
-  \\
+	\hline  
+	\textbf{Hardware name} & 
+	\textit{PolyWAG}
+  	\\
+  	\hline 
+  	\textbf{Subject area} & 
+  	\textit{Environmental, planetary and agricultural sciences}
+  	\\
+  	\hline 
+  	\textbf{Hardware type} & 
+  	\textit{Field measurements and sensors}
+  	\\ 
+	\hline 
+	\textbf{Closest commercial analog} &
+  	\textit{Dartmouth Ocean Technologies' eDNA Sampler}
+  	\\
+	\hline \textbf{Open source license} &
+  	{CERN Open Hardware License \newline 
+  		GNU General Public License v3.0}
+  	\\
+	\hline \textbf{Cost of hardware} &
+  	\textit{\$3800 (Cost of just components)\newline
+  		\$6000 (Cost with labor included)}
+  	\\
+	\hline \textbf{Source file repository} & 
+  	% Link to the source file repository
+    % insert a DOI URL to an approved source file repository:  Mendeley Data, theOSF, or Zenodo (instructions).  For example: "https://doi.org/10.5281/zenodo.3346799"
+    % If there is no external repository write “Available in the article”
+  	\textit{If you’ve uploaded your source files to an approved repository (\href{http://osf.io}{\underline{OSF}}, \href{https://data.mendeley.com/}{\underline{Mendeley Data}} or \href{https://zenodo.org/}{\underline{Zenodo}}) write the DOI URL here. For exemple:  \href{http://doi.org/10.17605/OSF.IO/WGK7Q}{http://doi.org/10.17605/OSF.IO/WGK7Q}}  
+	% DOI URL to an approved source file repository: \href{https://data.mendeley.com/}{Mendeley Data}, the \href{http://osf.io}{OSF}, or \href{https://zenodo.org/}{Zenodo} \href{https://doi.org/10.5281/zenodo.3346799}{(instructions)}. \linebreak For example: "https://doi.org/10.5281/zenodo.3346799" \linebreak If there is no external repository write “Available in the article"}
+  	\\
 
 %\hline \textbf{OSHWA certification UID} \vskip 0.1cm {\it (OPTIONAL)}&
   %Insert OSHWA Certification UID (optional)
@@ -147,9 +152,9 @@ Environmental DNA * Sampling * Arduino * Data Logging \\
 % Include a short description of the hardware, putting into context of similar open hardware and proprietary equipment in the field.
 %\textit{Write a short description of the hardware and provide context, i.e., describe similar open hardware and proprietary equipment in the field.}
 Environmental DNA (eDNA) is DNA derived from mucus, feces, gametes, and carcasses [1]. Many things can be learned once this DNA is put through sequencing. eDNA can be used to determine what species are present in an area, the biodiversity of an area, and if any invasive or endangered species are present [2]. eDNA sampling provides scientists and researchers a non-invasive, rapid, cost-effective and sensitive way to detect and quantify species in many environments.  
- 
+\newline\par
 Traditional sampling of environmental DNA consists of manually filtering water, often requiring one or more researchers to be on location for days or weeks [3]. The filtration process varies depending on the researcher, but it is common to pull a sample of water with a bottle and pour that water into a funnel containing a filter. This can be connected to a vacuum pump to expedite the filtering process. After the sampling process is completed, the filters need to be preserved and the setup cleaned to avoid cross contamination [3]. This process is labor intensive, cost intensive, and can be dangerous, especially for remote locations. While commercialized solutions to this problem exist, they either still require an operator to be on location or are very expensive. Smithroot’s commercial solution offers a simplified process with additional data collection such as GPS location for a fair price, around \$8,000[6]. A disadvantage of this solution is that it is not fully autonomous, still requiring an operator to be on location to use the device [4]. An alternative is the DOT Sampler which is a fully autonomous solution that is capable of multiple samples (20+ samples) and is also submersible but comes at a cost of ~\$55,000 [5]. 
-
+\newline\par
 The solution designed by the OPEnS Lab is the middle ground of these two solutions. While it is not submersible (limiting its potential sampling environments), it is capable of autonomous, multi-sample operations for extended periods of time (approximately one month) for the cost of \$6,000. The two core priorities for our design are its autonomous function and the cross-contamination. The autonomous function of the  sampler is important for a handful of reasons. An autonomous system requires less researcher hours spent in the field. This has cost benefits from the reduced hours worked and safety benefits when sampling in hazardous environments.     
 
 
@@ -166,7 +171,9 @@ The solution designed by the OPEnS Lab is the middle ground of these two solutio
 
 The eDNA sampler we have developed is an autonomous multi-sampling device that collects eDNA samples from water via 47mm filter holders and provides a non-invasive, safe, and autonomous means of DNA collection. The sampler can hold 24 of these filter housing and are designed to be easily replaced and reusable. The sampler is controlled by a custom logic board with an Adafruit M0 Feather Wi-Fi microcontroller loaded with a webserver to act as the interface for the sampler’s operations. This webserver hosts a browser application which is used for real-time monitoring, scheduling tasks, and data logging for time, pressure, temperature, flow, and sample volume. This data is located stored onto an SD Card for later data analysis. 
 
-% Insert Image
+\begin{center}
+	\includegraphics[scale=0.5]{./Assets/Sampler CAD.png} %Replace with actualy image?
+\end{center}
 
 \subsection{Hydraulics}
 The hydraulics of the sampler can be roughly split into the following sections:
@@ -199,36 +206,43 @@ After the solenoid valve there is a tee connection that goes to a one-way check 
 Having worked on multiple iterations of the sampler, we have decided to go with a 13-step sampling sequence that helps reduce cross contamination significantly. This sequence can be split into 9 unique steps: Idle, Prefilter Clear, Flush, Offshoot Clean, De-pressure, Sample, Preservative Flush, Preservative, Air Flush, and End.
 
 \begin{center}
-	\includegraphics[scale=0.4]{./Assets/Sampling Sequence.drawio.png}
+	\includegraphics[scale=0.45]{./Assets/Sampling Sequence.drawio.png}
 \end{center}
 
 The Idle state is the default state of the sampler. This is where the sampler waits for a signal from the RTC to move to the first/next state of the Sampling Sequence. If the sampler is not in sleep mode, this is when a client would interact with the UI to do a handful of tasks such as setting up a Sampling Schedule or using the other task utilities. If the sampler is in sleep mode, then only the RTC and supporting circuits are powered. This means there is no way to interact with the sampler without exiting sleep mode.
-
+\newline\par
 Once the RTC sends the signal to start a sample procedure, the sampler enters the Prefilter Clear (PC) state. In this state, the purge and input ball valve are opened, and the pump is run in the backwards direction. This will allow for air to flow from the purge and out the input line. This is used to clear the prefilter of anything that might be clogging it, such as accumulated debris. This state runs for X seconds, before moving onto the next state. 
-
+\newline\par
 The Flush state and the proceeding Offshoot Clean (OC) state are used to prepare the lower hydraulics before the Sample state. The Flush state starts with the purge valve and the ball valving opening, then the motor starts to run in the forward direction. This fills the lower hydraulics with sample liquid and clears out/dilutes and liquid that remained from previous sample. The Flush state runs for the time specified when the Sampling Schedule is created. We recommend a Flush time of 6 minutes. 
-
+\newline\par
 The OC state closes the purge valve and opens the filter valve (for the filter which is about to be used. The pump runs backwards for a few seconds. This clears anything that might be in the tube between the valve and the filter (what we refer to as the offshoot). The Flush state is run one more time before moving to the Sample state.
-
+\newline\par
 Like the name suggests, the Sample state is where the system pushes the sample water through the filter. This is done by opening the Filter and Ball Valve and running the pump in the forward direction. The system moves to the next state when the target Sample Volume is reached. This volume is measured by a Flow Meter on the filter output line. Ideally, the state is terminated when the target volume is reached. There is an additional condition that will end the Sample state and that is the Sample Time. This time cutoff was added since the filter clogs and the flow rate decrease rapidly during the sample process. To prevent the sample state running for too long, the time limit was implemented. Both conditions are set during task scheduling. Since the pressure greatly increases due to the clogged filter, the de-pressure state is used to reduce the pressure in the lower hydraulics to ensure that the valves can operate consistently.
-
+\newline\par
 The Preservative Flush (PF) and Preservative (P) states are the next states in the sequence after the de-pressure state. The PF state is nearly identical to the Flush state except the Preservative input valve is used instead of the ball valve. The goal of this state is to saturate the lower hydraulics with preservative, preventing additional sample water that may have been stored in the lower hydraulics from going through the filter. If this water was allowed through the filter, then the Sample Volume would be inaccurate by the end of the sequence. The P state is like the Sample state except preservative is the input fluid instead of sample water. This state runs for a time specified by the user during scheduling.  
-
+\newline\par
 After the P state, another Flush and OC state runs to purge the leftover preservative in the lower hydraulics. After these two states, an Air Flush (AF) state is run which is identical to the Flush and PF states but uses the air valve as the input instead of the other two inputs. This ensures that any liquid that is in the lower hydraulics is purged. 
-
+\newline\par
 After the AF state occurs, the system sets an RTC alarm for the time of the next sample. The system then moves into Idle and if the system was in sleep mode, then the system will go into its low power state.
 
 \subsection{Utilities}
+
+\begin{center}
+	\includegraphics[scale=0.5]{./Assets/Utilities.png}
+\end{center}
+
 The HyperFlush utility runs water through every filter sequentially for a few seconds per filter. This is mainly used for cleaning out the system after a sample task (i.e., a set of 24 samples) to prevent any unwanted cross contamination. This utility can also be used to test the basic functionality of the sampler, as nearly every component is activated during this sequence. 
-
+\newline\par
 The Preservative Air Purge (PAP) utility turns the pump on and opens the alcohol valve for 10 seconds. This runs some alcohol through the system and removes air bubbles from the alcohol bag. Often it helps to use this utility multiple times and to tilt the Preservative Bladder so that the air is near the port.
-
+\newline\par
 The Update RTC utility is needed to make sure that the time on the sampler matches your local time, so scheduling a task will remain accurate. Whenever the system is fully depowered (ie the battery is removed), or when new code is uploaded to the microcontroller, the RTC will need to be updated. It is also recommended that the RTC is updated when there is a daylight-saving change, or when you move between time zones.
-
+\newline\par
 The Reset Valves Utility is used when valves have been sampled that you want to be sampled again. This is required since the system ‘locks’ the filter valves when they have been used in a sample, this prevents samples from being corrupted accidentally. The code does not let you sample a valve multiple times without being reset to prevent messing up a sample. It is important to note that this utility will reset all valves, not a specific one.
 
 \subsection{Electronics}
-% Insert Image
+\begin{center}
+	\includegraphics[scale=0.15]{./Assets/eDNABoard.jpg}
+\end{center}
 
 The PolyWAG Sampler is designed with a custom electronics control board that can be split into 8-10 blocks with an Adafruit Feather M0 at its core. These blocks consist of the microcontroller/Wifi Block, Power, RTC, and sleep control blocks, and the output blocks consisting of the Shift Register, Pump, and Ball-Valve H-Bridge Blocks. 
 
@@ -237,18 +251,21 @@ The PolyWAG Sampler is designed with a custom electronics control board that can
 \end{center}
 
 The power block consists of a reverse polarity current (RPC) circuit and a voltage regulator circuit. The RPC Circuit was added to protect the 12V battery from current flowing backwards through the system. While the battery has its own protection circuits, they lock the battery in the case of a short and need to be reset using the battery charger. The RPC circuit was added to prevent any “permanent” power loss while in the field. The voltage regulator circuit is a 12V to 5V regulator with an enable pin that connects to the sleep control circuit. This is used to save power during long term deployments. 
-
+\newline\par
 The RTC and sleep control circuit are used to keep track of time and to save power respectively. The sleep control circuit controls the output of the power circuit and is constantly being power by a simple voltage divider circuit. It is basically a Flip Flop circuit that is reset when the RTC triggers an interrupt. The RTC circuit is used to keep track of the time between samples and is powered by a coin cell while power is off. This allows it to keep accurate track of time and signals an interrupt when its internal alarm is triggered. This interrupt is used to both turn power back on and to inform the microcontroller that it is time for a sample. If noise causes the sleep control circuit to reactivate power, the microcontroller will see that the RTC did not trigger the interrupt and will fall back into power saving mode. 
-
+\newline\par
 The shift register circuit consists of 4 8-bit shift registers connect to the microcontroller via SPI. The shift registers are pull-down style shift registers where the ‘output’ pins are pulled to ground. This allows the shift registers to control devices that use higher logic voltages. This allows us to control the 27 12V solenoid valves with a 5V IC. The shift registers are also used to control the H-bridge for the Ball valve. The H-bridge for the pump is controlled directly by the microcontroller itself. 
-
+\newline\par
 The board contains an SD Card circuit for datalogging purposes. The data is logged every second and includes the current state, time, and data from the sensors. The sensors include an in-line pressure temperature sensors for monitoring the lower hydraulic line and a flow meter out the output for measuring volume.
-
+\newline\par
 The microcontroller of choice is an Adafruit Feather M0 WiFi. The WiFi version of the Feather M0 was chosen as the user interface requires the feather to host a webserver. 
 
 
 \subsection{User Interface}
-% Insert Image
+
+\begin{center}
+	\includegraphics[scale=0.35]{./Assets/UI.png}
+\end{center}
 
 PolyWAG Sampler hosts a webserver that can be connected to via a browser. This acts as the user interface for the system. There are three main sections that make up the user interface: monitoring, tasks, and utilities. The monitoring page displays the data from the sensors, the current state of the sampling procedure, and information on the sampling valves such as the current valve being sampled, and which valves are locked and unlocked. The utilities page is used to activate the utilities mentioned earlier. The tasks page is where sampling tasks are created. Multiple tasks can be created, and each task is saved in memory for later modification and use. This page is also where tasks can be scheduled for sampling. Each task contains the information on which valves are being used as well as for how long each state occurs. 
 
@@ -326,7 +343,7 @@ Given the number of materials required to build a PolyWAG Sampler, The BOM will 
 % > Explain and, when possible, characterize design decisions. Including design alternatives if they exist. 
 % > Use visual instructions such as schematics, images, and videos. 
 % > Clearly reference design files and component parts described in the Design File Summary and Bill of Materials. 
-% >Highlight potential safety concerns that may arise
+% > Highlight potential safety concerns that may arise
 
 Given the complexity of the PolyWAG Sampler, a Build Instructions section of sufficient detail would be near a hundred pages long. This is why an external build guide document will be linked for those who are interested in knowing how one of these samplers are assembled. This file can be located \href{https://drive.google.com/file/d/1QSpYj-N6-jE-VbXLVelzRzzdIF1lMkuC/view?usp=sharing}{\underline{here}}
 % Change the link for one that points to Zenodo
@@ -361,6 +378,7 @@ Given the complexity of the PolyWAG Sampler, a Build Instructions section of suf
 \noindent
 The work does not use any human or animal subjects.\\
 
+
 \noindent
 \textbf{CRediT author statement}\\
 % CRediT is in initiative that enables authors to share an accurate and detailed description of their diverse contributions to a published work.
@@ -369,15 +387,30 @@ The work does not use any human or animal subjects.\\
 % Please add a CRediT author statement for your data article here, using the \href{https://www.elsevier.com/authors/journal-authors/policies-and-ethics/credit-author-statement}{categories listed on this webpage}.
 
 \noindent
-\textbf{Zhang San}: Conceptualization, Methodology, Software \\
-----------------------------------------------------------------------
----------------------------------------------------------------------\\
-\textbf{Priya Singh}: Data curation, Writing- Original draft preparation. 
-\\
+\textbf{Kai Roy}: Project administration, Hardware(Electrical), Validation, Writing- Original draft \\
+\noindent
+\textbf{Riley Prince}: Project administration, Methodology, Validation, Data curation, Writing- Original draft \\
+\noindent
+\textbf{Marc Belinga}: Software, Investigation, Writing- Original draft \\
+\noindent
+\textbf{Torrey Menne}: Conceptualization, Hardware\\
+\noindent
+\textbf{Bao Nguyen}: Project administration, Conceptualization, Hardware(Electrical)\\
+\noindent
+\textbf{Nikhil Wandhekar}: Project administration, Hardware\\
+\noindent
+\textbf{Nathan Jesudason}: Software, Validation \\
+\noindent
+\textbf{Kawin Pechetratanapanit}: Conceptualization, Software \\
+\noindent
+\textbf{John Selker}: Funding acquisition, Supervision \\
+\noindent
+\textbf{Chet Udell}: Funding acquisition, Supervision \\
+\noindent
+\textbf{Cara Walter}: Funding acquisition, Supervision, Resources \\
 
 \noindent
-{\it Please add a CRediT author statement for your data article here, using the \href{https://www.elsevier.com/authors/journal-authors/policies-and-ethics/credit-author-statement}{categories listed on this webpage}.}\\
-
+\textbf{Auther}: Contribution. \\
 
 \noindent
 \textbf{Acknowledgements}\\
@@ -407,13 +440,12 @@ The work does not use any human or animal subjects.\\
 }\\
 
 
-\noindent
-\textbf{References}\\
-\noindent 
-\textit{If relevant, you should include a reference to the original publication of the hardware you customized and a reference to the repository in which your design files are published.  Other references can be included, as required; for example, references that put your device in context in the literature. For more information on the reference format in HardwareX please see the \href{https://www.elsevier.com/journals/hardwarex/2468-0672/guide-for-authors}{\underline{Guide for Authors}}.}
+%
+% References
+%
 %> Include at least one reference, to the original publication of the hardware you customized.
 %> Include other references as required. Include references to put your device in context in the literature. For more information on the reference format in HardwareX please see the Guide for Authors at: https://www.elsevier.com/journals/hardwarex/2468-0672/guide-for-authors
-
+\begin{bibliography
 
 \end{document}
 
