@@ -12,6 +12,7 @@
 \usepackage{graphicx}
 \usepackage{setspace}
 \usepackage{lineno}
+\usepackage{makecell}
 \newlist{selectlist}{itemize}{2}
 \setlist[selectlist]{label=$\square$,leftmargin=*,noitemsep,topsep=0pt}
 
@@ -78,7 +79,7 @@ Kai Roy * Riley Prince * Marc Belinga * John Selker * Chet Udell
 %Insert Abstract
 %Max. 200 words. Remember that the abstract is what readers see first in electronic abstracting and indexing services. This is the advertisement of your article. Make it interesting, and easy to be understood. Be accurate and specific, keep it as brief as possible.
 \textbf{Abstract} \\ 
-Environmental DNA, eDNA, is an ideal way of researching aquatic environments to determine what species are present in an area the biodiversity of an area, and if any invasive or endangered species are present . Traditional sampling of environmental DNA (eDNA) consists of manually filtering water,  which is labor and cost-intensive for remote locations. Furthermore, commercialized solutions  are either expensive or require a field operator to function.  We have built an eDNA capable of autonomous multi-sampling for a greatly reduced price compared to existing technologies. Our PolyWAG eDNA sampler system is a water sampling device that collects DNA samples via 47mm filter and provides a non-invasive, safe and autonomous means of eDNA collection. The sampler can hold 24 filters and is designed to be easily replaced and reusable. A browser application is used for real-time monitoring, scheduling tasks, and data logging for time, pressure, flow, and filtered volume. Additionally, the sampler design is openly published, modular and is constantly being tested to help us optimize our software and hardware to give us the best results. The 9-step  sampling sequence helps reduce cross contamination significantly. Our machine can be deployed for an extended period. It is completely autonomous and costs around \$6000.
+Environmental DNA (eDNA) is an ideal way of researching aquatic environments to determine what species are present in an area the biodiversity of an area, and if any invasive or endangered species are present . Traditional sampling of eDNA consists of manually filtering water,  which is labor and cost-intensive for remote locations. Furthermore, commercialized solutions  are either expensive or require a field operator to function.  We have built an eDNA capable of autonomous multi-sampling for a greatly reduced price compared to existing technologies. Our PolyWAG eDNA sampler system is a water sampling device that collects DNA samples via 47mm filter and provides a non-invasive, safe and autonomous means of eDNA collection. The sampler can hold 24 filters and is designed to be easily replaced and reusable. A browser application is used for real-time monitoring, scheduling tasks, and data logging for time, pressure, flow, and filtered volume. Additionally, the sampler design is openly published, modular and is constantly being tested to help us optimize our software and hardware to give us the best results. The 9-step  sampling sequence helps reduce cross contamination significantly. Our machine can be deployed for an extended period. It is completely autonomous and costs around \$6000.
 
 %\textit{Max. 200 words. Remember that the abstract is what readers see first in electronic abstracting \& indexing services - make it brief, specific, interesting and easy to understand. If a research article refers to your hardware, cite that research article here.}
 
@@ -370,6 +371,156 @@ Given the complexity of the PolyWAG Sampler, a Build Instructions section of suf
 
 %%% Kai's Notes
 %%% Insert Riley's Section once edits are made. 
+
+The PolyWAG Sampler was tested by the Openly Published Environmental Sensing Lab at Oregon State University. It was characterized by a blend of isolated in-lab testing procedures as well as field tests on the Willamette River and the Irish Bend Covered Bridge In Corvallis, Oregon. To assess the capabilities of the sampler, the following evaluations were conducted: to establish the viability of field deployment at running water sources in Alaska.
+
+\subsection{Cross-Contamination Testing}
+
+The primary use case of the PolyWAG eDNA sampler is for use in water sampling to capture existing trace biological information in the form of DNA by means of filtration. In gauging the use case of the sampler for eDNA collection and characterization, we subjected the sampler to a lengthy cross-contamination study for detecting residual DNA in subsequent sample steps. Prior to sampling, a cleaning and sterilization process was conducted to eliminate any sources of contamination from previous testing. After running the sampling procedure, the results were evaluated by means of Polymerase-chain reaction (PCR).
+\newline\par
+The basis for these observations is the use of Alaskan Sockeye Salmon DNA. To obtain Alaskan Sockeye Salmon DNA, 1 filet of salmon (~500g) is placed in an 8 gallon container of DI Water and left for 24 hours. During this time, biological material diffuses into the bulk water. After 24 hours the remaining salmon mass is removed to ensure constant salmon DNA concentration across trials.
+\newline\par
+The sample cleaning procedure makes use of the sampler’s HyperFlush utility to sterilize both the filter housings and the sampler hydraulic lines. The HyperHlush utility flushes each valve of the system sequentially with any bulk liquid connected to the input line. The cleaning procedure makes use of three HyperFlush cycles in the following liquid order: DI water, 6\% bleach, 5\% ascorbic acid. These cycles are repeated three times and followed by three subsequent HyperFlush cycles of DI water to purge all residual chemicals
+\newline\par
+The sampling procedure for cross-contamination characterization makes use of a sample of DNA followed by subsequent samples of DI Water. To establish experimental controls, the first sample of the study is a negative control containing DI water. This negative control gauges the success of the cleaning protocol, ensuring no prior contamination. Following this control, the process consists of three subsequent samples: Fish water (Positive Control) and two samples of DI water. Separate inlet lines are used for DI water and fish water to isolate the source of cross-contamination to the sampler itself, the lines being switched manually between samples. The data collected during this study consists of four trials performed using the following task settings on the eDNA UI: 1000 mL max sample volume, 4-minute max sample time, 10-second preservative flush, and 12-minute flush time (~5L). After sampling, the samples were individually packaged and sent for PCR analysis. 
+\newline\par
+For PCR analysis, the cellulose nitrate filters containing the salmon DNA are dissolved releasing the trapped DNA into solution. Sockeye Salmon primers were added to the DNA solution. During PCR the DNA is amplified on a scale of 109 times the original DNA concentration.  From here, immuno-fluorescence is used to quantify the amount of DNA retrieved by measuring the intensity of light emitted by the sockeye-salmon DNA. These values are interpreted in terms of a CT score. CT scores between 0-40 CT indicates the presence of Salmon DNA, while a CT score >40 indicates no Salmon DNA is detected.
+\newline\par
+Using these processes 13 samples were taken using the sampler. This included 1 Negative control, and 4 sample trials.
+
+\vskip 0.2cm
+\begin{center}
+\tabulinesep=1ex
+\begin{tabu} to \linewidth {|X|X|X[2,l]|}
+	\hline  
+	\textbf{Sample Name} & \textbf{CT} & \textbf{Results}
+  	\\
+  	\Xhline{4\arrayrulewidth} 
+  	Negative Control & 39.65583038 & \textbf{Positive-Low Quantity(1/2, high Ct)}
+  	\\
+  	\hline 
+  	Negative Control & Undetermined &
+  	\\ 
+	\hline 
+  	Positive Control & 29.15957832 &
+  	\\ 
+  	\hline 
+  	Positive Control & 29.47208214 & \textbf{Positive}
+  	\\ 
+	\hline 
+  	Trial 1: Sample 1 & Undetermined & \textbf{}
+  	\\ 
+	\hline 
+  	Trial 1: Sample 1 & Undetermined & \textbf{Negative}
+  	\\ \hline 
+  	Trial 1: Sample 2 & Undetermined & \textbf{}
+  	\\ \hline 
+  	Trial 1: Sample 2 & Undetermined & \textbf{Negative}
+  	\\ 
+  	\Xhline{4\arrayrulewidth} 
+  	Positive Control & 30.94010544 & \textbf{Positive}
+  	\\ 
+  	\hline 
+  	Positive Control & 30.6325016 & \textbf{Positive}
+  	\\ 
+	\hline 
+  	Trial 2: Sample 1 & Undetermined & \textbf{}
+  	\\ 
+	\hline 
+  	Trial 2: Sample 1 & 39.86541748 & \textbf{Positive-Low Quantity(1/2, high Ct)}
+  	\\ 
+  	\hline 
+  	Trial 2: Sample 2 & Undetermined & \textbf{Negative}
+  	\\ 
+  	\hline 
+  	Trial 2: Sample 2 & Undetermined & \textbf{Negative}
+  	\\ 
+  	\Xhline{4\arrayrulewidth}
+  	Positive Control & 29.15957832 &
+  	\\ 
+  	\hline 
+  	Positive Control & 29.47208214 & \textbf{Positive}
+  	\\ 
+	\hline 
+  	Trial 3: Sample 1 & Undetermined & \textbf{}
+  	\\ 
+	\hline 
+  	Trial 3: Sample 1 & 39.46964645 & \textbf{Positive-Low Quantity(1/2, high Ct)}
+  	\\ 
+  	\hline 
+  	Trial 3: Sample 2 & Undetermined & \textbf{}
+  	\\ 
+  	\hline 
+  	Trial 3: Sample 2 & Undetermined & \textbf{Negative}
+  	\\ 
+  	\Xhline{4\arrayrulewidth}
+  	Positive Control & 29.15957832 &
+  	\\ 
+  	\hline 
+  	Positive Control & 29.47208214 & \textbf{Positive}
+  	\\ 
+	\hline 
+  	Trial 4: Sample 1 & Undetermined & \textbf{}
+  	\\ 
+	\hline 
+  	Trial 4: Sample 1 & Undetermined & \textbf{Negative}
+  	\\ 
+  	\hline 
+  	Trial 4: Sample 2 & Undetermined & \textbf{}
+  	\\ 
+  	\hline 
+  	Trial 4: Sample 2 & Undetermined & \textbf{Negative}
+  	\\ 
+	\hline
+\end{tabu}
+\end{center}
+
+The 4 trials conducted came to varying degrees of success. In trials one and four, the CT scores of the samples following the positive controls were undetectable. This indicates that there is no detectable DNA in the PCR-amplified sample. Samples two and three contained CT scores <40; however, in very low detectable quantities. In both cases, the sample immediately following the control are the samples in question. In the duplicate amplification one trial contained a CT score between 39 and 40 while the other was undetectable. This indicates a very faint presence of fish DNA between samples. The cause of this can be explained by two reasons. One is that the sampler is unable to prevent cross-contamination between trials. The other is that the cleaning cycle is not adequate for ridding all DNA in the sampler. The latter of the two seems more likely because of the negative control. Like the two barely detectable samples the negative control indicated a faint positive signal. This means one of two things: contaminated sample water or insufficient cleaning cycle. Based on these results the sampler does not justify evidence that the sampler prevents cross-contamination between samples. That being said there is evidence that the flushes between samples do minimize contamination. This is supported because sample two in all trials were identified as negative. Therefore, increasing the flush and cleaning times shows promise for mitigating cross-contamination issues.
+
+\subsubsection{Turbidity}
+To ensure the effective use of the sampler in non-ideal conditions, the sampler was analyzed by means of a flow analysis across a range of turbidity levels. The purpose of this test is to ensure adequate flow through the filter before it clogs. For eDNA purposes a minimum of 500 mL of filtered volume is required to accurately analyze the DNA concentration of the input stream. For testing, a 5.0 um filter and 75 um pre-filter are evaluated.
+\newline\par
+Based on water turbidity data for Alaskan streams in April, the turbidity of the water ranges from ~30-80 NTU. To reproduce this range, a 2000 NTU formazin based turbidity standard was diluted to produce 3L of the following NTU standards: 50, 100, 250 NTU. These turbidity standards were mixed within a beaker with a 2-inch stir bar at the lowest speed that a vortex was observed. The 75 um system pre-filter was suspended two inches from the bottom of the beaker while sampling. Sampling was conducted and stopped once the flow rate dropped below 60 mL/min. This drop in flow rate indicates a filter clogging.
+
+\begin{center}
+	\includegraphics[scale=1]{./Assets/Turbidity.png}
+\end{center}
+
+To gauge the effectiveness of the sampler in the different turbidites the values are compared to the 500 mL minimum filtered volume. Greater than 500 mL of filtered volume indicates a successful sampler run at that water quality. As a result of this testing, the sampler is found to successfully operate in the range of 30-80 NTU. The data indicates the sampler can run in water qualities up to 100 NTU before samples under 500 mL are observed. Subsequent testing at 250 NTU indicates for lower-quality water streams, the sampler’s function decreases substantially, only filtering 200-250 mL per filter.This indicates that the sampler’s peristaltic pump is not able to build a high enough pressure gradient across the filter. Therefore for environments with lower water quality an increase in pump power is needed.
+\newline\par
+After conducting idealized laboratory trials, the sampler was placed in the field to test the flow for real-world applications. The sampler was placed in two locations in Corvallis, Oregon: the Irish Bend Covered Bridge on Oak Creek, and the Willamette Boat Landing on the Willamette River. In both locations, the sampler was deployed on the shore of the river with an inlet hose that ran to faster-moving water. For Oak Creek, the sampler’s prefilter was staked 4 inches between the water level in the middle of the stream. For the Willamette River, the inlet hose was immobilized at the end of the Willamette landing boat launch dock. The purpose of this trial is to serve as a proof of concept of the device in real world water streams. In both Oak Creek and the Willamette River, three trials were conducted in series to investigate the effects of non-idealized real world conditions on the sampler. The success of these trials is based on the ability to achieve greater than 500 mL of filtered volume per sample. The two rivers provide variable conditions on the quality of the water. Oak Creek contains low river flow and high water quality, while the Willamette river was experiencing flooding with very murky, low water quality. Without a turbidity sensor, the relative turbidity of these streams were determined relative to the observed turbidity standards used for the lab turbidity testing.
+
+\begin{center}
+	Insert Table
+\end{center}
+
+As a result of these trials, the sampler performed in much the same way as the lab turbidity trials. For the lower turbidity water sources the sampler had no issues reaching over 500mL of filtered volume. For the higher turbidity sources the 500 mL filtered volume minimum was not met; however, this was expected of the trial. Altogether, these results confirm the use case of the sampler in low turbidity environments
+
+\subsubsection{Flow Accuracy Testing}
+
+The kinematic viscosity of water varies with temperature. This indicates that the sampler will read different values for flow rate for different temperatures. To ensure the sampler the flowmeter provides accurate flow readings for the upcoming Alaskan trials, the sampler was calibrated to reach accurate flow readings between 3-5’C. For accurate eDNA measurements the accuracy of the filtered volume must be within 10\% of the true filtered volume. Using the 10\% value as an end condition, several trials were conducted to determine the optimal volume constant for the flow meter pulses. In these trials, the outlet of the sampler is manually measured with a graduated cylinder and compared to the sampler’s calculated value.The percent error was then calculated between the two quantities. To ensure accuracy across the sampler’s operating range, the filtered volume was measured and compared at 250, 500, and 1000 mL for each volume constant. By averaging these values at each volume constant the average error per volume constant was discovered. 
+
+\begin{center}
+	\includegraphics[scale=1]{./Assets/Flow1.png}
+\end{center}
+
+The results determined from this process indicate the constant that is centered within the error. In other words, the smaller the bar the more the positive and negative errors negate each other. This essentially centers the solution in the error domain. The minimum error indicates an ideal volume constant at or near 0.113. This alone does not demonstrate the accuracy of the volume measurement. Rather this indicates the most normalized variability between the trials. When looking at the max error between trials the hard limit of 10\% places these values in context.
+
+\begin{center}
+	\includegraphics[scale=1]{./Assets/Flow2.png}
+\end{center}
+
+When viewing the max magnitude of error, a convex solution with a minimum error between real and observed volumes. In this context, the minimum absolute error is also easily determined to be at volume constant 0.113. The max error at this measurement falls below the 10\% threshold, indicating the sampler’s viability for eDNA collection purposes.
+
+\subsubsection{Battery Life Testing}
+Battery life varies with the ambient temperature of the surrounding environment \cite{art:Battery}. To gauge the battery life of the sampler in a cold Alaskan environment the battery was placed in a freezer at 0’C. The battery was left for two weeks to simulate the two-week field deployment time in Alaska. After two weeks, the battery line was plugged into the sampler while remaining in the freezer. A full 24-sample procedure was conducted. To ensure normal operating conditions the full 24-sample procedure was used using the default sampling procedure. Because the battery did not die during this time the sampler was determined to have enough battery life for normal operation of the sampler.
+
+
+\section{Conclusion}
+% Insert Short Conclusion Paragraph
+% Reiterate Benefits
+% Mention 
+
 
 \section*{}
 \noindent
