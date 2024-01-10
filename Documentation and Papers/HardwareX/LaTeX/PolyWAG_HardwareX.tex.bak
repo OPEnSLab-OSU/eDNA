@@ -341,6 +341,7 @@ PolyWAG Sampler hosts a webserver that can be connected to via a browser. This a
 	% Software
 	UI Code 								& Software & \dots & \dots \\\hline
 	Device (Server) Code 					& Software & \dots & \dots \\\hline
+	
 \end{tabu}
 
 
@@ -375,10 +376,10 @@ Given the complexity of the PolyWAG Sampler, a Build Instructions section of suf
 % > Add the Build Guide to Zenodo
 
 \section{Operation instructions}
-% Provide detailed instructions for the safe and proper operation of the hardware. 
-% > Step-by-step operational instructions for operating the hardware. 
-% > Use visual instructions as necessary. 
-% > Highlight potential safety hazards.
+%Provide detailed instructions for the safe and proper operation of the hardware. 
+%> Step-by-step operational instructions for operating the hardware. 
+%> Use visual instructions as necessary. 
+%> Highlight potential safety hazards.
 
 %%% Kai's Notes: %%%
 %%% Use Mark's section here
@@ -544,7 +545,7 @@ After conducting idealized laboratory trials, the sampler was placed in the fiel
 \end{tabu}
 \end{center}
 
-As a result of these trials, the sampler performed in much the same way as the lab turbidity trials. For the lower turbidity water sources the sampler had no issues reaching over 500mL of filtered volume. For the higher turbidity sources the 500 mL filtered volume minimum was not met; however, this was expected of the trial. Altogether, these results confirm the use case of the sampler in low turbidity environments.
+As a result of these trials, the sampler performed in much the same way as the lab turbidity trials. For the lower turbidity water sources the sampler had no issues reaching over 500mL of filtered volume. For the higher turbidity sources the 500 mL filtered volume minimum was not met; however, this was expected of the trial. Altogether, these results confirm the use case of the sampler in low turbidity environments
 
 \subsubsection{Flow Accuracy Testing}
 
