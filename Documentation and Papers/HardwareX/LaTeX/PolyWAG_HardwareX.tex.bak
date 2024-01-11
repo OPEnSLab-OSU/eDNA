@@ -322,35 +322,61 @@ PolyWAG Sampler hosts a webserver that can be connected to via a browser. This a
 	% Design file & File type & License & Link \\\hline	
 	
 	% General CAD
-	CAD Assembly & CAD file & \dots & \dots \\\hline
+	CAD Assembly 				& CAD file & \dots & \dots \\\hline
 	% 3D Printed
-	Battery Bracket - 3D Printed 			& CAD file & \dots & \dots \\\hline
-	{Sample Valve Mount - 3D Printed} 		& CAD file & \dots & \dots \\\hline
-	Preservative Valve Mount - 3D Printed 	& CAD file & \dots & \dots \\\hline
-	Flow Meter Mount - 3D Printed 			& CAD file & \dots & \dots \\\hline
-	Tube Guide - 3D Printed 				& CAD file & \dots & \dots \\\hline
+	Battery Bracket 			& CAD file & \dots & \dots \\\hline
+	Sample Valve Mount 			& CAD file & \dots & \dots \\\hline
+	Preservative Valve Mount 	& CAD file & \dots & \dots \\\hline
+	Flow Meter Mount 			& CAD file & \dots & \dots \\\hline
+	Tube Guide 					& CAD file & \dots & \dots \\\hline
 	% Acrylic
-	Central Assembly Mount - Laser Cut		& CAD file & \dots & \dots \\\hline
-	Control Board Mount - Laser Cut 		& CAD file & \dots & \dots \\\hline
-	Electronics Box Lid	- Milled?			& CAD file & \dots & \dots \\\hline %???
+	Central Assembly Mount		& CAD file & \dots & \dots \\\hline
+	Control Board Mount 		& CAD file & \dots & \dots \\\hline
+	Electronics Box Lid			& CAD file & \dots & \dots \\\hline %???
 	% EDA
-	Control Board Schematic					& EDA file & \dots & \dots \\\hline
-	Control Board PCB						& EDA file & \dots & \dots \\\hline
-	Switch Breakout Schematic				& EDA file & \dots & \dots \\\hline
-	Switch Breakout PCB						& EDA file & \dots & \dots \\\hline
+	Control Board Schematic		& EDA file & \dots & \dots \\\hline
+	Control Board PCB			& EDA file & \dots & \dots \\\hline
+	Switch Breakout Schematic	& EDA file & \dots & \dots \\\hline
+	Switch Breakout PCB			& EDA file & \dots & \dots \\\hline
 	% Software
-	UI Code 								& Software & \dots & \dots \\\hline
-	Device (Server) Code 					& Software & \dots & \dots \\\hline
+	UI Code 					& Software & \dots & \dots \\\hline
+	Device (Server) Code 		& Software & \dots & \dots \\\hline
 \end{tabu}
 
 
 % For each design file listed in the summary above, include a short description of the file below (one or two sentences)
 \vskip 0.3cm
 \noindent
-\textit{For each design file listed in the summary table above, include a short description of the file below (just one or two sentences per design file).}
+\begin{itemize}
+\item 
+The CAD Assembly is a CAD file with every major components. The tubing and minor things such as zip ties for cable routing are not included. 
+\item 
+The Battery Bracket is a 3D-Printed component to hold down the battery during transit. Paired with a Velcro strap, the battery does not move.
+\item 
+The Sample Valve Mount is a 3D-printed bracket that holds four solenoid valves. There are six brackets in the sampler and each valve corresponds with a filter. 
+\item 
+The Preservative Valve Mount is a 3D-printed component that holds the preservative valve in place. 
+\item 
+The Flow Meter Mount is a 3D-printed bracket that holds the flow sensor to the frame.
+\item 
+The Tube Guide is a 3D-printed components that helps hold the input and output tubes in place. 
+\item 
+The Central Assembly Mount is a laser-cut acrylic components that all of the "central" components mount to. This includes the pump, input control valves, and the battery. 
+\item 
+The Central Board mount is a laser-cut acrylic components that the allows the main control board to mount inside the electronics box.
+\item 
+The electronics box lid is a CNCed Acrylic components that replaces the metal lid but maintains the groove for the gasket.
+\item 
+The Control Board Schematic and PCB are EDA files in the Autodesk EAGLE format for the sampler's main control board. 
+\item 
+The Switch Breakout Schematic and PCB are EDA files in the Autodesk EAGLE format for the sampler's main power switch. 
+\item 
+The UI Code consists of all the raw files needed to compile the UI that is seen when operating the sampler. The compiled version of the UI is stored in the sampler's SD Card.
+\item 
+The device (server) code is the code that is uplaoded to the microcontroller and handles all of the sampler's functions. The code is split into multiple different files each handling a specific task. 
+\end{itemize}
 
-
-\section*{\textit{Bill of materials}}
+\section{Bill of materials}
 % For a complex Bill of Materials, the complete Bill of Materials (editable spreadsheet file e.g., ODS file type or PDF file) can be uploaded in an open access online location such as the Open Science Framework repository. Include the link here. Alternatively, the Bill of Materials can be uploaded at the time of submission on the online Elsevier submission interface as supplementary material.
 
 % > To make it easy to tell which item in the Bill of Materials corresponds to which component in your design file(s), use matching designators in both places, or otherwise explain the correspondence.
@@ -517,7 +543,7 @@ After conducting idealized laboratory trials, the sampler was placed in the fiel
 \tabulinesep=1ex
 \begin{tabu} to \linewidth {|X|X|X|X|}
 	\hline  
-	\multicolumn{4}{c}{Filtered Volume Field Testing}
+	\multicolumn{4}{|c|}{Filtered Volume Field Testing}
   	\\
   	\hline 
   	Trial & Location & Volume (mL) & Turbidity (NTU)
