@@ -95,7 +95,7 @@ Chet Udell - udellc@oregonstate.edu
 % > This is the advertisement of your article. Make it interesting, and easy to be understood. 
 % > Be accurate and specific, keep it as brief as possible.
 \textbf{Abstract} \\ 
-Environmental DNA (eDNA) is an ideal way of researching aquatic environments and determining what species are present in an area the biodiversity of an area, and if any invasive or endangered species are present . Traditional sampling of eDNA consists of manually filtering water,  which is labor and cost-intensive for remote locations. Furthermore, commercialized solutions  are either expensive or require a field operator to function.  We have built an eDNA sampler capable of autonomous multi-sampling for a greatly reduced price compared to existing technologies. Our PolyWAG eDNA sampler system is a water sampling device that collects DNA samples via 47mm filter and provides a non-invasive, safe and autonomous means of eDNA collection. The sampler can hold 24 filters and is designed to be easily replaced and reusable. A browser application is used for real-time monitoring, scheduling tasks, and data logging for time, pressure, flow, and filtered volume. Additionally, the sampler design is openly published, modular and is constantly being tested to help us optimize our software and hardware to give us the best results. The 13-step  sampling sequence helps reduce cross contamination significantly. Our machine can be deployed for an extended period. It is completely autonomous and costs around \$3800.
+Environmental DNA (eDNA) is an ideal way of researching aquatic environments and determining what species are present in an area the biodiversity of an area, and if any invasive or endangered species are present. Traditional sampling of eDNA consists of manually filtering water,  which is labor and cost-intensive for remote locations. Furthermore, commercialized solutions  are either expensive or require a field operator to function.  We have built an eDNA sampler capable of autonomous multi-sampling for a greatly reduced price compared to existing technologies. Our PolyWAG eDNA sampler system is a water sampling device that collects DNA samples via 47mm filter and provides a non-invasive, safe and autonomous means of eDNA collection. The sampler can hold 24 filters and is designed to be easily replaced and reusable. A browser application is used for real-time monitoring, scheduling tasks, and data logging for time, pressure, flow, and filtered volume. Additionally, the sampler design is openly published, modular and is constantly being tested to help us optimize our software and hardware to give us the best results. The 13-step  sampling sequence helps reduce cross contamination significantly. Our machine can be deployed for an extended period. It is completely autonomous and costs around \$3800.
 
 
 %
@@ -115,7 +115,7 @@ Environmental DNA * Sampling * Arduino * Data Logging \\
 % > Please replace the italicizied instructions in the right column of the table with the relevant information about your hardware.
 \vskip 0.2cm
 \tabulinesep=1ex
-\begin{tabu} to \linewidth {|X|X[3,l]|}
+\begin{tabu} to \linewidth {|X[l]|X[3,l]|}
 	\hline  
 	\textbf{Hardware name} & 
 	\textit{PolyWAG}
@@ -133,8 +133,9 @@ Environmental DNA * Sampling * Arduino * Data Logging \\
   	\textit{Dartmouth Ocean Technologies' eDNA Sampler}
   	\\
 	\hline \textbf{Open source license} &
-  	{CERN Open Hardware License \newline 
-  		GNU General Public License v3.0}
+  	{CERN Open Hardware Licence Version 2 - Strongly Reciprocal \newline 
+  		GNU AFFERO GENERAL PUBLIC LICENSE
+                       Version 3}
   	\\
 	\hline \textbf{Cost of hardware} &
   	\textit{\$3800 (Cost of just components)\newline
@@ -161,7 +162,7 @@ Environmental DNA * Sampling * Arduino * Data Logging \\
 
 Environmental DNA (eDNA) is DNA derived from mucus, feces, gametes, and carcasses \cite{web:USGS:eDNA}. Many things can be learned once this DNA is put through sequencing. eDNA can be used to determine what species are present in an area, the biodiversity of an area, and if any invasive or endangered species are present \cite{web:NOAA:eDNA}. eDNA sampling provides scientists and researchers a non-invasive, rapid, cost-effective and sensitive way to detect and quantify species in many environments.  
 \newline\par
-Traditional sampling of environmental DNA consists of manually filtering water, often requiring one or more researchers to be on location for days or weeks \cite{art:Taal}. The filtration process varies depending on the researcher, but it is common to pull a sample of water with a bottle and pour that water into a funnel containing a filter. This can be connected to a vacuum pump to expedite the filtering process. After the sampling process is completed, the filters need to be preserved and the setup cleaned to avoid cross contamination \cite{art:Taal}. This process is labor intensive, cost intensive, and can be dangerous, especially for remote locations. While commercialized solutions to this problem exist, they either still require an operator to be on location or are very expensive. Smithroot’s commercial solution offers a simplified process with additional data collection such as GPS location for a fair price, around \$8,000 \cite{web:smithroot}. A disadvantage of this solution is that it is not fully autonomous, still requiring an operator to be on location to use the device \cite{web:smithroot}. An alternative is the DOT Sampler which is a fully autonomous solution that is capable of multiple samples (20+ samples) and is also submersible but comes at a cost of ~\$55,000 \cite{art:DOT}. 
+Traditional sampling of environmental DNA consists of manually filtering water, often requiring one or more researchers to be on location for days or weeks \cite{art:Taal}. The filtration process varies depending on the researcher, but it is common to pull a sample of water with a bottle and pour that water into a funnel containing a filter. This can be connected to a vacuum pump to expedite the filtering process. After the sampling process is completed, the filters need to be preserved and the setup cleaned to avoid cross contamination \cite{art:Taal}. This process is labor intensive, cost intensive, and can be dangerous, especially for remote locations. While commercialized solutions to this problem exist, they either still require an operator to be on location or are very expensive. Smithroot’s commercial solution offers a simplified process with additional data collection such as GPS location for a fair price, around \$8,000 \cite{web:smithroot}. A disadvantage of this solution is that it is not fully autonomous, still requiring an operator to be on location to use the device \cite{web:smithroot}. An alternative is the DOT Sampler which is a fully autonomous solution that is capable of multiple samples (20+ samples) and is also submersible but comes at a cost of $\sim$\$55,000 \cite{art:DOT}. 
 \newline\par
 The solution designed by the OPEnS Lab is the middle ground of these two solutions. While it is not submersible (limiting its potential sampling environments), it is capable of autonomous, multi-sample operations for extended periods of time (approximately one month) for the cost of \$6,000. The two core priorities for our design are its autonomous function and the cross-contamination. The autonomous function of the  sampler is important for a handful of reasons. An autonomous system requires less researcher hours spent in the field. This has cost benefits from the reduced hours worked and safety benefits when sampling in hazardous environments.     
 
@@ -178,7 +179,7 @@ The eDNA sampler we have developed is an autonomous multi-sampling device that c
 % Grammar Error last sent
 
 \begin{center}
-	\includegraphics[scale=0.5]{./Assets/Sampler CAD.png} %Replace with actualy image?
+	\includegraphics[scale=0.5]{./Assets/Sampler CAD.png} % Replace with actualy image?
 \end{center}
 
 \subsection{Hydraulics}
@@ -189,7 +190,7 @@ The hydraulics of the sampler can be roughly split into the following sections:
 	\item The Filters
 	\item The Upper Hydraulics and Outputs
 \end{itemize}
-There are three inputs into the sampler: one for air, one for preservative, and one for water. The preservative input is connected to a hydration bladder where the preservative of choice can be stored. The water input has a prefilter at the front end of the tube to prevent debris from entering the sampler. Three valves are used to control the flow from these inputs with the air preservative being regulated by a solenoid valve and the water being controlled by a ball valve. These three valves connect into a single tube connected to the input of the peristaltic pump.
+There are three inputs into the sampler: one for air, one for preservative, and one for water. The preservative input is connected to a hydration bladder where the preservative of choice can be stored. The water input has a pre-filter at the front end of the tube to prevent debris from entering the sampler. Three valves are used to control the flow from these inputs with the air preservative being regulated by a solenoid valve and the water being controlled by a ball valve. These three valves connect into a single tube connected to the input of the peristaltic pump.
 The pump is capable of 400ml/min of flow under ideal conditions. The output of the pump connects directly into the Lower Hydraulic Rail. 
 % Why do we have an air valve?
 
@@ -269,7 +270,7 @@ The shift register circuit consists of 4 8-bit shift registers connect to the mi
 \newline\par
 The board contains an SD Card circuit for datalogging purposes. The data is logged every second and includes the current state, time, and data from the sensors. The sensors include an in-line pressure temperature sensors for monitoring the lower hydraulic line and a flow meter out the output for measuring volume.
 \newline\par
-The microcontroller of choice is an Adafruit Feather M0 WiFi. The WiFi version of the Feather M0 was chosen as the user interface requires the feather to host a webserver. 
+The micro-controller of choice is an Adafruit Feather M0 WiFi. The WiFi version of the Feather M0 was chosen as the user interface requires the feather to host a web-server. 
 
 
 \subsection{User Interface}
@@ -280,7 +281,7 @@ The microcontroller of choice is an Adafruit Feather M0 WiFi. The WiFi version o
 
 PolyWAG Sampler hosts a webserver that can be connected to via a browser. This acts as the user interface for the system. There are three main sections that make up the user interface: monitoring, tasks, and utilities. The monitoring page displays the data from the sensors, the current state of the sampling procedure, and information on the sampling valves such as the current valve being sampled, and which valves are locked and unlocked. 
 
-% Re-explain what "locked" and "unlocked" means
+% Maybe Re-explain what "locked" and "unlocked" means
 
 The utilities page is used to activate the utilities mentioned earlier. The tasks page is where sampling tasks are created. Multiple tasks can be created, and each task is saved in memory for later modification and use. This page is also where tasks can be scheduled for sampling. Each task contains the information on which valves are being used as well as for how long each state occurs. 
 
@@ -420,6 +421,14 @@ Given the complexity of the PolyWAG Sampler, a Build Instructions section of suf
 %%% Use Mark's section here
 %%% Maybe add a section for physically using the sampler. 
 
+Outline\\
+ - UI Setup/Compilation \\
+ - Code Upload\\
+ - Sampler Cleaning\\
+ - Sampler/Filter Setup\\
+ - Task Configuration\\
+
+
 
 \section{Validation and characterization}
 %Demonstrate the operation of the hardware and characterize its performance over relevant critical metrics
@@ -440,7 +449,7 @@ The basis for these observations is the use of Alaskan Sockeye Salmon DNA. To ob
 \newline\par
 The sample cleaning procedure makes use of the sampler’s HyperFlush utility to sterilize both the filter housings and the sampler hydraulic lines. The HyperHlush utility flushes each valve of the system sequentially with any bulk liquid connected to the input line. The cleaning procedure makes use of three HyperFlush cycles in the following liquid order: DI water, 6\% bleach, 5\% ascorbic acid. These cycles are repeated three times and followed by three subsequent HyperFlush cycles of DI water to purge all residual chemicals
 \newline\par
-The sampling procedure for cross-contamination characterization makes use of a sample of DNA followed by subsequent samples of DI Water. To establish experimental controls, the first sample of the study is a negative control containing DI water. This negative control gauges the success of the cleaning protocol, ensuring no prior contamination. Following this control, the process consists of three subsequent samples: Fish water (Positive Control) and two samples of DI water. Separate inlet lines are used for DI water and fish water to isolate the source of cross-contamination to the sampler itself, the lines being switched manually between samples. The data collected during this study consists of four trials performed using the following task settings on the eDNA UI: 1000 mL max sample volume, 4-minute max sample time, 10-second preservative flush, and 12-minute flush time (~5L). After sampling, the samples were individually packaged and sent for PCR analysis. 
+The sampling procedure for cross-contamination characterization makes use of a sample of DNA followed by subsequent samples of DI Water. To establish experimental controls, the first sample of the study is a negative control containing DI water. This negative control gauges the success of the cleaning protocol, ensuring no prior contamination. Following this control, the process consists of three subsequent samples: Fish water (Positive Control) and two samples of DI water. Separate inlet lines are used for DI water and fish water to isolate the source of cross-contamination to the sampler itself, the lines being switched manually between samples. The data collected during this study consists of four trials performed using the following task settings on the eDNA UI: 1000 mL max sample volume, 4-minute max sample time, 10-second preservative flush, and 12-minute flush time ($\sim$5L). After sampling, the samples were individually packaged and sent for PCR analysis. 
 \newline\par
 For PCR analysis, the cellulose nitrate filters containing the salmon DNA are dissolved releasing the trapped DNA into solution. Sockeye Salmon primers were added to the DNA solution. During PCR the DNA is amplified on a scale of 109 times the original DNA concentration.  From here, immuno-fluorescence is used to quantify the amount of DNA retrieved by measuring the intensity of light emitted by the sockeye-salmon DNA. These values are interpreted in terms of a CT score. CT scores between 0-40 CT indicates the presence of Salmon DNA, while a CT score $>$40 indicates no Salmon DNA is detected.
 \newline\par
@@ -699,3 +708,12 @@ The work does not use any human or animal subjects.\\
 %> ●	Is the performance of the hardware adequately demonstrated and characterized?
 %> ●	Are all potential safety concerns addressed?
 %> ●	For more information on the article template consult the Guide to Authors.}
+
+% Licenses:
+% 
+% 
+% Authors:
+% People who have written the paper
+% > Ackknowledgements
+% > List everyone else
+
