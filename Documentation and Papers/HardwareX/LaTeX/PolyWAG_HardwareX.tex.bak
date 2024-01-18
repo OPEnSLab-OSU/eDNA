@@ -13,6 +13,7 @@
 \usepackage{setspace}
 \usepackage{lineno}
 \usepackage{makecell}
+\usepackage{float}
 \newlist{selectlist}{itemize}{2}
 \setlist[selectlist]{label=$\square$,leftmargin=*,noitemsep,topsep=0pt}
 
@@ -113,6 +114,7 @@ Environmental DNA * Sampling * Arduino * Data Logging \\
 \newpage
 \textbf{Specifications table}\\
 % > Please replace the italicizied instructions in the right column of the table with the relevant information about your hardware.
+\begin{table}
 \vskip 0.2cm
 \tabulinesep=1ex
 \begin{tabu} to \linewidth {|X[l]|X[3,l]|}
@@ -150,6 +152,8 @@ Environmental DNA * Sampling * Arduino * Data Logging \\
   	\\
 	\\\hline
 \end{tabu}
+\caption{}
+\end{table}
 \end{flushleft}
 
 
@@ -172,76 +176,147 @@ The solution designed by the OPEnS Lab is the middle ground of these two solutio
 % Describe the hardware, highlighting the customization rather than the steps of the procedure. Highlight how it differs/which advantage it offers over pre-existing methods. For example, how could this hardware: be compared to other hardware in terms of cost or ease of use, be used in the development of further designs in a particular area, and so on.
 % > Add 3-5 bulleted points to broadly explain to other researchers how the hardware could be potentially useful to them, for either standard or novel laboratory tasks, inside or outside of the original user community.
 % > Describe your hardware, highlighting the customization rather than the steps involved in the procedure. Explain how it differs from other hardware and the advantages it offers over pre-existing methods. For example, how does this hardware compare to other hardware in terms of cost or ease of use, or how can it be used to develop further designs in a particular area? 
-%	\vskip 0.3cm \noindent
 % > Add 3-5 bullet points which broadly explain to other researchers - inside or outside of the original user community - how the hardware could help them, with either standard or novel laboratory tasks.}
 
-The eDNA sampler we have developed is an autonomous multi-sampling device that collects eDNA samples from water via 47mm filter holders and provides a non-invasive, safe, and autonomous means of DNA collection. The sampler can hold 24 of these filter housing and are designed to be easily replaced and reusable. The sampler is controlled by a custom logic board with an Adafruit M0 Feather Wi-Fi microcontroller loaded with a webserver to act as the interface for the sampler’s operations. This webserver hosts a browser application which is used for real-time monitoring, scheduling tasks, and data logging for time, pressure, temperature, flow, and sample volume. This data is located stored onto an SD Card for later data analysis. 
-% Grammar Error last sent
 
-\begin{center}
+% Godshalk General Notes:
+% > Electronics - Edit format
+% > Need easily distinguishable paragraphs, some run quite long.
+% > > Short, succinct paragraphs that each deal with one specific topic
+% > Lots of unnecessary words and phrases. Few examples highlighted.
+% > Be consistent with verb tense. Make sure antecedants are unambiguous.
+% > Provide an overview or roadmap in the first paragraph
+% > Number Figures/Figure Descriptions
+% > > 1 is good, needs caption and number
+% > > 2 Stated 5 sections but only described 3
+% > > > Initial Diagram that shows how each section connects
+% > > 3 Sequence might be better as a list instead of an image
+% > > 4 What is utility in this conext? Software? Electronic State? Mechanical Procedure?
+
+
+% New Intro Paragraph describing the outline of the section
+
+The eDNA sampler we have developed is an autonomous multi-sampling device that collects eDNA samples from water via 47mm filter holders and provides a non-invasive, safe, and autonomous means of DNA collection. The sampler can hold 24 filter housing which are designed to be easily replaced and reusable. The sampler is controlled by a custom logic board with an Adafruit M0 Feather Wi-Fi microcontroller loaded with a webserver to act as the interface for the sampler’s operations. This webserver hosts a browser application which is used for real-time monitoring, scheduling tasks, and data logging for time, pressure, temperature, flow, and sample volume. The data is located stored onto an SD Card for later data analysis. 
+% Grammar Error last sentence
+% Pore Size?
+% Where is the sampler placed
+
+\begin{figure}[H]
+	\centering
 	\includegraphics[scale=0.5]{./Assets/Sampler CAD.png} % Replace with actualy image?
-\end{center}
+	\caption{CAD Image of the complete sampler assembly}
+\end{figure}
 
 \subsection{Hydraulics}
 The hydraulics of the sampler can be roughly split into the following sections:
-\begin{itemize}
+\begin{itemize}	% Use these as subheadings
 	\item The Pump and Inputs
 	\item The Lower Hydraulics
-	\item The Filters
+	\item The Filter Housings
 	\item The Upper Hydraulics and Outputs
 \end{itemize}
-There are three inputs into the sampler: one for air, one for preservative, and one for water. The preservative input is connected to a hydration bladder where the preservative of choice can be stored. The water input has a pre-filter at the front end of the tube to prevent debris from entering the sampler. Three valves are used to control the flow from these inputs with the air preservative being regulated by a solenoid valve and the water being controlled by a ball valve. These three valves connect into a single tube connected to the input of the peristaltic pump.
-The pump is capable of 400ml/min of flow under ideal conditions. The output of the pump connects directly into the Lower Hydraulic Rail. 
+
+\subsubsection{The Pump and Inputs}
+There are three inputs into the sampler: one for air, one for preservative, and one for water. The preservative input is connected to a hydration bladder where the preservative of choice can be stored. The sample water input has a prefilter at the front end of the tube to prevent debris from entering the sampler. Three valves are used to control the flow from these inputs with the air preservative being regulated by a solenoid valve and the water being controlled by a ball valve. These three valves connect into a single tube connected to the input of the peristaltic pump.
+The pump is capable of 400mL/min of flow under ideal conditions. The output of the pump connects directly into the Lower Hydraulic Rail. 
 % Why do we have an air valve?
 
-\begin{center}
+\begin{figure}[H]
+	\centering
 	\includegraphics[scale=0.75]{./Assets/PolyWAG_HX_HD_InHydr.png}
-\end{center}
+	\caption{Pump and Input Hydraulics}
+\end{figure}
 
-The Lower Hydraulic Rail consists of 24 solenoid valves connected parallel to each other which controls which filter liquid flows through. The valves are split into two sets, one on each side of the sampler. In between these two sets is a M32JM-000105-100PG pressure and temperature sensors. The temperature is logged for later use and the pressure is used for monitoring, stopping an operation if the pressure exceeds a certain margin. At the end of the Lower Hydraulic Rail is another solenoid valve which allows for the lower hydraulics to be purged of their current contents when necessary.
+\subsubsection{The Lower Hydraulics}
+The Lower Hydraulic Rail consists of 24 solenoid valves connected parallel to each other which controls which filter liquid flows through. The valves are split into two sets, one on each side of the sampler. In between these two sets of valves is a M32JM-000105-100PG pressure and temperature sensors. The temperature is logged for later use and the pressure is used for monitoring, stopping an operation if the pressure exceeds a certain margin. At the end of the Lower Hydraulic Rail is another solenoid valve which allows for the lower hydraulics to be purged of their current contents when necessary.
 
-\begin{center}
+\begin{figure}[H] % Rotate text labels
+	\centering
 	\includegraphics[scale=0.65, angle=-90]{./Assets/PolyWAG_HX_HD_LHR.png}
-\end{center}
+	\caption{Lower Hydraulic System}
+\end{figure}
 
 % Differentiate the preservative and the Sample Valve
 
-After the solenoid valve there is a tee connection that goes to a one-way check valve and a modified Advantec filter. The one-way check valve allows air into the solenoid valve that opens when the pump runs backwards. The Advantec filter is modified with a CPC quick disconnect and a one-way check valve. The one-way check valve is connected to the Upper Hydraulics and is used to prevent liquid from going backwards through the filter. The Upper Hydraulics simply connects the output of all the filters to one central line that goes through a flow meter and out of the sampler. 
+\subsubsection{The Filter Housings}
+Downstream of the solenoid valve there is a tee connection that goes to a one-way check valve and a modified Advantec filter. The one-way check valve allows air into the solenoid valve that opens when the pump runs backwards. The Advantec filter is modified with a CPC quick disconnect and a one-way check valve. The one-way check valve is connected to the Upper Hydraulics and is used to prevent liquid from going backwards through the filter. The Upper Hydraulics simply connects the output of all the filters to one central line that goes through a flow meter and out of the sampler. 
 
-\begin{center}
+\begin{figure}[H]
+	\centering
 	\includegraphics[scale=0.75]{./Assets/PolyWAG_HX_HD_Filter.png}
-\end{center}
+	\caption{Filter Hydraulics}
+\end{figure}
+
+\subsubsection{The Upper Hydraulics and Outputs}
+
+
 
 \subsection{Sampling Procedure}
 Having worked on multiple iterations of the sampler, we have decided to go with a 13-step sampling sequence that helps reduce cross contamination significantly. This sequence can be split into 9 unique steps: Idle, Prefilter Clear, Flush, Offshoot Clean, De-pressure, Sample, Preservative Flush, Preservative, Air Flush, and End.
 
-\begin{center}
-	\includegraphics[scale=0.45]{./Assets/Sampling Sequence.drawio.png}
-\end{center}
+% Rewrite intro. Remove the two numbers for steps, stick with 13.
 
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[scale=0.45]{./Assets/Sampling Sequence.drawio.png}
+%	\caption{Sampler Sequence}
+%\end{figure}
+
+\begin{enumerate}
+	\item Idle
+	\item Prefilter Clear
+	\item Flush
+	\item Offshoot Clean
+	\item Flush
+	\item Sample
+	\item De-pressure
+	\item Preservative Flush
+	\item Preservative
+	\item Flush
+	\item Offshoot Clean
+	\item Air Flush
+	\item End
+\end{enumerate}	% Use these as subheadings
+
+% Change to a list format
 % Maybe Rename END State
 
-The Idle state is the default state of the sampler. This is where the sampler waits for a signal from the RTC to move to the first/next state of the Sampling Sequence. If the sampler is not in sleep mode, this is when a client would interact with the UI to do a handful of tasks such as setting up a Sampling Schedule or using the other task utilities. If the sampler is in sleep mode, then only the RTC and supporting circuits are powered. This means there is no way to interact with the sampler without exiting sleep mode.
-\newline\par
-Once the RTC sends the signal to start a sample procedure, the sampler enters the Prefilter Clear (PC) state. In this state, the purge and input ball valve are opened, and the pump is run in the backwards direction. This will allow for air to flow from the purge and out the input line. This is used to clear the prefilter of anything that might be clogging it, such as accumulated debris. This state runs for X seconds, before moving onto the next state. 
-\newline\par
-The Flush state and the proceeding Offshoot Clean (OC) state are used to prepare the lower hydraulics before the Sample state. The Flush state starts with the purge valve and the ball valving opening, then the motor starts to run in the forward direction. This fills the lower hydraulics with sample liquid and clears out/dilutes and liquid that remained from previous sample. The Flush state runs for the time specified when the Sampling Schedule is created. We recommend a Flush time of 6 minutes. 
-\newline\par
-The OC state closes the purge valve and opens the filter valve (for the filter which is about to be used. The pump runs backwards for a few seconds. This clears anything that might be in the tube between the valve and the filter (what we refer to as the offshoot). The Flush state is run one more time before moving to the Sample state.
-\newline\par
-Like the name suggests, the Sample state is where the system pushes the sample water through the filter. This is done by opening the Filter and Ball Valve and running the pump in the forward direction. The system moves to the next state when the target Sample Volume is reached. This volume is measured by a Flow Meter on the filter output line. Ideally, the state is terminated when the target volume is reached. There is an additional condition that will end the Sample state and that is the Sample Time. This time cutoff was added since the filter clogs and the flow rate decrease rapidly during the sample process. To prevent the sample state running for too long, the time limit was implemented. Both conditions are set during task scheduling. Since the pressure greatly increases due to the clogged filter, the de-pressure state is used to reduce the pressure in the lower hydraulics to ensure that the valves can operate consistently.
-\newline\par
-The Preservative Flush (PF) and Preservative (P) states are the next states in the sequence after the de-pressure state. The PF state is nearly identical to the Flush state except the Preservative input valve is used instead of the ball valve. The goal of this state is to saturate the lower hydraulics with preservative, preventing additional sample water that may have been stored in the lower hydraulics from going through the filter. If this water was allowed through the filter, then the Sample Volume would be inaccurate by the end of the sequence. The P state is like the Sample state except preservative is the input fluid instead of sample water. This state runs for a time specified by the user during scheduling.  
-\newline\par
-After the P state, another Flush and OC state runs to purge the leftover preservative in the lower hydraulics. After these two states, an Air Flush (AF) state is run which is identical to the Flush and PF states but uses the air valve as the input instead of the other two inputs. This ensures that any liquid that is in the lower hydraulics is purged. 
-\newline\par
-After the AF state occurs, the system sets an RTC alarm for the time of the next sample. The system then moves into Idle and if the system was in sleep mode, then the system will go into its low power state.
+\subsubsection{The Idle State}
+Idle is the default state of the sampler. The sampler waits for a signal from the RTC to move to the first/next state of the Sampling Sequence. If the sampler is not in sleep mode, this is when a client would interact with the UI to do a handful of tasks such as setting up a Sampling Schedule or using the other task utilities. If the sampler is in sleep mode, then only the RTC and supporting circuits are powered. This means there is no way to interact with the sampler without exiting sleep mode.
+
+\subsubsection{The Prefilter Clear}
+Once the RTC sends the signal to start a sample procedure, the sampler enters the Prefilter Clear (PC) state. The purge and input ball valve are opened, and the pump is run in the backwards direction. This will allow for air to flow from the purge and out the input line. This is used to clear the prefilter of anything that might be clogging it, such as accumulated debris. This state runs for X seconds, before moving onto the next state. 
+
+\subsubsection{The Flush State}
+The Flush state prepares the lower hydraulics before the next state. The Flush state starts with the purge valve and the ball valving opening, then the motor starts to run in the forward direction. This fills the lower hydraulics with sample liquid and clears out/dilutes and liquid that remained from previous sample. The Flush state runs for the time specified when the Sampling Schedule is created. We recommend a Flush time of 6 minutes. 
+
+\subsubsection{The Offshoot Clean}
+The OC state closes the purge valve and opens the filter valve for the filter which is about to be used. The pump runs backwards for a few seconds. This clears anything that might be in the tube between the valve and the filter (what we refer to as the offshoot). The Flush state is run one more time before moving to the Sample state.
+
+\subsubsection{The Sample State} 
+% Paragraph is wordy, make it succinct
+% Check verb tenses: was, are, is
+In the Sample state, the system pushes the sample water through the filter. This is done by opening the Filter and Ball Valve and running the pump in the forward direction. The system moves to the next state when the target Sample Volume is reached. This volume is measured by a Flow Meter on the filter output line. Ideally, the state is terminated when the target volume is reached. There is an additional condition that will end the Sample state and that is the Sample Time. This time cutoff was added since the filter clogs and the flow rate decrease rapidly during the sample process. To prevent the sample state running for too long, the time limit was implemented. Both conditions are set during task scheduling. Since the pressure greatly increases due to the clogged filter, the de-pressure state is used to reduce the pressure in the lower hydraulics to ensure that the valves can operate consistently.
+
+\subsubsection{The Preservative Flush} % Spli into two subsubsections
+The Preservative Flush state is nearly identical to the Flush state except the Preservative input valve is used instead of the ball valve. The lower hydraulics are saturated with preservative, preventing additional sample water that may have been stored in the lower hydraulics from going through the filter. If this water was allowed through the filter, then the Sample Volume would be inaccurate by the end of the sequence.
+
+\subsubsection{The Preservative State} % Add more info
+The Preservative state is like the Sample state except preservative is the input fluid instead of sample water. This state runs for a time specified by the user during scheduling.
+
+\subsubsection{The Air Flush}
+Before the Air Flush, another sequence of Flush and Offshoot Clean states are run to purge the leftover preservative in the lower hydraulics. After these two states, an Air Flush (AF) state is run which is identical to the Flush and PF states but uses the air valve as the input instead of the other two inputs. This ensures that any liquid that is in the lower hydraulics is purged. 
+
+\subsubsection{The End State}
+In the End state, the system sets an RTC alarm for the time of the next sample. The system then moves into Idle and if the system was in sleep mode, then the system will go into its low power state.
 
 \subsection{Utilities}
 
-\begin{center}
+\begin{figure}[H]
+	\centering
 	\includegraphics[scale=0.5]{./Assets/Utilities.png}
-\end{center}
+	\caption{The utilities page in the PolyWAG sampler user interface}
+\end{figure}
 
 The HyperFlush utility runs water through every filter sequentially for a few seconds per filter. This is mainly used for cleaning out the system after a sample task (i.e., a set of 24 samples) to prevent any unwanted cross contamination. This utility can also be used to test the basic functionality of the sampler, as nearly every component is activated during this sequence. 
 \newline\par
@@ -252,32 +327,38 @@ The Update RTC utility is needed to make sure that the time on the sampler match
 The Reset Valves Utility is used when valves have been sampled that you want to be sampled again. This is required since the system ‘locks’ the filter valves when they have been used in a sample, this prevents samples from being corrupted accidentally. The code does not let you sample a valve multiple times without being reset to prevent messing up a sample. It is important to note that this utility will reset all valves, not a specific one.
 
 \subsection{Electronics}
-\begin{center}
+\begin{figure}[H]
+	\centering
 	\includegraphics[scale=0.15]{./Assets/eDNABoard.jpg}
-\end{center}
+	\caption{The main electronics control board for the PolyWAG sampler}
+\end{figure}
 
 The PolyWAG Sampler is designed with a custom electronics control board that can be split into 8-10 blocks with an Adafruit Feather M0 at its core. These blocks consist of the microcontroller/Wifi Block, Power, RTC, and sleep control blocks, and the output blocks consisting of the Shift Register, Pump, and Ball-Valve H-Bridge Blocks. 
 
-\begin{center}
+\begin{figure}[H]
+	\centering
 	\includegraphics[scale=0.4]{./Assets/Electronics Block Diagram.png}
-\end{center}
+	\caption{Block diagram of the main electronics control board}
+\end{figure}
 
 The power block consists of a reverse polarity current (RPC) circuit and a voltage regulator circuit. The RPC Circuit was added to protect the 12V battery from current flowing backwards through the system. While the battery has its own protection circuits, they lock the battery in the case of a short and need to be reset using the battery charger. The RPC circuit was added to prevent any “permanent” power loss while in the field. The voltage regulator circuit is a 12V to 5V regulator with an enable pin that connects to the sleep control circuit. This is used to save power during long term deployments. 
 \newline\par
 The RTC and sleep control circuit are used to keep track of time and to save power respectively. The sleep control circuit controls the output of the power circuit and is constantly being power by a simple voltage divider circuit. It is basically a Flip Flop circuit that is reset when the RTC triggers an interrupt. The RTC circuit is used to keep track of the time between samples and is powered by a coin cell while power is off. This allows it to keep accurate track of time and signals an interrupt when its internal alarm is triggered. This interrupt is used to both turn power back on and to inform the microcontroller that it is time for a sample. If noise causes the sleep control circuit to reactivate power, the microcontroller will see that the RTC did not trigger the interrupt and will fall back into power saving mode. 
 \newline\par
-The shift register circuit consists of 4 8-bit shift registers connect to the microcontroller via SPI. The shift registers are pull-down style shift registers where the ‘output’ pins are pulled to ground. This allows the shift registers to control devices that use higher logic voltages. This allows us to control the 27 12V solenoid valves with a 5V IC. The shift registers are also used to control the H-bridge for the Ball valve. The H-bridge for the pump is controlled directly by the microcontroller itself. 
+The shift register circuit consists of 4 8-bit shift registers connect to the microcontroller via SPI. The shift registers are pull-down style shift registers where the ‘output’ pins are pulled to ground. This allows the shift registers to control devices that use higher logic voltages. This allows us to control the 27 12V solenoid valves with a 5V IC. The shift registers are also used to control the H-bridge for the Ball valve. The H-bridge for the pump is controlled directly by the micro-controller itself. 
 \newline\par
-The board contains an SD Card circuit for datalogging purposes. The data is logged every second and includes the current state, time, and data from the sensors. The sensors include an in-line pressure temperature sensors for monitoring the lower hydraulic line and a flow meter out the output for measuring volume.
+The board contains an SD Card circuit for data logging purposes. The data is logged every second and includes the current state, time, and data from the sensors. The sensors include an in-line pressure temperature sensors for monitoring the lower hydraulic line and a flow meter out the output for measuring volume.
 \newline\par
 The micro-controller of choice is an Adafruit Feather M0 WiFi. The WiFi version of the Feather M0 was chosen as the user interface requires the feather to host a web-server. 
 
 
 \subsection{User Interface}
 
-\begin{center}
+\begin{figure}[H]
+	\centering
 	\includegraphics[scale=0.35]{./Assets/UI.png}
-\end{center}
+	\caption{}
+\end{figure}
 
 PolyWAG Sampler hosts a webserver that can be connected to via a browser. This acts as the user interface for the system. There are three main sections that make up the user interface: monitoring, tasks, and utilities. The monitoring page displays the data from the sensors, the current state of the sampling procedure, and information on the sampling valves such as the current valve being sampled, and which valves are locked and unlocked. 
 
@@ -324,7 +405,7 @@ The utilities page is used to activate the utilities mentioned earlier. The task
 % 	All designs must be submitted under an open hardware license. Enter the corresponding open source license for the file. & 
 %	Either enter the URL for the repository or the sentence: "Available with the article".
 
-
+\begin{table}
 \vskip 0.1cm
 \tabulinesep=1ex
 \begin{tabu} to \linewidth {|X[l]|X[l]|X[1.5,1,l]|X[1.5,1,l]|} 
@@ -353,6 +434,8 @@ The utilities page is used to activate the utilities mentioned earlier. The task
 	UI Code 					& Software & \dots & \dots \\\hline
 	Device (Server) Code 		& Software & \dots & \dots \\\hline
 \end{tabu}
+\caption{}
+\end{table}
 
 
 % For each design file listed in the summary above, include a short description of the file below (one or two sentences)
@@ -455,6 +538,7 @@ For PCR analysis, the cellulose nitrate filters containing the salmon DNA are di
 \newline\par
 Using these processes 13 samples were taken using the sampler. This included 1 Negative control, and 4 sample trials.
 
+\begin{table}
 \vskip 0.2cm
 \begin{center}
 \tabulinesep=1ex
@@ -540,7 +624,9 @@ Using these processes 13 samples were taken using the sampler. This included 1 N
   	\\ 
 	\hline
 \end{tabu}
+\caption{}
 \end{center}
+\end{table}
 
 The 4 trials conducted came to varying degrees of success. In trials one and four, the CT scores of the samples following the positive controls were undetectable. This indicates that there is no detectable DNA in the PCR-amplified sample. Samples two and three contained CT scores $<$40; however, in very low detectable quantities. In both cases, the sample immediately following the control are the samples in question. In the duplicate amplification one trial contained a CT score between 39 and 40 while the other was undetectable. This indicates a very faint presence of fish DNA between samples. The cause of this can be explained by two reasons. One is that the sampler is unable to prevent cross-contamination between trials. The other is that the cleaning cycle is not adequate for ridding all DNA in the sampler. The latter of the two seems more likely because of the negative control. Like the two barely detectable samples the negative control indicated a faint positive signal. This means one of two things: contaminated sample water or insufficient cleaning cycle. Based on these results the sampler does not justify evidence that the sampler prevents cross-contamination between samples. That being said there is evidence that the flushes between samples do minimize contamination. This is supported because sample two in all trials were identified as negative. Therefore, increasing the flush and cleaning times shows promise for mitigating cross-contamination issues.
 
@@ -549,14 +635,17 @@ To ensure the effective use of the sampler in non-ideal conditions, the sampler 
 \newline\par
 Based on water turbidity data for Alaskan streams in April, the turbidity of the water ranges from ~30-80 NTU. To reproduce this range, a 2000 NTU formazin based turbidity standard was diluted to produce 3L of the following NTU standards: 50, 100, 250 NTU. These turbidity standards were mixed within a beaker with a 2-inch stir bar at the lowest speed that a vortex was observed. The 75 um system pre-filter was suspended two inches from the bottom of the beaker while sampling. Sampling was conducted and stopped once the flow rate dropped below 60 mL/min. This drop in flow rate indicates a filter clogging.
 
-\begin{center}
+\begin{figure}[H]
+	\centering
 	\includegraphics[scale=1]{./Assets/Turbidity.png}
-\end{center}
+	\caption{}
+\end{figure}
 
 To gauge the effectiveness of the sampler in the different turbidites the values are compared to the 500 mL minimum filtered volume. Greater than 500 mL of filtered volume indicates a successful sampler run at that water quality. As a result of this testing, the sampler is found to successfully operate in the range of 30-80 NTU. The data indicates the sampler can run in water qualities up to 100 NTU before samples under 500 mL are observed. Subsequent testing at 250 NTU indicates for lower-quality water streams, the sampler’s function decreases substantially, only filtering 200-250 mL per filter.This indicates that the sampler’s peristaltic pump is not able to build a high enough pressure gradient across the filter. Therefore for environments with lower water quality an increase in pump power is needed.
 \newline\par
 After conducting idealized laboratory trials, the sampler was placed in the field to test the flow for real-world applications. The sampler was placed in two locations in Corvallis, Oregon: the Irish Bend Covered Bridge on Oak Creek, and the Willamette Boat Landing on the Willamette River. In both locations, the sampler was deployed on the shore of the river with an inlet hose that ran to faster-moving water. For Oak Creek, the sampler’s prefilter was staked 4 inches between the water level in the middle of the stream. For the Willamette River, the inlet hose was immobilized at the end of the Willamette landing boat launch dock. The purpose of this trial is to serve as a proof of concept of the device in real world water streams. In both Oak Creek and the Willamette River, three trials were conducted in series to investigate the effects of non-idealized real world conditions on the sampler. The success of these trials is based on the ability to achieve greater than 500 mL of filtered volume per sample. The two rivers provide variable conditions on the quality of the water. Oak Creek contains low river flow and high water quality, while the Willamette river was experiencing flooding with very murky, low water quality. Without a turbidity sensor, the relative turbidity of these streams were determined relative to the observed turbidity standards used for the lab turbidity testing.
 
+\begin{table}
 \vskip 0.2cm
 \begin{center}
 \tabulinesep=1ex
@@ -587,7 +676,9 @@ After conducting idealized laboratory trials, the sampler was placed in the fiel
   	\\ 
 	\hline
 \end{tabu}
+\caption{}
 \end{center}
+\end{table}
 
 As a result of these trials, the sampler performed in much the same way as the lab turbidity trials. For the lower turbidity water sources the sampler had no issues reaching over 500mL of filtered volume. For the higher turbidity sources the 500 mL filtered volume minimum was not met; however, this was expected of the trial. Altogether, these results confirm the use case of the sampler in low turbidity environments.
 
@@ -595,15 +686,19 @@ As a result of these trials, the sampler performed in much the same way as the l
 
 The kinematic viscosity of water varies with temperature. This indicates that the sampler will read different values for flow rate for different temperatures. To ensure the sampler the flowmeter provides accurate flow readings for the upcoming Alaskan trials, the sampler was calibrated to reach accurate flow readings between 3-5$^\circ$C. For accurate eDNA measurements the accuracy of the filtered volume must be within 10\% of the true filtered volume. Using the 10\% value as an end condition, several trials were conducted to determine the optimal volume constant for the flow meter pulses. In these trials, the outlet of the sampler is manually measured with a graduated cylinder and compared to the sampler’s calculated value.The percent error was then calculated between the two quantities. To ensure accuracy across the sampler’s operating range, the filtered volume was measured and compared at 250, 500, and 1000 mL for each volume constant. By averaging these values at each volume constant the average error per volume constant was discovered. 
 
-\begin{center}
+\begin{figure}[H]
+	\centering
 	\includegraphics[scale=1]{./Assets/Flow1.png}
-\end{center}
+	\caption{}
+\end{figure}
 
 The results determined from this process indicate the constant that is centered within the error. In other words, the smaller the bar the more the positive and negative errors negate each other. This essentially centers the solution in the error domain. The minimum error indicates an ideal volume constant at or near 0.113. This alone does not demonstrate the accuracy of the volume measurement. Rather this indicates the most normalized variability between the trials. When looking at the max error between trials the hard limit of 10\% places these values in context.
 
-\begin{center}
+\begin{figure}[H]
+	\centering
 	\includegraphics[scale=1]{./Assets/Flow2.png}
-\end{center}
+	\caption{}
+\end{figure}
 
 When viewing the max magnitude of error, a convex solution with a minimum error between real and observed volumes. In this context, the minimum absolute error is also easily determined to be at volume constant 0.113. The max error at this measurement falls below the 10\% threshold, indicating the sampler’s viability for eDNA collection purposes.
 
