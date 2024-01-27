@@ -1,0 +1,4 @@
+#pragma once
+#ifndef KP_STATIC_STRING_BUFFER_SIZE
+	#define KP_STATIC_STRING_BUFFER_SIZE 255
+#endif

@@ -1,0 +1,17 @@
+{
+    "css.validate": false,
+    "explorerExclude.backup": null,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/node_modules": true
+    },
+    "prettier.disableLanguages": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+    "prettier.tabWidth": 4,
+    "scss.validate": false,
+    "tailwindCSS.experimental.classRegex": ["tw(?:(?:\\.\\w+)|=|={)?[`\"]([^`\"}=]+)"],
+    "tailwindCSS.lint.cssConflict": "ignore"
+}

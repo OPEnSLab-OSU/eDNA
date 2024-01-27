@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "baseUrl": ".",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "jsxFactory": "h",
+        "jsxFragmentFactory": "Fragment",
+        "lib": ["es2020", "dom", "dom.iterable"],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "outDir": "./dist/",
+        "paths": {
+            "assets/*": ["./assets/*"],
+            "components/*": ["./components/*"],
+            "hooks/*": ["./hooks/*"],
+            "pages/*": ["./pages/*"],
+            "styles/*": ["./styles/*"],
+            "lib": ["./lib"],
+            "root@redux/*": ["./redux/*"]
+        },
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "es2020",
+        "noUnusedLocals": false,
+        "noUnusedParameters": false
+    },
+    "exclude": ["node_modules", "node_modules.nosync", "dist", "public", "build", "out"],
+    "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"]
+}
