@@ -507,8 +507,8 @@ Instructions beyond a technical description are available \href{}{here}.
 
 \subsection{Sampler Code Upload}
 The codebase for the sampler machine uses PlatformIO, an IDE for Microsoft Visual Studio Code. Downloading the codebase also requires downloading another repository, the framework repository, that is used as a Git submodule in the /lib subdirectory. Information on how to use PlatformIO is available \href{https://docs.platformio.org/en/latest/integration/ide/vscode.html}{here}.
-\newline\par\noindent d
-Instructions beyond a technical description are available \href{}{here} .
+\newline\par\noindent
+Instructions beyond a technical description are available \href{}{here}.
 
 \subsection{Sampler Cleaning}
 \begin{figure}[H]
@@ -517,7 +517,9 @@ Instructions beyond a technical description are available \href{}{here} .
 	\caption{Screenshot of User Interface on Utilities Page}
 \end{figure}
 \par\noindent
-To ensure as little contamination as possible, the Hyperflush procedure can be used to clean the sampler. The procedure is available by connecting to the UI under the utilities tab. To clean the sampler, put all inputs and outputs into a container of bleach, and run the Hyperflush procedure completely three times. Afterwards, put the intake line into a water source and all other connections into a disposal system or sink, and again run Hyperflush three times. 
+To ensure as little contamination as possible, the Hyperflush procedure can be used to clean the sampler. The procedure is available by connecting to the UI under the utilities tab. To clean the sampler, put all inputs and outputs into a container of bleach, and run the Hyperflush procedure completely five times. Afterwards, put the intake line into Ascorbic Acid and run the HyperFlush procedure five times. Finally, put the intake line into a DI water source and all other connections into a disposal system or sink, and again run Hyperflush five times. 
+
+
 
 % Verify/Edit for the current cleaning procedure
 
@@ -760,41 +762,15 @@ The work does not use any human or animal subjects.\\
 
 
 \noindent
-\textbf{CRediT author statement}\\
-% CRediT is in initiative that enables authors to share an accurate and detailed description of their diverse contributions to a published work.
-% Example:
-% Zhang San: Conceptualization, Methodology, Software. Priya Singh: Data curation, Writing- Original draft preparation. Wang Wu: Visualization, Investigation. Jan Jansen: Supervision. Ajay Kumar: Software, Validation. Sun Qi: Writing- Reviewing and Editing.
-% Please add a CRediT author statement for your data article here, using the \href{https://www.elsevier.com/authors/journal-authors/policies-and-ethics/credit-author-statement}{categories listed on this webpage}.
+\textbf{Bios}\\
 
-\noindent
-\textbf{Kai Roy}: Project administration, Hardware(Electrical), Validation, Writing- Original draft \\
-\noindent
-\textbf{Riley Prince}: Project administration, Methodology, Validation, Data curation, Writing- Original draft \\
-\noindent
-\textbf{Marc Belinga}: Software, Investigation, Writing- Original draft \\
-\noindent
-\textbf{Torrey Menne}: Conceptualization, Hardware\\
-\noindent
-\textbf{Bao Nguyen}: Project administration, Conceptualization, Hardware(Electrical)\\
-\noindent
-\textbf{Nikhil Wandhekar}: Project administration, Hardware\\
-\noindent
-\textbf{Nathan Jesudason}: Software, Validation \\
-\noindent
-\textbf{Kawin Pechetratanapanit}: Conceptualization, Software \\
-\noindent
-\textbf{John Selker}: Funding acquisition, Supervision \\
-\noindent
-\textbf{Chet Udell}: Funding acquisition, Supervision \\
-\noindent
-\textbf{Cara Walter}: Funding acquisition, Supervision, Resources \\
-
-\noindent
-\textbf{Auther}: Contribution. \\
 
 \noindent
 \textbf{Acknowledgements}\\
 % [List here those individuals who provided help during the research (e.g., providing language help, writing assistance or proof reading the article, etc.).] Please also identify who provided financial support for the conduct of the research and/or preparation of the article and to briefly describe the role of the sponsor(s), if any, in study design; in the collection, analysis and interpretation of data; in the writing of the report; and in the decision to submit the article for publication. If the funding source(s) had no such involvement then this should be stated.}
+
+
+
 
 
 \noindent
