@@ -196,7 +196,9 @@ The solution designed by the OPEnS Lab is the middle ground of these two solutio
 
 % New Intro Paragraph describing the outline of the section
 
-The eDNA sampler we have developed is an autonomous multi-sampling device that collects eDNA samples from water via 47mm filter holders and provides a non-invasive, safe, and autonomous means of DNA collection. The sampler can hold 24 filter housing which are designed to be easily replaced and reusable. The sampler is controlled by a custom logic board with an Adafruit M0 Feather Wi-Fi microcontroller loaded with a webserver to act as the interface for the sampler’s operations. This webserver hosts a browser application which is used for real-time monitoring, scheduling tasks, and data logging for time, pressure, temperature, flow, and sample volume. The data is located stored onto an SD Card for later data analysis. 
+The eDNA sampler we have developed is an autonomous multi-sampling device that collects eDNA samples from water via 47mm filter holders and provides a non-invasive, safe, and autonomous means of DNA collection. The sampler can hold 24 filter housing which are designed to be easily replaced and reusable. The sampler is controlled by a custom logic board with an Adafruit M0 Feather Wi-Fi microcontroller loaded with a webserver to act as the interface for the sampler’s operations. This webserver hosts a browser application which is used for real-time monitoring, scheduling tasks, and data logging for time, pressure, temperature, flow, and sample volume. The data is located stored onto an SD Card for later data analysis.
+\newline\par
+The basic function of the sampler can be split into five main sections: Hydraulics, Sampling Procedure, Utilities, Electronics, and User Interface. The Hydraulics section describes how the sampler is physically setup, the different devices connected to the system, and provides a general idea on how liquids may flow through the system. This section is supported by the Sampling Procedure Section which covers what the PolyWAG sampler is doing during each stage of the process. The Sampling Procedure Section refers to the devices described in Hydraulics section in order to describe what is happening in each state as well as the purpose of that state. The Utilities section is similar to the Sampling Procedure section, but covers the four main utility functions of the sampler. These are functions that are used by an operator during cleaning or setup of the sampler. The electronics section gives a brief overview of how the custom control board functions. Finally, the User Interface sections gives a brief overview on what the can be found in the User Interface. More specific details on the User Interface can be found in the \href[sec:OpInstr]{Operation Instructions section}
 % Grammar Error last sentence
 % Pore Size?
 % Where is the sampler placed
@@ -248,7 +250,7 @@ Downstream of the solenoid valve there is a tee connection that goes to a one-wa
 \end{figure}
 
 \subsubsection{The Upper Hydraulics and Outputs}
-
+The output of the filters connect into a single output hydraulic line. This line is the main output of the filters, any water that goes through the filters will end up going though this line. This allows for a single flow meter to be added that can measure the flow going through any of the filters. This flow meter is crucial as this is how the sampler knows how much water has gone through a filter. After the flow meter the output line goes outside of the sampler and lets liquids flow back into the environment.
 
 
 \subsection{Sampling Procedure}
@@ -493,6 +495,7 @@ Given the complexity of the PolyWAG Sampler, a Build Instructions section of suf
 % > Add the Build Guide to Zenodo
 
 \section{Operation instructions}
+\label{sec:OpInstr}
 % Provide detailed instructions for the safe and proper operation of the hardware. 
 % > Step-by-step operational instructions for operating the hardware. 
 % > Use visual instructions as necessary. 
