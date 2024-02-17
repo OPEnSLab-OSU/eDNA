@@ -21,13 +21,17 @@
             "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Mechanical, Industrial, and Manufacturing Engineering, Oregon State University",
             "name": "Hendy Kurinawan",
         },
+        {
+            "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Mechanical, Industrial, and Manufacturing Engineering, Oregon State University",
+            "name": "Nathan Jesudason",
+        },
     ],
-    "description": "Write description of the project",
+    "description": "The PolyWAG environmental DNA sampler project aims to provide an affordable, open-sourced, remotely deployable, fully automated, and customizable alternative to existing sampling methods.",
     "keywords": [
         "eDNA", 
-        "Write Keyword 2", 
-        "Write Keyword 3", 
-        "Write Keyword 4"
+        "Sampling", 
+        "Arduino", 
+        "Data Logging"
     ],
     "license": {
         "id": "gpl-3.0"
