@@ -1,0 +1,40 @@
+{
+    "creators": [
+        {
+            "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Electrical Engineering and Computer Science, Oregon State University",
+            "name": "Riley Prince",
+            "orcid": "0009-0000-0414-3357" 
+        },
+		{
+            "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Electrical Engineering and Computer Science, Oregon State University",
+            "name": "Marc Belinga" 
+        },
+		{
+            "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Electrical Engineering and Computer Science, Oregon State University",
+            "name": "Jacob Field",
+        },
+		{
+            "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Electrical Engineering and Computer Science, Oregon State University",
+            "name": "Kai Roy",
+        },
+		{
+            "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Mechanical, Industrial, and Manufacturing Engineering, Oregon State University",
+            "name": "Hendy Kurinawan",
+        },
+        {
+            "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Mechanical, Industrial, and Manufacturing Engineering, Oregon State University",
+            "name": "Nathan Jesudason",
+        },
+    ],
+    "description": "The PolyWAG environmental DNA sampler project aims to provide an affordable, open-sourced, remotely deployable, fully automated, and customizable alternative to existing sampling methods.",
+    "keywords": [
+        "eDNA", 
+        "Sampling", 
+        "Arduino", 
+        "Data Logging"
+    ],
+    "license": {
+        "id": "gpl-3.0"
+    },
+    "title": "The PolyWAG Environmental DNA Sampling System"
+}
