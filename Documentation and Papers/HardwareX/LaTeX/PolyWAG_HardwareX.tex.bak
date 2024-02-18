@@ -181,24 +181,15 @@ The solution designed by the OPEnS Lab is the middle ground of these two solutio
 
 % Godshalk General Notes:
 % > Electronics - Edit format
-% > Need easily distinguishable paragraphs, some run quite long.
-% > > Short, succinct paragraphs that each deal with one specific topic
 % > Lots of unnecessary words and phrases. Few examples highlighted.
 % > Be consistent with verb tense. Make sure antecedants are unambiguous.
-% > Provide an overview or roadmap in the first paragraph
 % > Number Figures/Figure Descriptions
-% > > 1 is good, needs caption and number
-% > > 2 Stated 5 sections but only described 3
-% > > > Initial Diagram that shows how each section connects
-% > > 3 Sequence might be better as a list instead of an image
 % > > 4 What is utility in this conext? Software? Electronic State? Mechanical Procedure?
 
 
-% New Intro Paragraph describing the outline of the section
-
 The eDNA sampler we have developed is an autonomous multi-sampling device that collects eDNA samples from water via 47mm filter holders and provides a non-invasive, safe, and autonomous means of DNA collection. The sampler can hold 24 filter housing which are designed to be easily replaced and reusable. The sampler is controlled by a custom logic board with an Adafruit M0 Feather Wi-Fi microcontroller loaded with a webserver to act as the interface for the sampler’s operations. This webserver hosts a browser application which is used for real-time monitoring, scheduling tasks, and data logging for time, pressure, temperature, flow, and sample volume. The data is located stored onto an SD Card for later data analysis.
 \newline\par
-The basic function of the sampler can be split into five main sections: Hydraulics, Sampling Procedure, Utilities, Electronics, and User Interface. The Hydraulics section describes how the sampler is physically setup, the different devices connected to the system, and provides a general idea on how liquids may flow through the system. This section is supported by the Sampling Procedure Section which covers what the PolyWAG sampler is doing during each stage of the process. The Sampling Procedure Section refers to the devices described in Hydraulics section in order to describe what is happening in each state as well as the purpose of that state. The Utilities section is similar to the Sampling Procedure section, but covers the four main utility functions of the sampler. These are functions that are used by an operator during cleaning or setup of the sampler. The electronics section gives a brief overview of how the custom control board functions. Finally, the User Interface sections gives a brief overview on what the can be found in the User Interface. More specific details on the User Interface can be found in the \href[sec:OpInstr]{Operation Instructions section}
+The basic function of the sampler can be split into five main sections: Hydraulics, Sampling Procedure, Utilities, Electronics, and User Interface. The \hyperref[subsec:Hydr]{Hydraulics} section describes how the sampler is physically arranged, the different devices connected to the system, and provides a general idea on how liquids flow through the system. This section is supported by the \hyperref[subsec:SP]{Sampling Procedure} Section which covers what the PolyWAG sampler is doing during each stage of the process. The Sampling Procedure Section refers to the devices described in the Hydraulics section in order to describe what is happening in each state as well as the purpose of that state. The \hyperref[subsec:Util]{Utilities} section is similar to the Sampling Procedure section, but covers the four main utility functions of the sampler. These are functions that are used by an operator during cleaning or setup of the sampler. The \hyperref[subsec:Elec]{Electronics} section gives a brief overview of how the custom control board functions. Finally, the \hyperref[subsec:UI]{User Interface} sections gives a brief overview on what the can be found and one within in the UI. More specific details on the User Interface can be found in the \hyperref[sec:OpInstr]{Operation Instructions} section
 % Grammar Error last sentence
 % Pore Size?
 % Where is the sampler placed
@@ -210,6 +201,7 @@ The basic function of the sampler can be split into five main sections: Hydrauli
 \end{figure}
 
 \subsection{Hydraulics}
+\label{subsec:Hydr}
 The hydraulics of the sampler can be roughly split into the following sections:
 \begin{itemize}	% Use these as subheadings
 	\item The Pump and Inputs
@@ -219,8 +211,7 @@ The hydraulics of the sampler can be roughly split into the following sections:
 \end{itemize}
 
 \subsubsection{The Pump and Inputs}
-There are three inputs into the sampler: one for air, one for preservative, and one for water. The preservative input is connected to a hydration bladder where the preservative of choice can be stored. The sample water input has a prefilter at the front end of the tube to prevent debris from entering the sampler. Three valves are used to control the flow from these inputs with the air preservative being regulated by a solenoid valve and the water being controlled by a ball valve. These three valves connect into a single tube connected to the input of the peristaltic pump.
-The pump is capable of 400mL/min of flow under ideal conditions. The output of the pump connects directly into the Lower Hydraulic Rail. 
+There are three inputs into the sampler: one for air, one for preservative, and one for water. The preservative input is connected to a hydration bladder where the preservative of choice can be stored. The sample water input has a prefilter at the front end of the tube to prevent debris from entering the sampler. Three valves are used to control the flow from these inputs with the air and preservative being regulated by solenoid valves and the water being controlled by a ball valve. These three valves connect into a single tube connected to the input of the peristaltic pump. The pump is capable of 400mL/min of flow under ideal conditions. The output of the pump connects directly into the Lower Hydraulic Rail. 
 % Why do we have an air valve?
 
 \begin{figure}[H]
@@ -230,7 +221,7 @@ The pump is capable of 400mL/min of flow under ideal conditions. The output of t
 \end{figure}
 
 \subsubsection{The Lower Hydraulics}
-The Lower Hydraulic Rail consists of 24 solenoid valves connected parallel to each other which controls which filter liquid flows through. The valves are split into two sets, one on each side of the sampler. In between these two sets of valves is a M32JM-000105-100PG pressure and temperature sensors. The temperature is logged for later use and the pressure is used for monitoring, stopping an operation if the pressure exceeds a certain margin. At the end of the Lower Hydraulic Rail is another solenoid valve which allows for the lower hydraulics to be purged of their current contents when necessary.
+The Lower Hydraulic Rail consists of 24 solenoid valves connected parallel to each other and controls which filter liquid flows through. These filter valves are split into two sets, one on each side of the sampler. In between these two sets of valves is a M32JM-000105-100PG pressure and temperature sensor. The temperature is logged for later use and the pressure is used for monitoring, stopping an operation if the pressure exceeds a certain margin. At the end of the Lower Hydraulic Rail is another solenoid valve which allows for the lower hydraulics to be purged of their current contents when necessary.
 
 \begin{figure}[H] % Rotate text labels
 	\centering
@@ -241,7 +232,7 @@ The Lower Hydraulic Rail consists of 24 solenoid valves connected parallel to ea
 % Differentiate the preservative and the Sample Valve
 
 \subsubsection{The Filter Housings}
-Downstream of the solenoid valve there is a tee connection that goes to a one-way check valve and a modified Advantec filter. The one-way check valve allows air into the solenoid valve that opens when the pump runs backwards. The Advantec filter is modified with a CPC quick disconnect and a one-way check valve. The one-way check valve is connected to the Upper Hydraulics and is used to prevent liquid from going backwards through the filter. The Upper Hydraulics simply connects the output of all the filters to one central line that goes through a flow meter and out of the sampler. 
+Downstream of each filter solenoid valve there is a tee connection that goes to a one-way check valve and a modified Advantec filter. The one-way check valve allows air into the solenoid valve that opens when the pump runs backwards. The Advantec filter is modified with a CPC quick disconnect and a one-way check valve. The one-way check valve is connected to the Upper Hydraulics and is used to prevent liquid from going backwards through the filter. The Upper Hydraulics simply connects the output of all the filters to one central line that goes through a flow meter and out of the sampler. 
 
 \begin{figure}[H]
 	\centering
@@ -254,6 +245,7 @@ The output of the filters connect into a single output hydraulic line. This line
 
 
 \subsection{Sampling Procedure}
+\label{subsec:SP}
 Having worked on multiple iterations of the sampler, we have decided to go with a 13-step sampling sequence that helps reduce cross contamination significantly. This sequence can be split into 9 unique steps: Idle, Prefilter Clear, Flush, Offshoot Clean, De-pressure, Sample, Preservative Flush, Preservative, Air Flush, and End.
 
 % Rewrite intro. Remove the two numbers for steps, stick with 13.
@@ -280,8 +272,6 @@ Having worked on multiple iterations of the sampler, we have decided to go with 
 	\item End
 \end{enumerate}	% Use these as subheadings
 
-% Change to a list format
-% Maybe Rename END State
 
 \subsubsection{The Idle State}
 Idle is the default state of the sampler. The sampler waits for a signal from the RTC to move to the first/next state of the Sampling Sequence. If the sampler is not in sleep mode, this is when a client would interact with the UI to do a handful of tasks such as setting up a Sampling Schedule or using the other task utilities. If the sampler is in sleep mode, then only the RTC and supporting circuits are powered. This means there is no way to interact with the sampler without exiting sleep mode.
@@ -298,12 +288,12 @@ The OC state closes the purge valve and opens the filter valve for the filter wh
 \subsubsection{The Sample State} 
 % Paragraph is wordy, make it succinct
 % Check verb tenses: was, are, is
-In the Sample state, the system pushes the sample water through the filter. This is done by opening the Filter and Ball Valve and running the pump in the forward direction. The system moves to the next state when the target Sample Volume is reached. This volume is measured by a Flow Meter on the filter output line. Ideally, the state is terminated when the target volume is reached. There is an additional condition that will end the Sample state and that is the Sample Time. This time cutoff was added since the filter clogs and the flow rate decrease rapidly during the sample process. To prevent the sample state running for too long, the time limit was implemented. Both conditions are set during task scheduling. Since the pressure greatly increases due to the clogged filter, the de-pressure state is used to reduce the pressure in the lower hydraulics to ensure that the valves can operate consistently.
+In the Sample state, the system pushes the sample water through the filter. This is done by opening the filter solenoid valve and Ball Valve and running the pump in the forward direction. The system moves to the next state when the target Sample Volume is reached. This volume is measured by a Flow Meter on the filter output line. There is an additional condition that will end the Sample state, Sample Time. This time cutoff was added since the filter clogs, rapidly decreasing the flow rate during the sample process. To prevent the sample state running for too long, the time limit was implemented. Both conditions are set during task scheduling. Since the pressure greatly increases due to the clogged filter, the de-pressure state is used to reduce the pressure in the lower hydraulics to ensure that the valves can operate consistently.
 
-\subsubsection{The Preservative Flush} % Spli into two subsubsections
+\subsubsection{The Preservative Flush}
 The Preservative Flush state is nearly identical to the Flush state except the Preservative input valve is used instead of the ball valve. The lower hydraulics are saturated with preservative, preventing additional sample water that may have been stored in the lower hydraulics from going through the filter. If this water was allowed through the filter, then the Sample Volume would be inaccurate by the end of the sequence.
 
-\subsubsection{The Preservative State} % Add more info
+\subsubsection{The Preservative State} 
 The Preservative state is like the Sample state except preservative is the input fluid instead of sample water. This state runs for a time specified by the user during scheduling.
 
 \subsubsection{The Air Flush}
@@ -313,7 +303,7 @@ Before the Air Flush, another sequence of Flush and Offshoot Clean states are ru
 In the End state, the system sets an RTC alarm for the time of the next sample. The system then moves into Idle and if the system was in sleep mode, then the system will go into its low power state.
 
 \subsection{Utilities}
-
+\label{subsec:Util}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.5]{./Assets/Utilities.png}
@@ -329,6 +319,7 @@ The Update RTC utility is needed to make sure that the time on the sampler match
 The Reset Valves Utility is used when valves have been sampled that you want to be sampled again. This is required since the system ‘locks’ the filter valves when they have been used in a sample, this prevents samples from being corrupted accidentally. The code does not let you sample a valve multiple times without being reset to prevent messing up a sample. It is important to note that this utility will reset all valves, not a specific one.
 
 \subsection{Electronics}
+\label{subsec:Elec}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.15]{./Assets/eDNABoard.jpg}
@@ -355,7 +346,7 @@ The micro-controller of choice is an Adafruit Feather M0 WiFi. The WiFi version 
 
 
 \subsection{User Interface}
-
+\label{subsec:UI}
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.35]{./Assets/UI.png}
@@ -414,25 +405,25 @@ The utilities page is used to activate the utilities mentioned earlier. The task
 	% Design file & File type & License & Link \\\hline	
 	
 	% General CAD
-	CAD Assembly 				& CAD file & \dots & \dots \\\hline
+	CAD Assembly 				& CAD file & CERN-OHL-S 2.0 & \dots \\\hline
 	% 3D Printed
-	Battery Bracket 			& CAD file & \dots & \dots \\\hline
-	Sample Valve Mount 			& CAD file & \dots & \dots \\\hline
-	Preservative Valve Mount 	& CAD file & \dots & \dots \\\hline
-	Flow Meter Mount 			& CAD file & \dots & \dots \\\hline
-	Tube Guide 					& CAD file & \dots & \dots \\\hline
+	Battery Bracket 			& CAD file & CERN-OHL-S 2.0 & \dots \\\hline
+	Sample Valve Mount 			& CAD file & CERN-OHL-S 2.0 & \dots \\\hline
+	Preservative Valve Mount 	& CAD file & CERN-OHL-S 2.0 & \dots \\\hline
+	Flow Meter Mount 			& CAD file & CERN-OHL-S 2.0 & \dots \\\hline
+	Tube Guide 					& CAD file & CERN-OHL-S 2.0 & \dots \\\hline
 	% Acrylic
-	Central Assembly Mount		& CAD file & \dots & \dots \\\hline
-	Control Board Mount 		& CAD file & \dots & \dots \\\hline
-	Electronics Box Lid			& CAD file & \dots & \dots \\\hline %???
+	Central Assembly Mount		& CAD file & CERN-OHL-S 2.0 & \dots \\\hline
+	Control Board Mount 		& CAD file & CERN-OHL-S 2.0 & \dots \\\hline
+	Electronics Box Lid			& CAD file & CERN-OHL-S 2.0 & \dots \\\hline %???
 	% EDA
-	Control Board Schematic		& EDA file & \dots & \dots \\\hline
-	Control Board PCB			& EDA file & \dots & \dots \\\hline
-	Switch Breakout Schematic	& EDA file & \dots & \dots \\\hline
-	Switch Breakout PCB			& EDA file & \dots & \dots \\\hline
+	Control Board Schematic		& EDA file & CERN-OHL-S 2.0 & \dots \\\hline
+	Control Board PCB			& EDA file & CERN-OHL-S 2.0 & \dots \\\hline
+	Switch Breakout Schematic	& EDA file & CERN-OHL-S 2.0 & \dots \\\hline
+	Switch Breakout PCB			& EDA file & CERN-OHL-S 2.0 & \dots \\\hline
 	% Software
-	UI Code 					& Software & \dots & \dots \\\hline
-	Device (Server) Code 		& Software & \dots & \dots \\\hline
+	UI Code 					& Software & GPL 3.0 		& \dots \\\hline
+	Device (Server) Code 		& Software & GPL 3.0 		& \dots \\\hline
 \end{tabu}
 \caption{}
 \end{table}
