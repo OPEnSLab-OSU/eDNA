@@ -350,7 +350,7 @@ The micro-controller of choice is an Adafruit Feather M0 WiFi. The WiFi version 
 \begin{figure}[H]
 	\centering
 	\includegraphics[scale=0.35]{./Assets/UI.png}
-	\caption{}
+	\caption{The monitoring page in the PolyWAG sampler user interface}
 \end{figure}
 
 PolyWAG Sampler hosts a webserver that can be connected to via a browser. This acts as the user interface for the system. There are three main sections that make up the user interface: monitoring, tasks, and utilities. The monitoring page displays the data from the sensors, the current state of the sampling procedure, and information on the sampling valves such as the current valve being sampled, and which valves are locked and unlocked. 
