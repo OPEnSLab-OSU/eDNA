@@ -11,19 +11,19 @@
         },
 		{
             "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Electrical Engineering and Computer Science, Oregon State University",
-            "name": "Jacob Field",
+            "name": "Jacob Field"
         },
 		{
             "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Electrical Engineering and Computer Science, Oregon State University",
-            "name": "Kai Roy",
+            "name": "Kai Roy"
         },
 		{
             "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Mechanical, Industrial, and Manufacturing Engineering, Oregon State University",
-            "name": "Hendy Kurinawan",
+            "name": "Hendy Kurinawan"
         },
         {
             "affiliation": "Openly Published Environmental Sensing (OPEnS) Lab, Department of Mechanical, Industrial, and Manufacturing Engineering, Oregon State University",
-            "name": "Nathan Jesudason",
+            "name": "Nathan Jesudason"
         },
     ],
     "description": "The PolyWAG environmental DNA sampler project aims to provide an affordable, open-sourced, remotely deployable, fully automated, and customizable alternative to existing sampling methods.",
