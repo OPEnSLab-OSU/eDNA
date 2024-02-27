@@ -27,6 +27,8 @@
         },
     ],
     "description": "The PolyWAG environmental DNA sampler project aims to provide an affordable, open-sourced, remotely deployable, fully automated, and customizable alternative to existing sampling methods.",
+    "publication_date": "2024-02-27",
+    "upload_type": "publication",
     "keywords": [
         "eDNA", 
         "Sampling", 
