@@ -4,7 +4,7 @@ Current Project Team:
 
 Lead: **Marc Belinga** 
 
-Mechanical: **Hendy**
+Mechanical: **Hendy Kurniawan**
 
 Software:**Marc Belinga** 
 
