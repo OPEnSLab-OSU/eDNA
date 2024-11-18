@@ -2,13 +2,14 @@
 
 Current Project Team:
 
-Lead: **Riley Prince** 
+Lead: **Marc Belinga** 
 
-Mechanical: **Hendy**, **Joshua Iler**
+Mechanical: **Hendy**
 
-Software: **Nathan Jesudason**, **Marc Belinga** 
+Software:**Marc Belinga** 
 
-Electrical: **Jacob Field**, **Kai Roy**
+Electrical: **Reece Fitch**
+
 
 
 ## Overview
@@ -17,22 +18,23 @@ Organisms leave traces of DNA as they move through their environments. The extra
 
 ## Description
 
-The eDNA Sampler can run up to 24 inline filter units with support for different conditions including pressure, time, and volume limit. The pumps can deliver a maximum of 350mL/min of flow with each solenoid valve separating the filter housings to minimize cross-contamination. At the end of each sample, the desired stabilizing solution can be injected to fully submerge the filter for long-term storage. An optional river depth sensor can provide a proxy for flow to correct eDNA concentrations to allow for improved quantification of organisms. Data acquired during operation including water depth, pressure, temperature, and flow rate will be stored on a microSD card as a CSV file, which allows easier data export and analysis. A web application is specially designed for the eDNA Sampler for in-field programming, real-time sensor updates, scheduling tasks, and manual operations. The full sampler is estimated to be ~$5000 each, with an add-on river depth sensor and 10ah 12V battery.
+The eDNA Sampler can run up to 24 inline filter units with support for different conditions including pressure, time, and volume limit. The pumps can deliver a maximum of 350mL/min of flow with each solenoid valve separating the filter housings to minimize cross-contamination. At the end of each sample, the desired stabilizing solution can be injected to fully submerge the filter for long-term storage. An optional river depth sensor can provide a proxy for flow to correct eDNA concentrations to allow for improved quantification of organisms. Data acquired during operation including water depth, pressure, temperature, and flow rate will be stored on a microSD card as a CSV file, which allows easier data export and analysis. A web application is specially designed for the eDNA Sampler for in-field programming, real-time sensor updates, scheduling tasks, and manual operations. The full sampler is estimated to be ~$6000 each.
 
 <p align="center">
   <img src="https://github.com/OPEnSLab-OSU/eDNA/blob/master/Assets/V4eDNASampler.jpg"  width="90%" />
 </p>
 
+
+## Field Updates
+The eDNA sampler was successfully deployed in Alaska, where it operated under varying levels of turbidity and successfully collected DNA across all conditions. Over the course of six days, the sampler consistently performed three sample collections per day at multiple locations, showcasing its reliability in diverse environments. The battery capacity proved sufficient for multiple days of operation without requiring a recharge, enabling extended fieldwork in remote areas. Additionally, the sampler achieved an average margin of error of 9% in measuring water volume, demonstrating robust performance while highlighting areas for further refinement.
+
 ## Objectives
 
-* Determining the cross-contamination between filters (samples)
+Determining the level of cross-contamination between filters during sampling.
+Testing alternatives to ethanol, such as Longmire's solution, for safer and more convenient preservation during field deployments.
+Improving the accuracy of water volume measurements using a tipping bucket mechanism.
 
-* Drafting a HardwareX Paper
 
-
-## Outcomes
-
-We are currently working on the electronic hardware and software side of the project. More tests will be performed on the system as a whole to determine the level of cross-contamination between different filters.
 
 | Main Control Board     |
 |:-------------:|
@@ -43,15 +45,9 @@ We are currently working on the electronic hardware and software side of the pro
 | <img src="https://user-images.githubusercontent.com/20134802/123329779-079f8100-d4f2-11eb-9892-1380ae95aba6.png" width="90%" /> |
 
 ## Future
-The main things that we are currently working on are: 
- - Brainstorming ways to increase cross-contamination if it falls below desired margins.
- - Implementing a better way of monitoring the amount of volume sampled.
 
-In addition to the previously mentioned tasks, we are planning to work on the following in the near future:
- - Redesign of the main control board/electronics hardware.
- - Making the User Interface more friendly to less technical users.
- - Decreasing the amount of cross-contamination between samples (depending on the testing currently happening).
- - Adding a Depth Sensor
+Finalizing tests for Longmire’s solution to replace ethanol as the preservative.
+Implementing a tipping bucket mechanism to improve measurement accuracy.
 
 
 ## Resource List
@@ -65,29 +61,23 @@ In addition to the previously mentioned tasks, we are planning to work on the fo
 
 ## Problems & Solutions
 
-What problem we have encountered in the development of the series and the solution that we have come up with:
-
-*  [Reducing motor noise](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/Reducing-motor-noise)
-
-*  Alcohol retention for unclogged filter
-
-*  Sending large website package
-
-*  [Troubleshoot?](https://github.com/OPEnSLab-OSU/OPEnS-Lab-Home/wiki/eDNA-Troubleshoot)
+Identified logistical challenges with ethanol preservation during field deployment, prompting the exploration of Longmire's solution as an alternative.
+While we did average a 9% error in water volume measurements plans are currently being put in place to integrate a tipping bucket to further improve accuracy.
+Continued troubleshooting and refinement to reduce motor noise, improve user interface responsiveness, and address filter clogging issues.
 
 Feel free to contact the lab/developer if you have other ideas to solve, improve, or upgrade the eDNA sampler.
 
-Riley Prince: princeri@oregonstate.edu
+Marc Belinga: belingam@oregonstate.edu
 
 ## Keywords
 eDNA, genomic, sampling, sampler, sample, environmental DNA
 
 ## Former Team Members:
-Electrical: **Bao Nguyen**, **Sean Booth**
+Electrical: **Bao Nguyen**, **Sean Booth**,**Jacob Field**, **Kai Roy**
 
 Programming: **Kawin Pechetratanapanit**, **Emannuel Moncada** 
 
-Mechanical: **Torrey Menne**, **Aaron S Arvidson**, **Nikhil Wandhekar**, **Ethan Pohlschneider**, **Tilford Li**, **Danil Kryuchkov**, **Dylan Heisey**
+Mechanical: **Torrey Menne**, **Aaron S Arvidson**, **Nikhil Wandhekar**, **Ethan Pohlschneider**, **Tilford Li**, **Danil Kryuchkov**, **Dylan Heisey**, **Joshua Iler**
 
 
 ## Reference
