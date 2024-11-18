@@ -63,7 +63,7 @@ Implementing a tipping bucket mechanism to improve measurement accuracy.
 
 Identified logistical challenges with ethanol preservation during field deployment, prompting the exploration of Longmire's solution as an alternative.
 While we did average a 9% error in water volume measurements plans are currently being put in place to integrate a tipping bucket to further improve accuracy.
-Continued troubleshooting and refinement to reduce motor noise, improve user interface responsiveness, and address filter clogging issues.
+Continued troubleshooting to address filter clogging issues.
 
 Feel free to contact the lab/developer if you have other ideas to solve, improve, or upgrade the eDNA sampler.
 
